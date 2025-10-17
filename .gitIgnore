@@ -1,0 +1,9 @@
+bin/
+client/
+
+Dockerfile*
+
+*.yaml
+*.yml
+
+*.log

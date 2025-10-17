@@ -1,0 +1,60 @@
+syntax="proto3";
+
+package k8sinfo;
+
+option go_package = "github.com/Mujib-Ahasan/Rampaz/proto";
+
+import "google/protobuf/empty.proto";
+
+service K8sInfo {
+  rpc ListPods(NamespaceRequest) returns (PodListResponse);
+  rpc GetNodeStats(NodeRequest) returns (NodeStatsResponse);
+  rpc GetPodStats(PodRequest) returns (stream PodStatsResponse);
+  rpc GetNodeRealTimeStats (NodeRequest) returns (NodeStatsResponse);
+  rpc StreamEvents(google.protobuf.Empty) returns (stream EventResponse);
+}
+
+
+message NamespaceRequest {
+  string namespace = 1;
+}
+
+message PodRequest {
+  string namespace = 1;
+}
+
+message PodStatsResponse {
+  string name = 1;
+  string namespace = 2;
+  string cpu = 3;
+  string memory = 4;
+}
+
+message Pod {
+  string name = 1;
+  string namespace = 2;
+  string status = 3;
+  string nodeName = 4;
+}
+
+message PodListResponse {
+  repeated Pod pods = 1;
+}
+
+message NodeRequest {
+  string nodeName = 1;
+}
+
+message NodeStatsResponse {
+  string name = 1;
+  string cpu = 2;
+  string memory = 3;
+}
+
+message EventResponse {
+  string type = 1;
+  string reason = 2;
+  string message = 3;
+  string involvedObject = 4;
+}
+
