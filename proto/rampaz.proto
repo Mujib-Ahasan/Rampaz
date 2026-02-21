@@ -10,7 +10,7 @@ service K8sInfo {
   rpc ListPods(NamespaceRequest) returns (PodListResponse);
   rpc GetNodeStats(NodeRequest) returns (NodeStatsResponse);
   rpc GetPodStats(PodRequest) returns (stream PodStatsResponse);
-  rpc GetNodeRealTimeStats (NodeRequest) returns (NodeStatsResponse);
+  rpc GetNodeRealTimeStats (NodeRequest) returns (stream NodeStatsResponse);
   rpc StreamEvents(google.protobuf.Empty) returns (stream EventResponse);
 }
 
