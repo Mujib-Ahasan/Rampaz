@@ -23,7 +23,7 @@ func (s *PodMetService) StreamPodStats(ctx context.Context, namespace string, se
 		return fmt.Errorf("namespace cannot be empty")
 	}
 
-	ticker := time.NewTicker(60 * time.Second)
+	ticker := time.NewTicker(30 * time.Second)
 	defer ticker.Stop()
 
 	for {

@@ -15,6 +15,6 @@ func NewPodService(pc *kubernetes.PodClient) *PodService {
 	return &PodService{podClient: pc}
 }
 
-func (s *PodService) GetPods(ctx context.Context, namespace string) (*corev1.PodList, error) {
+func (s *PodService) ListPods(ctx context.Context, namespace string) (*corev1.PodList, error) {
 	return s.podClient.ListPods(ctx, namespace)
 }
