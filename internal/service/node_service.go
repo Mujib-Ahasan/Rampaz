@@ -15,6 +15,6 @@ func NewNodeService(nc *kubernetes.NodeClient) *NodeService {
 	return &NodeService{nodeClient: nc}
 }
 
-func (s *NodeService) Getnode(ctx context.Context, nodeName string) (*corev1.Node, error) {
+func (s *NodeService) GetNodeStats(ctx context.Context, nodeName string) (*corev1.Node, error) {
 	return s.nodeClient.ListNodes(ctx, nodeName)
 }

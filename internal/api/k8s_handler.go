@@ -4,8 +4,10 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/Mujib-Ahasan/Rampaz/internal/metrics"
 	"github.com/Mujib-Ahasan/Rampaz/internal/service"
 	pb "github.com/Mujib-Ahasan/Rampaz/proto"
+	"github.com/prometheus/client_golang/prometheus"
 )
 
 type K8SServer struct {
@@ -17,10 +19,22 @@ type K8SServer struct {
 	NodeMetService *service.NodeMetService
 }
 
-func (s *K8SServer) GetPods(ctx context.Context, req *pb.PodRequest) (*pb.PodListResponse, error) {
+func (s *K8SServer) ListPods(ctx context.Context, req *pb.NamespaceRequest) (*pb.PodListResponse, error) {
+	endpoint := "list_pods"
+	status := "success"
+	timer := prometheus.NewTimer(
+		metrics.RequestLatency.WithLabelValues(endpoint),
+	)
+	defer func() {
+		timer.ObserveDuration()
+		metrics.APIRequests.
+			WithLabelValues(endpoint, status).
+			Inc()
+	}()
 
-	pods, err := s.PodService.GetPods(ctx, req.Namespace)
+	pods, err := s.PodService.ListPods(ctx, req.Namespace)
 	if err != nil {
+		status = "error"
 		return nil, err
 	}
 
@@ -35,25 +49,37 @@ func (s *K8SServer) GetPods(ctx context.Context, req *pb.PodRequest) (*pb.PodLis
 		})
 	}
 
-	return &pb.PodListResponse{
-		Pods: result,
-	}, nil
+	return &pb.PodListResponse{Pods: result}, nil
 }
 
-func (s *K8SServer) GetNodeInfo(ctx context.Context, req *pb.NodeRequest) (*pb.NodeStatsResponse, error) {
-	node, err := s.NodeService.Getnode(ctx, req.NodeName)
+func (s *K8SServer) GetNodeStats(ctx context.Context, req *pb.NodeRequest) (*pb.NodeStatsResponse, error) {
+	endpoint := "get_node_stats"
+	status := "success"
+	timer := prometheus.NewTimer(
+		metrics.RequestLatency.WithLabelValues(endpoint),
+	)
+
+	defer func() {
+		timer.ObserveDuration()
+		metrics.APIRequests.
+			WithLabelValues(endpoint, status).
+			Inc()
+	}()
+
+	node, err := s.NodeService.GetNodeStats(ctx, req.NodeName)
 	if err != nil {
+		status = "error"
 		return nil, fmt.Errorf("failed to get node %s: %v", req.NodeName, err)
 	}
 
 	cpu := node.Status.Capacity.Cpu().String()
 	memory := node.Status.Capacity.Memory().String()
 
-	res := &pb.NodeStatsResponse{
+	result := &pb.NodeStatsResponse{
 		Name:   node.Name,
 		Cpu:    cpu,
 		Memory: memory,
 	}
 
-	return res, nil
+	return result, nil
 }

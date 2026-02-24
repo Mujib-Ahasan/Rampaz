@@ -3,13 +3,23 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 
 	"github.com/Mujib-Ahasan/Rampaz/internal/api"
 	"github.com/Mujib-Ahasan/Rampaz/internal/kubernetes"
+	"github.com/Mujib-Ahasan/Rampaz/internal/metrics"
 	"github.com/Mujib-Ahasan/Rampaz/internal/service"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
+	metrics.Init()
+
+	go func() {
+		http.Handle("/metrics", promhttp.Handler())
+		http.ListenAndServe(":9090", nil)
+	}()
+
 	clients, err := kubernetes.NewClients()
 	if err != nil {
 		log.Fatal(err)
@@ -39,23 +49,8 @@ func main() {
 	}
 
 	fmt.Printf("server is running on port: 50052 \n")
-
-	// temporary comments:
-	// res, err := handler.GetPods(context.Background(), &proto.PodRequest{Namespace: "default"})
-	// if err != nil {
-	// 	log.Fatalf("some error: please check it %v \n", err)
-	// }
-
-	// res1, err := handler.GetNodeInfo(context.Background(), &proto.NodeRequest{NodeName: "minikube"})
-	// if err != nil {
-	// 	log.Fatalf("some error: please check it %v\n", err)
-	// }
-
-	// fmt.Printf("%+v\n", res)
-	// fmt.Printf("%+v\n", res1)
-	// temporary end
-
 	if err := api.StartGRPC(":50052", handler); err != nil {
 		log.Fatal(err)
 	}
+
 }
