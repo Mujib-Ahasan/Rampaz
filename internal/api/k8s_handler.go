@@ -12,11 +12,14 @@ import (
 
 type K8SServer struct {
 	pb.UnimplementedK8SInfoServer
-	PodService     *service.PodService
-	NodeService    *service.NodeService
-	EventService   *service.EventService
-	PodMetService  *service.PodMetService
-	NodeMetService *service.NodeMetService
+	PodService        *service.PodService
+	NodeService       *service.NodeService
+	EventService      *service.EventService
+	PodMetService     *service.PodMetService
+	NodeMetService    *service.NodeMetService
+	DeploymentService *service.DeploymentService
+	ReplicaSetservice *service.ReplicaSetService
+	DaemonSetService  *service.DaemonSetService
 }
 
 func (s *K8SServer) ListPods(ctx context.Context, req *pb.NamespaceRequest) (*pb.PodListResponse, error) {
