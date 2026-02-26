@@ -1,4 +1,4 @@
-syntax="proto3";
+syntax = "proto3";
 
 package k8sinfo;
 
@@ -10,10 +10,15 @@ service K8sInfo {
   rpc ListPods(NamespaceRequest) returns (PodListResponse);
   rpc GetNodeStats(NodeRequest) returns (NodeStatsResponse);
   rpc GetPodStats(PodRequest) returns (stream PodStatsResponse);
-  rpc GetNodeRealTimeStats (NodeRequest) returns (stream NodeStatsResponse);
+  rpc GetNodeRealTimeStats(NodeRequest) returns (stream NodeStatsResponse);
   rpc StreamEvents(google.protobuf.Empty) returns (stream EventResponse);
+  rpc ListDeployments(NamespaceRequest) returns (WorkloadListResponse);
+  rpc ListReplicaSets(NamespaceRequest) returns (WorkloadListResponse);
+  rpc ListStatefulSets(NamespaceRequest) returns (WorkloadListResponse);
+  rpc ListDaemonSets(NamespaceRequest) returns (WorkloadListResponse);
+  rpc ListJobs(NamespaceRequest) returns (WorkloadListResponse);
+  rpc ListCronJobs(NamespaceRequest) returns (WorkloadListResponse);
 }
-
 
 message NamespaceRequest {
   string namespace = 1;
@@ -56,5 +61,35 @@ message EventResponse {
   string reason = 2;
   string message = 3;
   string involvedObject = 4;
+}
+
+message Workload {
+  string name = 1;
+  string namespace = 2;
+
+  // Replica-related fields (not all apply to every workload)
+  int32 desiredReplicas = 3;
+  int32 readyReplicas = 4;
+  int32 availableReplicas = 5;
+  int32 updatedReplicas = 6;
+
+  // Job-specific fields
+  int32 active = 7;
+  int32 succeeded = 8;
+  int32 failed = 9;
+
+  // CronJob-specific fields
+  string schedule = 10;
+  string lastScheduleTime = 11;
+
+  // Metadata
+  map<string, string> labels = 12;
+  repeated string conditions = 13;
+  string owner = 14;
+  string age = 15;
+}
+
+message WorkloadListResponse {
+  repeated Workload workloads = 1;
 }
 

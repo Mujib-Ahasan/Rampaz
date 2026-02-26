@@ -2,13 +2,12 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.1
 // - protoc             v6.33.4
-// source: proto/rampaz.proto
+// source: rampaz.proto
 
 package proto
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -26,6 +25,12 @@ const (
 	K8SInfo_GetPodStats_FullMethodName          = "/k8sinfo.K8sInfo/GetPodStats"
 	K8SInfo_GetNodeRealTimeStats_FullMethodName = "/k8sinfo.K8sInfo/GetNodeRealTimeStats"
 	K8SInfo_StreamEvents_FullMethodName         = "/k8sinfo.K8sInfo/StreamEvents"
+	K8SInfo_ListDeployments_FullMethodName      = "/k8sinfo.K8sInfo/ListDeployments"
+	K8SInfo_ListReplicaSets_FullMethodName      = "/k8sinfo.K8sInfo/ListReplicaSets"
+	K8SInfo_ListStatefulSets_FullMethodName     = "/k8sinfo.K8sInfo/ListStatefulSets"
+	K8SInfo_ListDaemonSets_FullMethodName       = "/k8sinfo.K8sInfo/ListDaemonSets"
+	K8SInfo_ListJobs_FullMethodName             = "/k8sinfo.K8sInfo/ListJobs"
+	K8SInfo_ListCronJobs_FullMethodName         = "/k8sinfo.K8sInfo/ListCronJobs"
 )
 
 // K8SInfoClient is the client API for K8SInfo service.
@@ -37,6 +42,12 @@ type K8SInfoClient interface {
 	GetPodStats(ctx context.Context, in *PodRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[PodStatsResponse], error)
 	GetNodeRealTimeStats(ctx context.Context, in *NodeRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[NodeStatsResponse], error)
 	StreamEvents(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[EventResponse], error)
+	ListDeployments(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
+	ListReplicaSets(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
+	ListStatefulSets(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
+	ListDaemonSets(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
+	ListJobs(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
+	ListCronJobs(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
 }
 
 type k8SInfoClient struct {
@@ -124,6 +135,66 @@ func (c *k8SInfoClient) StreamEvents(ctx context.Context, in *emptypb.Empty, opt
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type K8SInfo_StreamEventsClient = grpc.ServerStreamingClient[EventResponse]
 
+func (c *k8SInfoClient) ListDeployments(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(WorkloadListResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_ListDeployments_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *k8SInfoClient) ListReplicaSets(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(WorkloadListResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_ListReplicaSets_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *k8SInfoClient) ListStatefulSets(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(WorkloadListResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_ListStatefulSets_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *k8SInfoClient) ListDaemonSets(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(WorkloadListResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_ListDaemonSets_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *k8SInfoClient) ListJobs(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(WorkloadListResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_ListJobs_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *k8SInfoClient) ListCronJobs(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(WorkloadListResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_ListCronJobs_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // K8SInfoServer is the server API for K8SInfo service.
 // All implementations must embed UnimplementedK8SInfoServer
 // for forward compatibility.
@@ -133,6 +204,12 @@ type K8SInfoServer interface {
 	GetPodStats(*PodRequest, grpc.ServerStreamingServer[PodStatsResponse]) error
 	GetNodeRealTimeStats(*NodeRequest, grpc.ServerStreamingServer[NodeStatsResponse]) error
 	StreamEvents(*emptypb.Empty, grpc.ServerStreamingServer[EventResponse]) error
+	ListDeployments(context.Context, *NamespaceRequest) (*WorkloadListResponse, error)
+	ListReplicaSets(context.Context, *NamespaceRequest) (*WorkloadListResponse, error)
+	ListStatefulSets(context.Context, *NamespaceRequest) (*WorkloadListResponse, error)
+	ListDaemonSets(context.Context, *NamespaceRequest) (*WorkloadListResponse, error)
+	ListJobs(context.Context, *NamespaceRequest) (*WorkloadListResponse, error)
+	ListCronJobs(context.Context, *NamespaceRequest) (*WorkloadListResponse, error)
 	mustEmbedUnimplementedK8SInfoServer()
 }
 
@@ -157,6 +234,24 @@ func (UnimplementedK8SInfoServer) GetNodeRealTimeStats(*NodeRequest, grpc.Server
 }
 func (UnimplementedK8SInfoServer) StreamEvents(*emptypb.Empty, grpc.ServerStreamingServer[EventResponse]) error {
 	return status.Error(codes.Unimplemented, "method StreamEvents not implemented")
+}
+func (UnimplementedK8SInfoServer) ListDeployments(context.Context, *NamespaceRequest) (*WorkloadListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListDeployments not implemented")
+}
+func (UnimplementedK8SInfoServer) ListReplicaSets(context.Context, *NamespaceRequest) (*WorkloadListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListReplicaSets not implemented")
+}
+func (UnimplementedK8SInfoServer) ListStatefulSets(context.Context, *NamespaceRequest) (*WorkloadListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListStatefulSets not implemented")
+}
+func (UnimplementedK8SInfoServer) ListDaemonSets(context.Context, *NamespaceRequest) (*WorkloadListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListDaemonSets not implemented")
+}
+func (UnimplementedK8SInfoServer) ListJobs(context.Context, *NamespaceRequest) (*WorkloadListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListJobs not implemented")
+}
+func (UnimplementedK8SInfoServer) ListCronJobs(context.Context, *NamespaceRequest) (*WorkloadListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListCronJobs not implemented")
 }
 func (UnimplementedK8SInfoServer) mustEmbedUnimplementedK8SInfoServer() {}
 func (UnimplementedK8SInfoServer) testEmbeddedByValue()                 {}
@@ -248,6 +343,114 @@ func _K8SInfo_StreamEvents_Handler(srv interface{}, stream grpc.ServerStream) er
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type K8SInfo_StreamEventsServer = grpc.ServerStreamingServer[EventResponse]
 
+func _K8SInfo_ListDeployments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NamespaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).ListDeployments(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_ListDeployments_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).ListDeployments(ctx, req.(*NamespaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _K8SInfo_ListReplicaSets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NamespaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).ListReplicaSets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_ListReplicaSets_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).ListReplicaSets(ctx, req.(*NamespaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _K8SInfo_ListStatefulSets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NamespaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).ListStatefulSets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_ListStatefulSets_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).ListStatefulSets(ctx, req.(*NamespaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _K8SInfo_ListDaemonSets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NamespaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).ListDaemonSets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_ListDaemonSets_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).ListDaemonSets(ctx, req.(*NamespaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _K8SInfo_ListJobs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NamespaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).ListJobs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_ListJobs_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).ListJobs(ctx, req.(*NamespaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _K8SInfo_ListCronJobs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NamespaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).ListCronJobs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_ListCronJobs_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).ListCronJobs(ctx, req.(*NamespaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // K8SInfo_ServiceDesc is the grpc.ServiceDesc for K8SInfo service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -262,6 +465,30 @@ var K8SInfo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetNodeStats",
 			Handler:    _K8SInfo_GetNodeStats_Handler,
+		},
+		{
+			MethodName: "ListDeployments",
+			Handler:    _K8SInfo_ListDeployments_Handler,
+		},
+		{
+			MethodName: "ListReplicaSets",
+			Handler:    _K8SInfo_ListReplicaSets_Handler,
+		},
+		{
+			MethodName: "ListStatefulSets",
+			Handler:    _K8SInfo_ListStatefulSets_Handler,
+		},
+		{
+			MethodName: "ListDaemonSets",
+			Handler:    _K8SInfo_ListDaemonSets_Handler,
+		},
+		{
+			MethodName: "ListJobs",
+			Handler:    _K8SInfo_ListJobs_Handler,
+		},
+		{
+			MethodName: "ListCronJobs",
+			Handler:    _K8SInfo_ListCronJobs_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
@@ -281,5 +508,5 @@ var K8SInfo_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "proto/rampaz.proto",
+	Metadata: "rampaz.proto",
 }

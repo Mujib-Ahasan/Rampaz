@@ -2,18 +2,17 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        v6.33.4
-// source: proto/rampaz.proto
+// source: rampaz.proto
 
 package proto
 
 import (
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
-
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
+	reflect "reflect"
+	sync "sync"
+	unsafe "unsafe"
 )
 
 const (
@@ -32,7 +31,7 @@ type NamespaceRequest struct {
 
 func (x *NamespaceRequest) Reset() {
 	*x = NamespaceRequest{}
-	mi := &file_proto_rampaz_proto_msgTypes[0]
+	mi := &file_rampaz_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -44,7 +43,7 @@ func (x *NamespaceRequest) String() string {
 func (*NamespaceRequest) ProtoMessage() {}
 
 func (x *NamespaceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rampaz_proto_msgTypes[0]
+	mi := &file_rampaz_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +56,7 @@ func (x *NamespaceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NamespaceRequest.ProtoReflect.Descriptor instead.
 func (*NamespaceRequest) Descriptor() ([]byte, []int) {
-	return file_proto_rampaz_proto_rawDescGZIP(), []int{0}
+	return file_rampaz_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *NamespaceRequest) GetNamespace() string {
@@ -76,7 +75,7 @@ type PodRequest struct {
 
 func (x *PodRequest) Reset() {
 	*x = PodRequest{}
-	mi := &file_proto_rampaz_proto_msgTypes[1]
+	mi := &file_rampaz_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -88,7 +87,7 @@ func (x *PodRequest) String() string {
 func (*PodRequest) ProtoMessage() {}
 
 func (x *PodRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rampaz_proto_msgTypes[1]
+	mi := &file_rampaz_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -101,7 +100,7 @@ func (x *PodRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PodRequest.ProtoReflect.Descriptor instead.
 func (*PodRequest) Descriptor() ([]byte, []int) {
-	return file_proto_rampaz_proto_rawDescGZIP(), []int{1}
+	return file_rampaz_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *PodRequest) GetNamespace() string {
@@ -123,7 +122,7 @@ type PodStatsResponse struct {
 
 func (x *PodStatsResponse) Reset() {
 	*x = PodStatsResponse{}
-	mi := &file_proto_rampaz_proto_msgTypes[2]
+	mi := &file_rampaz_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -135,7 +134,7 @@ func (x *PodStatsResponse) String() string {
 func (*PodStatsResponse) ProtoMessage() {}
 
 func (x *PodStatsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rampaz_proto_msgTypes[2]
+	mi := &file_rampaz_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -148,7 +147,7 @@ func (x *PodStatsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PodStatsResponse.ProtoReflect.Descriptor instead.
 func (*PodStatsResponse) Descriptor() ([]byte, []int) {
-	return file_proto_rampaz_proto_rawDescGZIP(), []int{2}
+	return file_rampaz_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *PodStatsResponse) GetName() string {
@@ -191,7 +190,7 @@ type Pod struct {
 
 func (x *Pod) Reset() {
 	*x = Pod{}
-	mi := &file_proto_rampaz_proto_msgTypes[3]
+	mi := &file_rampaz_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -203,7 +202,7 @@ func (x *Pod) String() string {
 func (*Pod) ProtoMessage() {}
 
 func (x *Pod) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rampaz_proto_msgTypes[3]
+	mi := &file_rampaz_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -216,7 +215,7 @@ func (x *Pod) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Pod.ProtoReflect.Descriptor instead.
 func (*Pod) Descriptor() ([]byte, []int) {
-	return file_proto_rampaz_proto_rawDescGZIP(), []int{3}
+	return file_rampaz_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *Pod) GetName() string {
@@ -256,7 +255,7 @@ type PodListResponse struct {
 
 func (x *PodListResponse) Reset() {
 	*x = PodListResponse{}
-	mi := &file_proto_rampaz_proto_msgTypes[4]
+	mi := &file_rampaz_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -268,7 +267,7 @@ func (x *PodListResponse) String() string {
 func (*PodListResponse) ProtoMessage() {}
 
 func (x *PodListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rampaz_proto_msgTypes[4]
+	mi := &file_rampaz_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -281,7 +280,7 @@ func (x *PodListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PodListResponse.ProtoReflect.Descriptor instead.
 func (*PodListResponse) Descriptor() ([]byte, []int) {
-	return file_proto_rampaz_proto_rawDescGZIP(), []int{4}
+	return file_rampaz_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *PodListResponse) GetPods() []*Pod {
@@ -300,7 +299,7 @@ type NodeRequest struct {
 
 func (x *NodeRequest) Reset() {
 	*x = NodeRequest{}
-	mi := &file_proto_rampaz_proto_msgTypes[5]
+	mi := &file_rampaz_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -312,7 +311,7 @@ func (x *NodeRequest) String() string {
 func (*NodeRequest) ProtoMessage() {}
 
 func (x *NodeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rampaz_proto_msgTypes[5]
+	mi := &file_rampaz_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -325,7 +324,7 @@ func (x *NodeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NodeRequest.ProtoReflect.Descriptor instead.
 func (*NodeRequest) Descriptor() ([]byte, []int) {
-	return file_proto_rampaz_proto_rawDescGZIP(), []int{5}
+	return file_rampaz_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *NodeRequest) GetNodeName() string {
@@ -346,7 +345,7 @@ type NodeStatsResponse struct {
 
 func (x *NodeStatsResponse) Reset() {
 	*x = NodeStatsResponse{}
-	mi := &file_proto_rampaz_proto_msgTypes[6]
+	mi := &file_rampaz_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -358,7 +357,7 @@ func (x *NodeStatsResponse) String() string {
 func (*NodeStatsResponse) ProtoMessage() {}
 
 func (x *NodeStatsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rampaz_proto_msgTypes[6]
+	mi := &file_rampaz_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -371,7 +370,7 @@ func (x *NodeStatsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NodeStatsResponse.ProtoReflect.Descriptor instead.
 func (*NodeStatsResponse) Descriptor() ([]byte, []int) {
-	return file_proto_rampaz_proto_rawDescGZIP(), []int{6}
+	return file_rampaz_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *NodeStatsResponse) GetName() string {
@@ -407,7 +406,7 @@ type EventResponse struct {
 
 func (x *EventResponse) Reset() {
 	*x = EventResponse{}
-	mi := &file_proto_rampaz_proto_msgTypes[7]
+	mi := &file_rampaz_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -419,7 +418,7 @@ func (x *EventResponse) String() string {
 func (*EventResponse) ProtoMessage() {}
 
 func (x *EventResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rampaz_proto_msgTypes[7]
+	mi := &file_rampaz_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -432,7 +431,7 @@ func (x *EventResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EventResponse.ProtoReflect.Descriptor instead.
 func (*EventResponse) Descriptor() ([]byte, []int) {
-	return file_proto_rampaz_proto_rawDescGZIP(), []int{7}
+	return file_rampaz_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *EventResponse) GetType() string {
@@ -463,11 +462,215 @@ func (x *EventResponse) GetInvolvedObject() string {
 	return ""
 }
 
-var File_proto_rampaz_proto protoreflect.FileDescriptor
+type Workload struct {
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	Name      string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Namespace string                 `protobuf:"bytes,2,opt,name=namespace,proto3" json:"namespace,omitempty"`
+	// Replica-related fields (not all apply to every workload)
+	DesiredReplicas   int32 `protobuf:"varint,3,opt,name=desiredReplicas,proto3" json:"desiredReplicas,omitempty"`
+	ReadyReplicas     int32 `protobuf:"varint,4,opt,name=readyReplicas,proto3" json:"readyReplicas,omitempty"`
+	AvailableReplicas int32 `protobuf:"varint,5,opt,name=availableReplicas,proto3" json:"availableReplicas,omitempty"`
+	UpdatedReplicas   int32 `protobuf:"varint,6,opt,name=updatedReplicas,proto3" json:"updatedReplicas,omitempty"`
+	// Job-specific fields
+	Active    int32 `protobuf:"varint,7,opt,name=active,proto3" json:"active,omitempty"`
+	Succeeded int32 `protobuf:"varint,8,opt,name=succeeded,proto3" json:"succeeded,omitempty"`
+	Failed    int32 `protobuf:"varint,9,opt,name=failed,proto3" json:"failed,omitempty"`
+	// CronJob-specific fields
+	Schedule         string `protobuf:"bytes,10,opt,name=schedule,proto3" json:"schedule,omitempty"`
+	LastScheduleTime string `protobuf:"bytes,11,opt,name=lastScheduleTime,proto3" json:"lastScheduleTime,omitempty"`
+	// Metadata
+	Labels        map[string]string `protobuf:"bytes,12,rep,name=labels,proto3" json:"labels,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Conditions    []string          `protobuf:"bytes,13,rep,name=conditions,proto3" json:"conditions,omitempty"`
+	Owner         string            `protobuf:"bytes,14,opt,name=owner,proto3" json:"owner,omitempty"`
+	Age           string            `protobuf:"bytes,15,opt,name=age,proto3" json:"age,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
 
-const file_proto_rampaz_proto_rawDesc = "" +
+func (x *Workload) Reset() {
+	*x = Workload{}
+	mi := &file_rampaz_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Workload) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Workload) ProtoMessage() {}
+
+func (x *Workload) ProtoReflect() protoreflect.Message {
+	mi := &file_rampaz_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Workload.ProtoReflect.Descriptor instead.
+func (*Workload) Descriptor() ([]byte, []int) {
+	return file_rampaz_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *Workload) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Workload) GetNamespace() string {
+	if x != nil {
+		return x.Namespace
+	}
+	return ""
+}
+
+func (x *Workload) GetDesiredReplicas() int32 {
+	if x != nil {
+		return x.DesiredReplicas
+	}
+	return 0
+}
+
+func (x *Workload) GetReadyReplicas() int32 {
+	if x != nil {
+		return x.ReadyReplicas
+	}
+	return 0
+}
+
+func (x *Workload) GetAvailableReplicas() int32 {
+	if x != nil {
+		return x.AvailableReplicas
+	}
+	return 0
+}
+
+func (x *Workload) GetUpdatedReplicas() int32 {
+	if x != nil {
+		return x.UpdatedReplicas
+	}
+	return 0
+}
+
+func (x *Workload) GetActive() int32 {
+	if x != nil {
+		return x.Active
+	}
+	return 0
+}
+
+func (x *Workload) GetSucceeded() int32 {
+	if x != nil {
+		return x.Succeeded
+	}
+	return 0
+}
+
+func (x *Workload) GetFailed() int32 {
+	if x != nil {
+		return x.Failed
+	}
+	return 0
+}
+
+func (x *Workload) GetSchedule() string {
+	if x != nil {
+		return x.Schedule
+	}
+	return ""
+}
+
+func (x *Workload) GetLastScheduleTime() string {
+	if x != nil {
+		return x.LastScheduleTime
+	}
+	return ""
+}
+
+func (x *Workload) GetLabels() map[string]string {
+	if x != nil {
+		return x.Labels
+	}
+	return nil
+}
+
+func (x *Workload) GetConditions() []string {
+	if x != nil {
+		return x.Conditions
+	}
+	return nil
+}
+
+func (x *Workload) GetOwner() string {
+	if x != nil {
+		return x.Owner
+	}
+	return ""
+}
+
+func (x *Workload) GetAge() string {
+	if x != nil {
+		return x.Age
+	}
+	return ""
+}
+
+type WorkloadListResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Workloads     []*Workload            `protobuf:"bytes,1,rep,name=workloads,proto3" json:"workloads,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *WorkloadListResponse) Reset() {
+	*x = WorkloadListResponse{}
+	mi := &file_rampaz_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *WorkloadListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WorkloadListResponse) ProtoMessage() {}
+
+func (x *WorkloadListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_rampaz_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WorkloadListResponse.ProtoReflect.Descriptor instead.
+func (*WorkloadListResponse) Descriptor() ([]byte, []int) {
+	return file_rampaz_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *WorkloadListResponse) GetWorkloads() []*Workload {
+	if x != nil {
+		return x.Workloads
+	}
+	return nil
+}
+
+var File_rampaz_proto protoreflect.FileDescriptor
+
+const file_rampaz_proto_rawDesc = "" +
 	"\n" +
-	"\x12proto/rampaz.proto\x12\ak8sinfo\x1a\x1bgoogle/protobuf/empty.proto\"0\n" +
+	"\frampaz.proto\x12\ak8sinfo\x1a\x1bgoogle/protobuf/empty.proto\"0\n" +
 	"\x10NamespaceRequest\x12\x1c\n" +
 	"\tnamespace\x18\x01 \x01(\tR\tnamespace\"*\n" +
 	"\n" +
@@ -495,77 +698,124 @@ const file_proto_rampaz_proto_rawDesc = "" +
 	"\x04type\x18\x01 \x01(\tR\x04type\x12\x16\n" +
 	"\x06reason\x18\x02 \x01(\tR\x06reason\x12\x18\n" +
 	"\amessage\x18\x03 \x01(\tR\amessage\x12&\n" +
-	"\x0einvolvedObject\x18\x04 \x01(\tR\x0einvolvedObject2\xdb\x02\n" +
+	"\x0einvolvedObject\x18\x04 \x01(\tR\x0einvolvedObject\"\xb4\x04\n" +
+	"\bWorkload\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1c\n" +
+	"\tnamespace\x18\x02 \x01(\tR\tnamespace\x12(\n" +
+	"\x0fdesiredReplicas\x18\x03 \x01(\x05R\x0fdesiredReplicas\x12$\n" +
+	"\rreadyReplicas\x18\x04 \x01(\x05R\rreadyReplicas\x12,\n" +
+	"\x11availableReplicas\x18\x05 \x01(\x05R\x11availableReplicas\x12(\n" +
+	"\x0fupdatedReplicas\x18\x06 \x01(\x05R\x0fupdatedReplicas\x12\x16\n" +
+	"\x06active\x18\a \x01(\x05R\x06active\x12\x1c\n" +
+	"\tsucceeded\x18\b \x01(\x05R\tsucceeded\x12\x16\n" +
+	"\x06failed\x18\t \x01(\x05R\x06failed\x12\x1a\n" +
+	"\bschedule\x18\n" +
+	" \x01(\tR\bschedule\x12*\n" +
+	"\x10lastScheduleTime\x18\v \x01(\tR\x10lastScheduleTime\x125\n" +
+	"\x06labels\x18\f \x03(\v2\x1d.k8sinfo.Workload.LabelsEntryR\x06labels\x12\x1e\n" +
+	"\n" +
+	"conditions\x18\r \x03(\tR\n" +
+	"conditions\x12\x14\n" +
+	"\x05owner\x18\x0e \x01(\tR\x05owner\x12\x10\n" +
+	"\x03age\x18\x0f \x01(\tR\x03age\x1a9\n" +
+	"\vLabelsEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"G\n" +
+	"\x14WorkloadListResponse\x12/\n" +
+	"\tworkloads\x18\x01 \x03(\v2\x11.k8sinfo.WorkloadR\tworkloads2\x9f\x06\n" +
 	"\aK8sInfo\x12?\n" +
 	"\bListPods\x12\x19.k8sinfo.NamespaceRequest\x1a\x18.k8sinfo.PodListResponse\x12@\n" +
 	"\fGetNodeStats\x12\x14.k8sinfo.NodeRequest\x1a\x1a.k8sinfo.NodeStatsResponse\x12?\n" +
 	"\vGetPodStats\x12\x13.k8sinfo.PodRequest\x1a\x19.k8sinfo.PodStatsResponse0\x01\x12J\n" +
 	"\x14GetNodeRealTimeStats\x12\x14.k8sinfo.NodeRequest\x1a\x1a.k8sinfo.NodeStatsResponse0\x01\x12@\n" +
-	"\fStreamEvents\x12\x16.google.protobuf.Empty\x1a\x16.k8sinfo.EventResponse0\x01B&Z$github.com/Mujib-Ahasan/Rampaz/protob\x06proto3"
+	"\fStreamEvents\x12\x16.google.protobuf.Empty\x1a\x16.k8sinfo.EventResponse0\x01\x12K\n" +
+	"\x0fListDeployments\x12\x19.k8sinfo.NamespaceRequest\x1a\x1d.k8sinfo.WorkloadListResponse\x12K\n" +
+	"\x0fListReplicaSets\x12\x19.k8sinfo.NamespaceRequest\x1a\x1d.k8sinfo.WorkloadListResponse\x12L\n" +
+	"\x10ListStatefulSets\x12\x19.k8sinfo.NamespaceRequest\x1a\x1d.k8sinfo.WorkloadListResponse\x12J\n" +
+	"\x0eListDaemonSets\x12\x19.k8sinfo.NamespaceRequest\x1a\x1d.k8sinfo.WorkloadListResponse\x12D\n" +
+	"\bListJobs\x12\x19.k8sinfo.NamespaceRequest\x1a\x1d.k8sinfo.WorkloadListResponse\x12H\n" +
+	"\fListCronJobs\x12\x19.k8sinfo.NamespaceRequest\x1a\x1d.k8sinfo.WorkloadListResponseB&Z$github.com/Mujib-Ahasan/Rampaz/protob\x06proto3"
 
 var (
-	file_proto_rampaz_proto_rawDescOnce sync.Once
-	file_proto_rampaz_proto_rawDescData []byte
+	file_rampaz_proto_rawDescOnce sync.Once
+	file_rampaz_proto_rawDescData []byte
 )
 
-func file_proto_rampaz_proto_rawDescGZIP() []byte {
-	file_proto_rampaz_proto_rawDescOnce.Do(func() {
-		file_proto_rampaz_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_proto_rampaz_proto_rawDesc), len(file_proto_rampaz_proto_rawDesc)))
+func file_rampaz_proto_rawDescGZIP() []byte {
+	file_rampaz_proto_rawDescOnce.Do(func() {
+		file_rampaz_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_rampaz_proto_rawDesc), len(file_rampaz_proto_rawDesc)))
 	})
-	return file_proto_rampaz_proto_rawDescData
+	return file_rampaz_proto_rawDescData
 }
 
-var file_proto_rampaz_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_proto_rampaz_proto_goTypes = []any{
-	(*NamespaceRequest)(nil),  // 0: k8sinfo.NamespaceRequest
-	(*PodRequest)(nil),        // 1: k8sinfo.PodRequest
-	(*PodStatsResponse)(nil),  // 2: k8sinfo.PodStatsResponse
-	(*Pod)(nil),               // 3: k8sinfo.Pod
-	(*PodListResponse)(nil),   // 4: k8sinfo.PodListResponse
-	(*NodeRequest)(nil),       // 5: k8sinfo.NodeRequest
-	(*NodeStatsResponse)(nil), // 6: k8sinfo.NodeStatsResponse
-	(*EventResponse)(nil),     // 7: k8sinfo.EventResponse
-	(*emptypb.Empty)(nil),     // 8: google.protobuf.Empty
+var file_rampaz_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_rampaz_proto_goTypes = []any{
+	(*NamespaceRequest)(nil),     // 0: k8sinfo.NamespaceRequest
+	(*PodRequest)(nil),           // 1: k8sinfo.PodRequest
+	(*PodStatsResponse)(nil),     // 2: k8sinfo.PodStatsResponse
+	(*Pod)(nil),                  // 3: k8sinfo.Pod
+	(*PodListResponse)(nil),      // 4: k8sinfo.PodListResponse
+	(*NodeRequest)(nil),          // 5: k8sinfo.NodeRequest
+	(*NodeStatsResponse)(nil),    // 6: k8sinfo.NodeStatsResponse
+	(*EventResponse)(nil),        // 7: k8sinfo.EventResponse
+	(*Workload)(nil),             // 8: k8sinfo.Workload
+	(*WorkloadListResponse)(nil), // 9: k8sinfo.WorkloadListResponse
+	nil,                          // 10: k8sinfo.Workload.LabelsEntry
+	(*emptypb.Empty)(nil),        // 11: google.protobuf.Empty
 }
-var file_proto_rampaz_proto_depIdxs = []int32{
-	3, // 0: k8sinfo.PodListResponse.pods:type_name -> k8sinfo.Pod
-	0, // 1: k8sinfo.K8sInfo.ListPods:input_type -> k8sinfo.NamespaceRequest
-	5, // 2: k8sinfo.K8sInfo.GetNodeStats:input_type -> k8sinfo.NodeRequest
-	1, // 3: k8sinfo.K8sInfo.GetPodStats:input_type -> k8sinfo.PodRequest
-	5, // 4: k8sinfo.K8sInfo.GetNodeRealTimeStats:input_type -> k8sinfo.NodeRequest
-	8, // 5: k8sinfo.K8sInfo.StreamEvents:input_type -> google.protobuf.Empty
-	4, // 6: k8sinfo.K8sInfo.ListPods:output_type -> k8sinfo.PodListResponse
-	6, // 7: k8sinfo.K8sInfo.GetNodeStats:output_type -> k8sinfo.NodeStatsResponse
-	2, // 8: k8sinfo.K8sInfo.GetPodStats:output_type -> k8sinfo.PodStatsResponse
-	6, // 9: k8sinfo.K8sInfo.GetNodeRealTimeStats:output_type -> k8sinfo.NodeStatsResponse
-	7, // 10: k8sinfo.K8sInfo.StreamEvents:output_type -> k8sinfo.EventResponse
-	6, // [6:11] is the sub-list for method output_type
-	1, // [1:6] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+var file_rampaz_proto_depIdxs = []int32{
+	3,  // 0: k8sinfo.PodListResponse.pods:type_name -> k8sinfo.Pod
+	10, // 1: k8sinfo.Workload.labels:type_name -> k8sinfo.Workload.LabelsEntry
+	8,  // 2: k8sinfo.WorkloadListResponse.workloads:type_name -> k8sinfo.Workload
+	0,  // 3: k8sinfo.K8sInfo.ListPods:input_type -> k8sinfo.NamespaceRequest
+	5,  // 4: k8sinfo.K8sInfo.GetNodeStats:input_type -> k8sinfo.NodeRequest
+	1,  // 5: k8sinfo.K8sInfo.GetPodStats:input_type -> k8sinfo.PodRequest
+	5,  // 6: k8sinfo.K8sInfo.GetNodeRealTimeStats:input_type -> k8sinfo.NodeRequest
+	11, // 7: k8sinfo.K8sInfo.StreamEvents:input_type -> google.protobuf.Empty
+	0,  // 8: k8sinfo.K8sInfo.ListDeployments:input_type -> k8sinfo.NamespaceRequest
+	0,  // 9: k8sinfo.K8sInfo.ListReplicaSets:input_type -> k8sinfo.NamespaceRequest
+	0,  // 10: k8sinfo.K8sInfo.ListStatefulSets:input_type -> k8sinfo.NamespaceRequest
+	0,  // 11: k8sinfo.K8sInfo.ListDaemonSets:input_type -> k8sinfo.NamespaceRequest
+	0,  // 12: k8sinfo.K8sInfo.ListJobs:input_type -> k8sinfo.NamespaceRequest
+	0,  // 13: k8sinfo.K8sInfo.ListCronJobs:input_type -> k8sinfo.NamespaceRequest
+	4,  // 14: k8sinfo.K8sInfo.ListPods:output_type -> k8sinfo.PodListResponse
+	6,  // 15: k8sinfo.K8sInfo.GetNodeStats:output_type -> k8sinfo.NodeStatsResponse
+	2,  // 16: k8sinfo.K8sInfo.GetPodStats:output_type -> k8sinfo.PodStatsResponse
+	6,  // 17: k8sinfo.K8sInfo.GetNodeRealTimeStats:output_type -> k8sinfo.NodeStatsResponse
+	7,  // 18: k8sinfo.K8sInfo.StreamEvents:output_type -> k8sinfo.EventResponse
+	9,  // 19: k8sinfo.K8sInfo.ListDeployments:output_type -> k8sinfo.WorkloadListResponse
+	9,  // 20: k8sinfo.K8sInfo.ListReplicaSets:output_type -> k8sinfo.WorkloadListResponse
+	9,  // 21: k8sinfo.K8sInfo.ListStatefulSets:output_type -> k8sinfo.WorkloadListResponse
+	9,  // 22: k8sinfo.K8sInfo.ListDaemonSets:output_type -> k8sinfo.WorkloadListResponse
+	9,  // 23: k8sinfo.K8sInfo.ListJobs:output_type -> k8sinfo.WorkloadListResponse
+	9,  // 24: k8sinfo.K8sInfo.ListCronJobs:output_type -> k8sinfo.WorkloadListResponse
+	14, // [14:25] is the sub-list for method output_type
+	3,  // [3:14] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
-func init() { file_proto_rampaz_proto_init() }
-func file_proto_rampaz_proto_init() {
-	if File_proto_rampaz_proto != nil {
+func init() { file_rampaz_proto_init() }
+func file_rampaz_proto_init() {
+	if File_rampaz_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_rampaz_proto_rawDesc), len(file_proto_rampaz_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_rampaz_proto_rawDesc), len(file_rampaz_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_proto_rampaz_proto_goTypes,
-		DependencyIndexes: file_proto_rampaz_proto_depIdxs,
-		MessageInfos:      file_proto_rampaz_proto_msgTypes,
+		GoTypes:           file_rampaz_proto_goTypes,
+		DependencyIndexes: file_rampaz_proto_depIdxs,
+		MessageInfos:      file_rampaz_proto_msgTypes,
 	}.Build()
-	File_proto_rampaz_proto = out.File
-	file_proto_rampaz_proto_goTypes = nil
-	file_proto_rampaz_proto_depIdxs = nil
+	File_rampaz_proto = out.File
+	file_rampaz_proto_goTypes = nil
+	file_rampaz_proto_depIdxs = nil
 }
