@@ -21,6 +21,8 @@ type K8SServer struct {
 	ReplicaSetservice  *service.ReplicaSetService
 	DaemonSetService   *service.DaemonSetService
 	StatefulSetService *service.StatefulSetService
+	JobService         *service.JobService
+	CronJobService     *service.CronJobService
 }
 
 func (s *K8SServer) ListPods(ctx context.Context, req *pb.NamespaceRequest) (*pb.PodListResponse, error) {

@@ -52,6 +52,12 @@ func main() {
 	statefulSetClient := kubernetes.NewStatefulSetClient(clients.Kube)
 	statefulSetService := service.NewStatefulSetService(statefulSetClient)
 
+	jobClient := kubernetes.NewJobClient(clients.Kube)
+	jobService := service.NewJobService(jobClient)
+
+	cronJobClient := kubernetes.NewCronJobClient(clients.Kube)
+	cronJobService := service.NewCronJobService(cronJobClient)
+
 	handler := &api.K8SServer{
 		PodService:         podService,
 		NodeService:        nodeService,
@@ -62,6 +68,8 @@ func main() {
 		ReplicaSetservice:  replicaSetService,
 		DaemonSetService:   daemonSetService,
 		StatefulSetService: statefulSetService,
+		JobService:         jobService,
+		CronJobService:     cronJobService,
 	}
 
 	fmt.Printf("server is running on port: 50052 \n")
