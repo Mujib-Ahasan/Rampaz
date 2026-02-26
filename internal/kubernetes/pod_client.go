@@ -17,7 +17,5 @@ func NewPodClient(c *kubernetes.Clientset) *PodClient {
 }
 
 func (p *PodClient) ListPods(ctx context.Context, namespace string) (*corev1.PodList, error) {
-	return p.client.CoreV1().
-		Pods(namespace).
-		List(ctx, metav1.ListOptions{})
+	return p.client.CoreV1().Pods(namespace).List(ctx, metav1.ListOptions{})
 }

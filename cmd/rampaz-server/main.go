@@ -49,15 +49,19 @@ func main() {
 	daemonSetClient := kubernetes.NewDaemonSetClient(clients.Kube)
 	daemonSetService := service.NewDaemonSetService(daemonSetClient)
 
+	statefulSetClient := kubernetes.NewStatefulSetClient(clients.Kube)
+	statefulSetService := service.NewStatefulSetService(statefulSetClient)
+
 	handler := &api.K8SServer{
-		PodService:        podService,
-		NodeService:       nodeService,
-		EventService:      eventService,
-		PodMetService:     podMetService,
-		NodeMetService:    nodeMetService,
-		DeploymentService: deploymentService,
-		ReplicaSetservice: replicaSetService,
-		DaemonSetService:  daemonSetService,
+		PodService:         podService,
+		NodeService:        nodeService,
+		EventService:       eventService,
+		PodMetService:      podMetService,
+		NodeMetService:     nodeMetService,
+		DeploymentService:  deploymentService,
+		ReplicaSetservice:  replicaSetService,
+		DaemonSetService:   daemonSetService,
+		StatefulSetService: statefulSetService,
 	}
 
 	fmt.Printf("server is running on port: 50052 \n")
