@@ -6,12 +6,11 @@ import (
 	"github.com/Mujib-Ahasan/Rampaz/internal/metrics"
 	pb "github.com/Mujib-Ahasan/Rampaz/proto"
 	"github.com/prometheus/client_golang/prometheus"
-	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *K8SServer) ListNodes(ctx context.Context, _ *emptypb.Empty) (*pb.NodeListResponse, error) {
+func (s *K8SServer) ListPVCs(ctx context.Context, req *pb.NamespaceRequest) (*pb.PVCListResponse, error) {
 
-	endpoint := "list_Nodes"
+	endpoint := "list_PVCs"
 	status := "success"
 	timer := prometheus.NewTimer(
 		metrics.RequestLatency.WithLabelValues(endpoint),
@@ -22,13 +21,13 @@ func (s *K8SServer) ListNodes(ctx context.Context, _ *emptypb.Empty) (*pb.NodeLi
 			WithLabelValues(endpoint, status).
 			Inc()
 	}()
-	nodes, err := s.NodeService.ListNodes(ctx)
+	pvcs, err := s.PVCService.ListPVCs(ctx, req.Namespace)
 	if err != nil {
 		status = "error"
 		return nil, err
 	}
 
-	return &pb.NodeListResponse{
-		Nodes: nodes,
+	return &pb.PVCListResponse{
+		Pvcs: pvcs,
 	}, nil
 }

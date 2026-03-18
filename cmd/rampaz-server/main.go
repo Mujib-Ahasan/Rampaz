@@ -28,8 +28,8 @@ func main() {
 	podClient := kubernetes.NewPodClient(clients.Kube)
 	podService := service.NewPodService(podClient)
 
-	nodeClent := kubernetes.NewNodeClient(clients.Kube)
-	nodeService := service.NewNodeService(nodeClent)
+	nodeInfoClent := kubernetes.NewNodeInfoClient(clients.Kube)
+	nodeInfoService := service.NewNodeInfoService(nodeInfoClent)
 
 	eventClient := kubernetes.NewEventClient(clients.Kube)
 	eventService := service.NewEventService(eventClient)
@@ -58,18 +58,42 @@ func main() {
 	cronJobClient := kubernetes.NewCronJobClient(clients.Kube)
 	cronJobService := service.NewCronJobService(cronJobClient)
 
+	serviceClient := kubernetes.NewServiceClient(clients.Kube)
+	svcService := service.NewSVCService(serviceClient)
+
+	nameSpaceClient := kubernetes.NewNamespaceClient(clients.Kube)
+	namespaceService := service.NewNamespaceService(nameSpaceClient)
+
+	pvcClient := kubernetes.NewPVCClient(clients.Kube)
+	pvcService := service.NewPVCService(pvcClient)
+
+	pvClient := kubernetes.NewPVClient(clients.Kube)
+	pvService := service.NewPVService(pvClient)
+
+	nodeClient := kubernetes.NewNodeClient(clients.Kube)
+	nodeService := service.NewNodeService(nodeClient)
+
+	networkPolicyClient := kubernetes.NewNetworkPolicyClient(clients.Kube)
+	networkPolicyservice := service.NewNetworkPolicyService(networkPolicyClient)
+
 	handler := &api.K8SServer{
-		PodService:         podService,
-		NodeService:        nodeService,
-		EventService:       eventService,
-		PodMetService:      podMetService,
-		NodeMetService:     nodeMetService,
-		DeploymentService:  deploymentService,
-		ReplicaSetservice:  replicaSetService,
-		DaemonSetService:   daemonSetService,
-		StatefulSetService: statefulSetService,
-		JobService:         jobService,
-		CronJobService:     cronJobService,
+		PodService:           podService,
+		NodeInfoService:      nodeInfoService,
+		EventService:         eventService,
+		PodMetService:        podMetService,
+		NodeMetService:       nodeMetService,
+		DeploymentService:    deploymentService,
+		ReplicaSetservice:    replicaSetService,
+		DaemonSetService:     daemonSetService,
+		StatefulSetService:   statefulSetService,
+		JobService:           jobService,
+		CronJobService:       cronJobService,
+		SVCService:           svcService,
+		NamespaceService:     namespaceService,
+		PVCService:           pvcService,
+		PVService:            pvService,
+		NodeService:          nodeService,
+		NetworkPolicyService: networkPolicyservice,
 	}
 
 	fmt.Printf("server is running on port: 50052 \n")

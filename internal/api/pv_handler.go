@@ -9,9 +9,9 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *K8SServer) ListNodes(ctx context.Context, _ *emptypb.Empty) (*pb.NodeListResponse, error) {
+func (s *K8SServer) ListPVs(ctx context.Context, _ *emptypb.Empty) (*pb.PVListResponse, error) {
 
-	endpoint := "list_Nodes"
+	endpoint := "list_PVs"
 	status := "success"
 	timer := prometheus.NewTimer(
 		metrics.RequestLatency.WithLabelValues(endpoint),
@@ -22,13 +22,13 @@ func (s *K8SServer) ListNodes(ctx context.Context, _ *emptypb.Empty) (*pb.NodeLi
 			WithLabelValues(endpoint, status).
 			Inc()
 	}()
-	nodes, err := s.NodeService.ListNodes(ctx)
+	pvs, err := s.PVService.ListPVs(ctx)
 	if err != nil {
 		status = "error"
 		return nil, err
 	}
 
-	return &pb.NodeListResponse{
-		Nodes: nodes,
+	return &pb.PVListResponse{
+		Pvs: pvs,
 	}, nil
 }

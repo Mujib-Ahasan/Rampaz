@@ -9,13 +9,20 @@ import (
 )
 
 type NodeClient struct {
-	client *kubernetes.Clientset
+	clientset kubernetes.Interface
 }
 
-func NewNodeClient(c *kubernetes.Clientset) *NodeClient {
-	return &NodeClient{client: c}
+func NewNodeClient(clientset kubernetes.Interface) *NodeClient {
+	return &NodeClient{
+		clientset: clientset,
+	}
 }
 
-func (s *NodeClient) ListNodes(ctx context.Context, nodeName string) (*corev1.Node, error) {
-	return s.client.CoreV1().Nodes().Get(ctx, nodeName, metav1.GetOptions{})
+func (c *NodeClient) ListNodes(ctx context.Context) ([]corev1.Node, error) {
+	nodes, err := c.clientset.CoreV1().Nodes().List(ctx, metav1.ListOptions{})
+	if err != nil {
+		return nil, err
+	}
+
+	return nodes.Items, nil
 }

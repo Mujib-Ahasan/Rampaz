@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.1
 // - protoc             v6.33.4
-// source: rampaz.proto
+// source: proto/rampaz.proto
 
 package proto
 
@@ -31,6 +31,12 @@ const (
 	K8SInfo_ListDaemonSets_FullMethodName       = "/k8sinfo.K8sInfo/ListDaemonSets"
 	K8SInfo_ListJobs_FullMethodName             = "/k8sinfo.K8sInfo/ListJobs"
 	K8SInfo_ListCronJobs_FullMethodName         = "/k8sinfo.K8sInfo/ListCronJobs"
+	K8SInfo_ListServices_FullMethodName         = "/k8sinfo.K8sInfo/ListServices"
+	K8SInfo_ListNamespaces_FullMethodName       = "/k8sinfo.K8sInfo/ListNamespaces"
+	K8SInfo_ListPVCs_FullMethodName             = "/k8sinfo.K8sInfo/ListPVCs"
+	K8SInfo_ListPVs_FullMethodName              = "/k8sinfo.K8sInfo/ListPVs"
+	K8SInfo_ListNodes_FullMethodName            = "/k8sinfo.K8sInfo/ListNodes"
+	K8SInfo_ListNetworkPolicies_FullMethodName  = "/k8sinfo.K8sInfo/ListNetworkPolicies"
 )
 
 // K8SInfoClient is the client API for K8SInfo service.
@@ -48,6 +54,12 @@ type K8SInfoClient interface {
 	ListDaemonSets(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
 	ListJobs(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
 	ListCronJobs(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
+	ListServices(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*ServiceListResponse, error)
+	ListNamespaces(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*NamespaceListResponse, error)
+	ListPVCs(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*PVCListResponse, error)
+	ListPVs(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*PVListResponse, error)
+	ListNodes(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*NodeListResponse, error)
+	ListNetworkPolicies(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*NetworkPolicyListResponse, error)
 }
 
 type k8SInfoClient struct {
@@ -195,6 +207,66 @@ func (c *k8SInfoClient) ListCronJobs(ctx context.Context, in *NamespaceRequest, 
 	return out, nil
 }
 
+func (c *k8SInfoClient) ListServices(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*ServiceListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ServiceListResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_ListServices_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *k8SInfoClient) ListNamespaces(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*NamespaceListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(NamespaceListResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_ListNamespaces_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *k8SInfoClient) ListPVCs(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*PVCListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PVCListResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_ListPVCs_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *k8SInfoClient) ListPVs(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*PVListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PVListResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_ListPVs_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *k8SInfoClient) ListNodes(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*NodeListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(NodeListResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_ListNodes_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *k8SInfoClient) ListNetworkPolicies(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*NetworkPolicyListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(NetworkPolicyListResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_ListNetworkPolicies_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // K8SInfoServer is the server API for K8SInfo service.
 // All implementations must embed UnimplementedK8SInfoServer
 // for forward compatibility.
@@ -210,6 +282,12 @@ type K8SInfoServer interface {
 	ListDaemonSets(context.Context, *NamespaceRequest) (*WorkloadListResponse, error)
 	ListJobs(context.Context, *NamespaceRequest) (*WorkloadListResponse, error)
 	ListCronJobs(context.Context, *NamespaceRequest) (*WorkloadListResponse, error)
+	ListServices(context.Context, *NamespaceRequest) (*ServiceListResponse, error)
+	ListNamespaces(context.Context, *emptypb.Empty) (*NamespaceListResponse, error)
+	ListPVCs(context.Context, *NamespaceRequest) (*PVCListResponse, error)
+	ListPVs(context.Context, *emptypb.Empty) (*PVListResponse, error)
+	ListNodes(context.Context, *emptypb.Empty) (*NodeListResponse, error)
+	ListNetworkPolicies(context.Context, *NamespaceRequest) (*NetworkPolicyListResponse, error)
 	mustEmbedUnimplementedK8SInfoServer()
 }
 
@@ -252,6 +330,24 @@ func (UnimplementedK8SInfoServer) ListJobs(context.Context, *NamespaceRequest) (
 }
 func (UnimplementedK8SInfoServer) ListCronJobs(context.Context, *NamespaceRequest) (*WorkloadListResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListCronJobs not implemented")
+}
+func (UnimplementedK8SInfoServer) ListServices(context.Context, *NamespaceRequest) (*ServiceListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListServices not implemented")
+}
+func (UnimplementedK8SInfoServer) ListNamespaces(context.Context, *emptypb.Empty) (*NamespaceListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListNamespaces not implemented")
+}
+func (UnimplementedK8SInfoServer) ListPVCs(context.Context, *NamespaceRequest) (*PVCListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListPVCs not implemented")
+}
+func (UnimplementedK8SInfoServer) ListPVs(context.Context, *emptypb.Empty) (*PVListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListPVs not implemented")
+}
+func (UnimplementedK8SInfoServer) ListNodes(context.Context, *emptypb.Empty) (*NodeListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListNodes not implemented")
+}
+func (UnimplementedK8SInfoServer) ListNetworkPolicies(context.Context, *NamespaceRequest) (*NetworkPolicyListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListNetworkPolicies not implemented")
 }
 func (UnimplementedK8SInfoServer) mustEmbedUnimplementedK8SInfoServer() {}
 func (UnimplementedK8SInfoServer) testEmbeddedByValue()                 {}
@@ -451,6 +547,114 @@ func _K8SInfo_ListCronJobs_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _K8SInfo_ListServices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NamespaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).ListServices(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_ListServices_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).ListServices(ctx, req.(*NamespaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _K8SInfo_ListNamespaces_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).ListNamespaces(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_ListNamespaces_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).ListNamespaces(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _K8SInfo_ListPVCs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NamespaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).ListPVCs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_ListPVCs_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).ListPVCs(ctx, req.(*NamespaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _K8SInfo_ListPVs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).ListPVs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_ListPVs_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).ListPVs(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _K8SInfo_ListNodes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).ListNodes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_ListNodes_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).ListNodes(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _K8SInfo_ListNetworkPolicies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NamespaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).ListNetworkPolicies(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_ListNetworkPolicies_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).ListNetworkPolicies(ctx, req.(*NamespaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // K8SInfo_ServiceDesc is the grpc.ServiceDesc for K8SInfo service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -490,6 +694,30 @@ var K8SInfo_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "ListCronJobs",
 			Handler:    _K8SInfo_ListCronJobs_Handler,
 		},
+		{
+			MethodName: "ListServices",
+			Handler:    _K8SInfo_ListServices_Handler,
+		},
+		{
+			MethodName: "ListNamespaces",
+			Handler:    _K8SInfo_ListNamespaces_Handler,
+		},
+		{
+			MethodName: "ListPVCs",
+			Handler:    _K8SInfo_ListPVCs_Handler,
+		},
+		{
+			MethodName: "ListPVs",
+			Handler:    _K8SInfo_ListPVs_Handler,
+		},
+		{
+			MethodName: "ListNodes",
+			Handler:    _K8SInfo_ListNodes_Handler,
+		},
+		{
+			MethodName: "ListNetworkPolicies",
+			Handler:    _K8SInfo_ListNetworkPolicies_Handler,
+		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
@@ -508,5 +736,5 @@ var K8SInfo_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "rampaz.proto",
+	Metadata: "proto/rampaz.proto",
 }

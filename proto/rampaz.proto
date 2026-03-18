@@ -18,6 +18,12 @@ service K8sInfo {
   rpc ListDaemonSets(NamespaceRequest) returns (WorkloadListResponse);
   rpc ListJobs(NamespaceRequest) returns (WorkloadListResponse);
   rpc ListCronJobs(NamespaceRequest) returns (WorkloadListResponse);
+  rpc ListServices(NamespaceRequest) returns (ServiceListResponse);
+  rpc ListNamespaces(google.protobuf.Empty) returns (NamespaceListResponse);
+  rpc ListPVCs(NamespaceRequest) returns (PVCListResponse);
+  rpc ListPVs(google.protobuf.Empty) returns (PVListResponse);
+  rpc ListNodes(google.protobuf.Empty) returns (NodeListResponse);
+  rpc ListNetworkPolicies(NamespaceRequest) returns (NetworkPolicyListResponse);
 }
 
 message NamespaceRequest {
@@ -91,5 +97,83 @@ message Workload {
 
 message WorkloadListResponse {
   repeated Workload workloads = 1;
+}
+
+message ServiceInfo {
+  string name = 1;
+  string namespace = 2;
+  string type = 3;
+  string cluster_ip = 4;
+  repeated string external_ips = 5;
+  repeated string ports = 6;
+  string age = 7;
+}
+
+message ServiceListResponse {
+  repeated ServiceInfo services = 1;
+}
+
+message NamespaceInfo {
+  string name = 1;
+  string phase = 2;
+  string age = 3;
+}
+
+message NamespaceListResponse {
+  repeated NamespaceInfo namespaces = 1;
+}
+
+message PVCInfo {
+  string name = 1;
+  string namespace = 2;
+  string phase = 3;
+  string storage_class = 4;
+  repeated string access_modes = 5;
+  string requested_storage = 6;
+  string volume_name = 7;
+  string age = 8;
+}
+
+message PVCListResponse {
+  repeated PVCInfo pvcs = 1;
+}
+
+message PVInfo {
+  string name = 1;
+  string phase = 2;
+  string storage_class = 3;
+  string capacity = 4;
+  repeated string access_modes = 5;
+  string volume_mode = 6;
+  string claim_name = 7;
+  string claim_namespace = 8;
+  string age = 9;
+}
+
+message PVListResponse {
+  repeated PVInfo pvs = 1;
+}
+
+message NodeInfo {
+  string name = 1;
+  string internal_ip = 2;
+  string phase = 3;
+  string age = 4;
+}
+
+message NodeListResponse {
+  repeated NodeInfo nodes = 1;
+}
+
+message NetworkPolicyInfo {
+  string name = 1;
+  string namespace = 2;
+  repeated string policy_types = 3;
+  string pod_selector = 4;
+  string age = 5;
+}
+
+message NetworkPolicyListResponse {
+  repeated NetworkPolicyInfo networkPolicies = 1;
 }
 

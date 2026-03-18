@@ -12,17 +12,23 @@ import (
 
 type K8SServer struct {
 	pb.UnimplementedK8SInfoServer
-	PodService         *service.PodService
-	NodeService        *service.NodeService
-	EventService       *service.EventService
-	PodMetService      *service.PodMetService
-	NodeMetService     *service.NodeMetService
-	DeploymentService  *service.DeploymentService
-	ReplicaSetservice  *service.ReplicaSetService
-	DaemonSetService   *service.DaemonSetService
-	StatefulSetService *service.StatefulSetService
-	JobService         *service.JobService
-	CronJobService     *service.CronJobService
+	PodService           *service.PodService
+	NodeInfoService      *service.NodeInfoService
+	EventService         *service.EventService
+	PodMetService        *service.PodMetService
+	NodeMetService       *service.NodeMetService
+	DeploymentService    *service.DeploymentService
+	ReplicaSetservice    *service.ReplicaSetService
+	DaemonSetService     *service.DaemonSetService
+	StatefulSetService   *service.StatefulSetService
+	JobService           *service.JobService
+	CronJobService       *service.CronJobService
+	SVCService           *service.SVCService
+	NamespaceService     *service.NamespaceService
+	PVCService           *service.PVCService
+	PVService            *service.PVService
+	NodeService          *service.NodeService
+	NetworkPolicyService *service.NetworkPolicyService
 }
 
 func (s *K8SServer) ListPods(ctx context.Context, req *pb.NamespaceRequest) (*pb.PodListResponse, error) {
@@ -72,7 +78,7 @@ func (s *K8SServer) GetNodeStats(ctx context.Context, req *pb.NodeRequest) (*pb.
 			Inc()
 	}()
 
-	node, err := s.NodeService.GetNodeStats(ctx, req.NodeName)
+	node, err := s.NodeInfoService.GetNodeStats(ctx, req.NodeName)
 	if err != nil {
 		status = "error"
 		return nil, fmt.Errorf("failed to get node %s: %v", req.NodeName, err)
