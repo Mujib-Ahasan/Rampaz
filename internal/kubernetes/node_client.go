@@ -13,9 +13,7 @@ type NodeClient struct {
 }
 
 func NewNodeClient(clientset kubernetes.Interface) *NodeClient {
-	return &NodeClient{
-		clientset: clientset,
-	}
+	return &NodeClient{clientset: clientset}
 }
 
 func (c *NodeClient) ListNodes(ctx context.Context) ([]corev1.Node, error) {

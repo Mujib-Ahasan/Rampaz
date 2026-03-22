@@ -16,7 +16,7 @@ func NewServiceClient(client kubernetes.Interface) *ServiceClient {
 	return &ServiceClient{client: client}
 }
 
-func (c *ServiceClient) ListServices(ctx context.Context, namespace string) ([]corev1.Service, error) {
+func (c *ServiceClient) List(ctx context.Context, namespace string) ([]corev1.Service, error) {
 	list, err := c.client.CoreV1().Services(namespace).List(ctx, metav1.ListOptions{})
 	if err != nil {
 		return nil, err

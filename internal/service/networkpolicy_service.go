@@ -19,7 +19,7 @@ func NewNetworkPolicyService(client *kubernetes.NetworkPolicyClient) *NetworkPol
 }
 
 func (s *NetworkPolicyService) ListNetworkPolicies(ctx context.Context, namespace string) ([]*pb.NetworkPolicyInfo, error) {
-	policies, err := s.client.ListNetworkPolicies(ctx, namespace)
+	policies, err := s.client.List(ctx, namespace)
 	if err != nil {
 		return nil, err
 	}

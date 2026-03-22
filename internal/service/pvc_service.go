@@ -18,7 +18,7 @@ func NewPVCService(client *kubernetes.PVCClient) *PVCService {
 }
 
 func (c *PVCService) ListPVCs(ctx context.Context, namespace string) ([]*pb.PVCInfo, error) {
-	pvcs, err := c.client.ListPVCs(ctx, namespace)
+	pvcs, err := c.client.List(ctx, namespace)
 	if err != nil {
 		return nil, err
 	}

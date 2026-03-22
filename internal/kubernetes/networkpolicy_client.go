@@ -16,7 +16,7 @@ func NewNetworkPolicyClient(clientset kubernetes.Interface) *NetworkPolicyClient
 	return &NetworkPolicyClient{clientset: clientset}
 }
 
-func (c *NetworkPolicyClient) ListNetworkPolicies(ctx context.Context, namespace string) ([]networkingv1.NetworkPolicy, error) {
+func (c *NetworkPolicyClient) List(ctx context.Context, namespace string) ([]networkingv1.NetworkPolicy, error) {
 	policies, err := c.clientset.NetworkingV1().NetworkPolicies(namespace).List(ctx, metav1.ListOptions{})
 
 	if err != nil {

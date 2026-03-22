@@ -18,7 +18,7 @@ func NewSVCService(client *kubernetes.ServiceClient) *SVCService {
 	return &SVCService{client: client}
 }
 func (s *SVCService) ListServices(ctx context.Context, namespace string) ([]*pb.ServiceInfo, error) {
-	services, err := s.client.ListServices(ctx, namespace)
+	services, err := s.client.List(ctx, namespace)
 	if err != nil {
 		return nil, err
 	}

@@ -76,24 +76,37 @@ func main() {
 	networkPolicyClient := kubernetes.NewNetworkPolicyClient(clients.Kube)
 	networkPolicyservice := service.NewNetworkPolicyService(networkPolicyClient)
 
+	namespaceSummaryService := service.NewNamespaceSummaryService(
+		podClient,
+		deploymentClient,
+		replicaSetClient,
+		statefulSetClient,
+		daemonSetClient,
+		jobClient,
+		cronJobClient,
+		serviceClient,
+		pvcClient,
+		networkPolicyClient)
+
 	handler := &api.K8SServer{
-		PodService:           podService,
-		NodeInfoService:      nodeInfoService,
-		EventService:         eventService,
-		PodMetService:        podMetService,
-		NodeMetService:       nodeMetService,
-		DeploymentService:    deploymentService,
-		ReplicaSetservice:    replicaSetService,
-		DaemonSetService:     daemonSetService,
-		StatefulSetService:   statefulSetService,
-		JobService:           jobService,
-		CronJobService:       cronJobService,
-		SVCService:           svcService,
-		NamespaceService:     namespaceService,
-		PVCService:           pvcService,
-		PVService:            pvService,
-		NodeService:          nodeService,
-		NetworkPolicyService: networkPolicyservice,
+		PodService:              podService,
+		NodeInfoService:         nodeInfoService,
+		EventService:            eventService,
+		PodMetService:           podMetService,
+		NodeMetService:          nodeMetService,
+		DeploymentService:       deploymentService,
+		ReplicaSetservice:       replicaSetService,
+		DaemonSetService:        daemonSetService,
+		StatefulSetService:      statefulSetService,
+		JobService:              jobService,
+		CronJobService:          cronJobService,
+		SVCService:              svcService,
+		NamespaceService:        namespaceService,
+		PVCService:              pvcService,
+		PVService:               pvService,
+		NodeService:             nodeService,
+		NetworkPolicyService:    networkPolicyservice,
+		NamespaceSummaryService: namespaceSummaryService,
 	}
 
 	fmt.Printf("server is running on port: 50052 \n")
