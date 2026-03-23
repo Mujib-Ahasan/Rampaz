@@ -18,7 +18,7 @@ func NewNamespaceService(client *kubernetes.NamespaceClient) *NamespaceService {
 }
 
 func (c *NamespaceService) ListNamespaces(ctx context.Context) ([]*pb.NamespaceInfo, error) {
-	namespaces, err := c.client.ListNamespaces(ctx)
+	namespaces, err := c.client.List(ctx)
 	if err != nil {
 		return nil, err
 	}

@@ -16,7 +16,7 @@ func NewNamespaceClient(client kubernetes.Interface) *NamespaceClient {
 	return &NamespaceClient{client: client}
 }
 
-func (c *NamespaceClient) ListNamespaces(ctx context.Context) ([]corev1.Namespace, error) {
+func (c *NamespaceClient) List(ctx context.Context) ([]corev1.Namespace, error) {
 	list, err := c.client.CoreV1().Namespaces().List(ctx, metav1.ListOptions{})
 	if err != nil {
 		return nil, err

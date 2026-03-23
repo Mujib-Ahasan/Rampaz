@@ -16,7 +16,7 @@ func NewNodeClient(clientset kubernetes.Interface) *NodeClient {
 	return &NodeClient{clientset: clientset}
 }
 
-func (c *NodeClient) ListNodes(ctx context.Context) ([]corev1.Node, error) {
+func (c *NodeClient) List(ctx context.Context) ([]corev1.Node, error) {
 	nodes, err := c.clientset.CoreV1().Nodes().List(ctx, metav1.ListOptions{})
 	if err != nil {
 		return nil, err

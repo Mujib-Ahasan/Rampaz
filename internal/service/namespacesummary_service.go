@@ -19,9 +19,12 @@ type SummaryService struct {
 	serviceClient       *kubernetes.ServiceClient
 	pvcClinet           *kubernetes.PVCClient
 	networkPolicyClient *kubernetes.NetworkPolicyClient
+	nodesClient         *kubernetes.NodeClient
+	namespaceClient     *kubernetes.NamespaceClient
+	identityClient      *kubernetes.IdentityClient
 }
 
-func NewNamespaceSummaryService(
+func NewSummaryService(
 	podClient *kubernetes.PodClient,
 	deploymentClient *kubernetes.DeploymentClient,
 	replicaSetclient *kubernetes.ReplicaSetClient,
@@ -32,7 +35,9 @@ func NewNamespaceSummaryService(
 	serviceClient *kubernetes.ServiceClient,
 	pvcClinet *kubernetes.PVCClient,
 	networkPolicyClient *kubernetes.NetworkPolicyClient,
-
+	nodeclinet *kubernetes.NodeClient,
+	namespaceClient *kubernetes.NamespaceClient,
+	identityClient *kubernetes.IdentityClient,
 ) *SummaryService {
 	return &SummaryService{
 		podClient:           podClient,
@@ -45,6 +50,9 @@ func NewNamespaceSummaryService(
 		serviceClient:       serviceClient,
 		pvcClinet:           pvcClinet,
 		networkPolicyClient: networkPolicyClient,
+		nodesClient:         nodeclinet,
+		namespaceClient:     namespaceClient,
+		identityClient:      identityClient,
 	}
 
 }

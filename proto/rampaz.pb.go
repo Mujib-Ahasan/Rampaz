@@ -1558,6 +1558,170 @@ func (x *NamespaceSummaryResponse) GetNetworkPolicies() int32 {
 	return 0
 }
 
+type ClusterOverviewResponse struct {
+	state                  protoimpl.MessageState `protogen:"open.v1"`
+	Nodes                  int32                  `protobuf:"varint,1,opt,name=nodes,proto3" json:"nodes,omitempty"`
+	Namespaces             int32                  `protobuf:"varint,2,opt,name=namespaces,proto3" json:"namespaces,omitempty"`
+	Pods                   int32                  `protobuf:"varint,3,opt,name=pods,proto3" json:"pods,omitempty"`
+	Deployments            int32                  `protobuf:"varint,4,opt,name=deployments,proto3" json:"deployments,omitempty"`
+	Replicasets            int32                  `protobuf:"varint,5,opt,name=replicasets,proto3" json:"replicasets,omitempty"`
+	Statefulsets           int32                  `protobuf:"varint,6,opt,name=statefulsets,proto3" json:"statefulsets,omitempty"`
+	Daemonsets             int32                  `protobuf:"varint,7,opt,name=daemonsets,proto3" json:"daemonsets,omitempty"`
+	Jobs                   int32                  `protobuf:"varint,8,opt,name=jobs,proto3" json:"jobs,omitempty"`
+	Cronjobs               int32                  `protobuf:"varint,9,opt,name=cronjobs,proto3" json:"cronjobs,omitempty"`
+	Services               int32                  `protobuf:"varint,10,opt,name=services,proto3" json:"services,omitempty"`
+	PersistentVolumeClaims int32                  `protobuf:"varint,11,opt,name=persistent_volume_claims,json=persistentVolumeClaims,proto3" json:"persistent_volume_claims,omitempty"`
+	Ingresses              int32                  `protobuf:"varint,12,opt,name=ingresses,proto3" json:"ingresses,omitempty"`
+	Secrets                int32                  `protobuf:"varint,13,opt,name=secrets,proto3" json:"secrets,omitempty"`
+	Configmaps             int32                  `protobuf:"varint,14,opt,name=configmaps,proto3" json:"configmaps,omitempty"`
+	Serviceaccounts        int32                  `protobuf:"varint,15,opt,name=serviceaccounts,proto3" json:"serviceaccounts,omitempty"`
+	NetworkPolicies        int32                  `protobuf:"varint,16,opt,name=network_policies,json=networkPolicies,proto3" json:"network_policies,omitempty"`
+	unknownFields          protoimpl.UnknownFields
+	sizeCache              protoimpl.SizeCache
+}
+
+func (x *ClusterOverviewResponse) Reset() {
+	*x = ClusterOverviewResponse{}
+	mi := &file_rampaz_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ClusterOverviewResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ClusterOverviewResponse) ProtoMessage() {}
+
+func (x *ClusterOverviewResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_rampaz_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ClusterOverviewResponse.ProtoReflect.Descriptor instead.
+func (*ClusterOverviewResponse) Descriptor() ([]byte, []int) {
+	return file_rampaz_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *ClusterOverviewResponse) GetNodes() int32 {
+	if x != nil {
+		return x.Nodes
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetNamespaces() int32 {
+	if x != nil {
+		return x.Namespaces
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetPods() int32 {
+	if x != nil {
+		return x.Pods
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetDeployments() int32 {
+	if x != nil {
+		return x.Deployments
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetReplicasets() int32 {
+	if x != nil {
+		return x.Replicasets
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetStatefulsets() int32 {
+	if x != nil {
+		return x.Statefulsets
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetDaemonsets() int32 {
+	if x != nil {
+		return x.Daemonsets
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetJobs() int32 {
+	if x != nil {
+		return x.Jobs
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetCronjobs() int32 {
+	if x != nil {
+		return x.Cronjobs
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetServices() int32 {
+	if x != nil {
+		return x.Services
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetPersistentVolumeClaims() int32 {
+	if x != nil {
+		return x.PersistentVolumeClaims
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetIngresses() int32 {
+	if x != nil {
+		return x.Ingresses
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetSecrets() int32 {
+	if x != nil {
+		return x.Secrets
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetConfigmaps() int32 {
+	if x != nil {
+		return x.Configmaps
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetServiceaccounts() int32 {
+	if x != nil {
+		return x.Serviceaccounts
+	}
+	return 0
+}
+
+func (x *ClusterOverviewResponse) GetNetworkPolicies() int32 {
+	if x != nil {
+		return x.NetworkPolicies
+	}
+	return 0
+}
+
 var File_rampaz_proto protoreflect.FileDescriptor
 
 const file_rampaz_proto_rawDesc = "" +
@@ -1690,7 +1854,31 @@ const file_rampaz_proto_rawDesc = "" +
 	"\bservices\x18\t \x01(\x05R\bservices\x128\n" +
 	"\x18persistent_volume_claims\x18\n" +
 	" \x01(\x05R\x16persistentVolumeClaims\x12)\n" +
-	"\x10network_policies\x18\v \x01(\x05R\x0fnetworkPolicies2\x9a\n" +
+	"\x10network_policies\x18\v \x01(\x05R\x0fnetworkPolicies\"\x9e\x04\n" +
+	"\x17ClusterOverviewResponse\x12\x14\n" +
+	"\x05nodes\x18\x01 \x01(\x05R\x05nodes\x12\x1e\n" +
+	"\n" +
+	"namespaces\x18\x02 \x01(\x05R\n" +
+	"namespaces\x12\x12\n" +
+	"\x04pods\x18\x03 \x01(\x05R\x04pods\x12 \n" +
+	"\vdeployments\x18\x04 \x01(\x05R\vdeployments\x12 \n" +
+	"\vreplicasets\x18\x05 \x01(\x05R\vreplicasets\x12\"\n" +
+	"\fstatefulsets\x18\x06 \x01(\x05R\fstatefulsets\x12\x1e\n" +
+	"\n" +
+	"daemonsets\x18\a \x01(\x05R\n" +
+	"daemonsets\x12\x12\n" +
+	"\x04jobs\x18\b \x01(\x05R\x04jobs\x12\x1a\n" +
+	"\bcronjobs\x18\t \x01(\x05R\bcronjobs\x12\x1a\n" +
+	"\bservices\x18\n" +
+	" \x01(\x05R\bservices\x128\n" +
+	"\x18persistent_volume_claims\x18\v \x01(\x05R\x16persistentVolumeClaims\x12\x1c\n" +
+	"\tingresses\x18\f \x01(\x05R\tingresses\x12\x18\n" +
+	"\asecrets\x18\r \x01(\x05R\asecrets\x12\x1e\n" +
+	"\n" +
+	"configmaps\x18\x0e \x01(\x05R\n" +
+	"configmaps\x12(\n" +
+	"\x0fserviceaccounts\x18\x0f \x01(\x05R\x0fserviceaccounts\x12)\n" +
+	"\x10network_policies\x18\x10 \x01(\x05R\x0fnetworkPolicies2\xea\n" +
 	"\n" +
 	"\aK8sInfo\x12?\n" +
 	"\bListPods\x12\x19.k8sinfo.NamespaceRequest\x1a\x18.k8sinfo.PodListResponse\x12@\n" +
@@ -1710,7 +1898,8 @@ const file_rampaz_proto_rawDesc = "" +
 	"\aListPVs\x12\x16.google.protobuf.Empty\x1a\x17.k8sinfo.PVListResponse\x12>\n" +
 	"\tListNodes\x12\x16.google.protobuf.Empty\x1a\x19.k8sinfo.NodeListResponse\x12T\n" +
 	"\x13ListNetworkPolicies\x12\x19.k8sinfo.NamespaceRequest\x1a\".k8sinfo.NetworkPolicyListResponse\x12S\n" +
-	"\x13GetNamespaceSummary\x12\x19.k8sinfo.NamespaceRequest\x1a!.k8sinfo.NamespaceSummaryResponseB&Z$github.com/Mujib-Ahasan/Rampaz/protob\x06proto3"
+	"\x13GetNamespaceSummary\x12\x19.k8sinfo.NamespaceRequest\x1a!.k8sinfo.NamespaceSummaryResponse\x12N\n" +
+	"\x12GetClusterOverview\x12\x16.google.protobuf.Empty\x1a .k8sinfo.ClusterOverviewResponseB&Z$github.com/Mujib-Ahasan/Rampaz/protob\x06proto3"
 
 var (
 	file_rampaz_proto_rawDescOnce sync.Once
@@ -1724,7 +1913,7 @@ func file_rampaz_proto_rawDescGZIP() []byte {
 	return file_rampaz_proto_rawDescData
 }
 
-var file_rampaz_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
+var file_rampaz_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
 var file_rampaz_proto_goTypes = []any{
 	(*NamespaceRequest)(nil),          // 0: k8sinfo.NamespaceRequest
 	(*PodRequest)(nil),                // 1: k8sinfo.PodRequest
@@ -1749,12 +1938,13 @@ var file_rampaz_proto_goTypes = []any{
 	(*NetworkPolicyInfo)(nil),         // 20: k8sinfo.NetworkPolicyInfo
 	(*NetworkPolicyListResponse)(nil), // 21: k8sinfo.NetworkPolicyListResponse
 	(*NamespaceSummaryResponse)(nil),  // 22: k8sinfo.NamespaceSummaryResponse
-	nil,                               // 23: k8sinfo.Workload.LabelsEntry
-	(*emptypb.Empty)(nil),             // 24: google.protobuf.Empty
+	(*ClusterOverviewResponse)(nil),   // 23: k8sinfo.ClusterOverviewResponse
+	nil,                               // 24: k8sinfo.Workload.LabelsEntry
+	(*emptypb.Empty)(nil),             // 25: google.protobuf.Empty
 }
 var file_rampaz_proto_depIdxs = []int32{
 	3,  // 0: k8sinfo.PodListResponse.pods:type_name -> k8sinfo.Pod
-	23, // 1: k8sinfo.Workload.labels:type_name -> k8sinfo.Workload.LabelsEntry
+	24, // 1: k8sinfo.Workload.labels:type_name -> k8sinfo.Workload.LabelsEntry
 	8,  // 2: k8sinfo.WorkloadListResponse.workloads:type_name -> k8sinfo.Workload
 	10, // 3: k8sinfo.ServiceListResponse.services:type_name -> k8sinfo.ServiceInfo
 	12, // 4: k8sinfo.NamespaceListResponse.namespaces:type_name -> k8sinfo.NamespaceInfo
@@ -1766,7 +1956,7 @@ var file_rampaz_proto_depIdxs = []int32{
 	5,  // 10: k8sinfo.K8sInfo.GetNodeStats:input_type -> k8sinfo.NodeRequest
 	1,  // 11: k8sinfo.K8sInfo.GetPodStats:input_type -> k8sinfo.PodRequest
 	5,  // 12: k8sinfo.K8sInfo.GetNodeRealTimeStats:input_type -> k8sinfo.NodeRequest
-	24, // 13: k8sinfo.K8sInfo.StreamEvents:input_type -> google.protobuf.Empty
+	25, // 13: k8sinfo.K8sInfo.StreamEvents:input_type -> google.protobuf.Empty
 	0,  // 14: k8sinfo.K8sInfo.ListDeployments:input_type -> k8sinfo.NamespaceRequest
 	0,  // 15: k8sinfo.K8sInfo.ListReplicaSets:input_type -> k8sinfo.NamespaceRequest
 	0,  // 16: k8sinfo.K8sInfo.ListStatefulSets:input_type -> k8sinfo.NamespaceRequest
@@ -1774,32 +1964,34 @@ var file_rampaz_proto_depIdxs = []int32{
 	0,  // 18: k8sinfo.K8sInfo.ListJobs:input_type -> k8sinfo.NamespaceRequest
 	0,  // 19: k8sinfo.K8sInfo.ListCronJobs:input_type -> k8sinfo.NamespaceRequest
 	0,  // 20: k8sinfo.K8sInfo.ListServices:input_type -> k8sinfo.NamespaceRequest
-	24, // 21: k8sinfo.K8sInfo.ListNamespaces:input_type -> google.protobuf.Empty
+	25, // 21: k8sinfo.K8sInfo.ListNamespaces:input_type -> google.protobuf.Empty
 	0,  // 22: k8sinfo.K8sInfo.ListPVCs:input_type -> k8sinfo.NamespaceRequest
-	24, // 23: k8sinfo.K8sInfo.ListPVs:input_type -> google.protobuf.Empty
-	24, // 24: k8sinfo.K8sInfo.ListNodes:input_type -> google.protobuf.Empty
+	25, // 23: k8sinfo.K8sInfo.ListPVs:input_type -> google.protobuf.Empty
+	25, // 24: k8sinfo.K8sInfo.ListNodes:input_type -> google.protobuf.Empty
 	0,  // 25: k8sinfo.K8sInfo.ListNetworkPolicies:input_type -> k8sinfo.NamespaceRequest
 	0,  // 26: k8sinfo.K8sInfo.GetNamespaceSummary:input_type -> k8sinfo.NamespaceRequest
-	4,  // 27: k8sinfo.K8sInfo.ListPods:output_type -> k8sinfo.PodListResponse
-	6,  // 28: k8sinfo.K8sInfo.GetNodeStats:output_type -> k8sinfo.NodeStatsResponse
-	2,  // 29: k8sinfo.K8sInfo.GetPodStats:output_type -> k8sinfo.PodStatsResponse
-	6,  // 30: k8sinfo.K8sInfo.GetNodeRealTimeStats:output_type -> k8sinfo.NodeStatsResponse
-	7,  // 31: k8sinfo.K8sInfo.StreamEvents:output_type -> k8sinfo.EventResponse
-	9,  // 32: k8sinfo.K8sInfo.ListDeployments:output_type -> k8sinfo.WorkloadListResponse
-	9,  // 33: k8sinfo.K8sInfo.ListReplicaSets:output_type -> k8sinfo.WorkloadListResponse
-	9,  // 34: k8sinfo.K8sInfo.ListStatefulSets:output_type -> k8sinfo.WorkloadListResponse
-	9,  // 35: k8sinfo.K8sInfo.ListDaemonSets:output_type -> k8sinfo.WorkloadListResponse
-	9,  // 36: k8sinfo.K8sInfo.ListJobs:output_type -> k8sinfo.WorkloadListResponse
-	9,  // 37: k8sinfo.K8sInfo.ListCronJobs:output_type -> k8sinfo.WorkloadListResponse
-	11, // 38: k8sinfo.K8sInfo.ListServices:output_type -> k8sinfo.ServiceListResponse
-	13, // 39: k8sinfo.K8sInfo.ListNamespaces:output_type -> k8sinfo.NamespaceListResponse
-	15, // 40: k8sinfo.K8sInfo.ListPVCs:output_type -> k8sinfo.PVCListResponse
-	17, // 41: k8sinfo.K8sInfo.ListPVs:output_type -> k8sinfo.PVListResponse
-	19, // 42: k8sinfo.K8sInfo.ListNodes:output_type -> k8sinfo.NodeListResponse
-	21, // 43: k8sinfo.K8sInfo.ListNetworkPolicies:output_type -> k8sinfo.NetworkPolicyListResponse
-	22, // 44: k8sinfo.K8sInfo.GetNamespaceSummary:output_type -> k8sinfo.NamespaceSummaryResponse
-	27, // [27:45] is the sub-list for method output_type
-	9,  // [9:27] is the sub-list for method input_type
+	25, // 27: k8sinfo.K8sInfo.GetClusterOverview:input_type -> google.protobuf.Empty
+	4,  // 28: k8sinfo.K8sInfo.ListPods:output_type -> k8sinfo.PodListResponse
+	6,  // 29: k8sinfo.K8sInfo.GetNodeStats:output_type -> k8sinfo.NodeStatsResponse
+	2,  // 30: k8sinfo.K8sInfo.GetPodStats:output_type -> k8sinfo.PodStatsResponse
+	6,  // 31: k8sinfo.K8sInfo.GetNodeRealTimeStats:output_type -> k8sinfo.NodeStatsResponse
+	7,  // 32: k8sinfo.K8sInfo.StreamEvents:output_type -> k8sinfo.EventResponse
+	9,  // 33: k8sinfo.K8sInfo.ListDeployments:output_type -> k8sinfo.WorkloadListResponse
+	9,  // 34: k8sinfo.K8sInfo.ListReplicaSets:output_type -> k8sinfo.WorkloadListResponse
+	9,  // 35: k8sinfo.K8sInfo.ListStatefulSets:output_type -> k8sinfo.WorkloadListResponse
+	9,  // 36: k8sinfo.K8sInfo.ListDaemonSets:output_type -> k8sinfo.WorkloadListResponse
+	9,  // 37: k8sinfo.K8sInfo.ListJobs:output_type -> k8sinfo.WorkloadListResponse
+	9,  // 38: k8sinfo.K8sInfo.ListCronJobs:output_type -> k8sinfo.WorkloadListResponse
+	11, // 39: k8sinfo.K8sInfo.ListServices:output_type -> k8sinfo.ServiceListResponse
+	13, // 40: k8sinfo.K8sInfo.ListNamespaces:output_type -> k8sinfo.NamespaceListResponse
+	15, // 41: k8sinfo.K8sInfo.ListPVCs:output_type -> k8sinfo.PVCListResponse
+	17, // 42: k8sinfo.K8sInfo.ListPVs:output_type -> k8sinfo.PVListResponse
+	19, // 43: k8sinfo.K8sInfo.ListNodes:output_type -> k8sinfo.NodeListResponse
+	21, // 44: k8sinfo.K8sInfo.ListNetworkPolicies:output_type -> k8sinfo.NetworkPolicyListResponse
+	22, // 45: k8sinfo.K8sInfo.GetNamespaceSummary:output_type -> k8sinfo.NamespaceSummaryResponse
+	23, // 46: k8sinfo.K8sInfo.GetClusterOverview:output_type -> k8sinfo.ClusterOverviewResponse
+	28, // [28:47] is the sub-list for method output_type
+	9,  // [9:28] is the sub-list for method input_type
 	9,  // [9:9] is the sub-list for extension type_name
 	9,  // [9:9] is the sub-list for extension extendee
 	0,  // [0:9] is the sub-list for field type_name
@@ -1816,7 +2008,7 @@ func file_rampaz_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_rampaz_proto_rawDesc), len(file_rampaz_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   24,
+			NumMessages:   25,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

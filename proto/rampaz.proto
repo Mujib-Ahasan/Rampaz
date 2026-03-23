@@ -25,6 +25,7 @@ service K8sInfo {
   rpc ListNodes(google.protobuf.Empty) returns (NodeListResponse);
   rpc ListNetworkPolicies(NamespaceRequest) returns (NetworkPolicyListResponse);
   rpc GetNamespaceSummary(NamespaceRequest) returns (NamespaceSummaryResponse);
+  rpc GetClusterOverview(google.protobuf.Empty) returns (ClusterOverviewResponse);
 }
 
 message NamespaceRequest {
@@ -191,4 +192,27 @@ message NamespaceSummaryResponse {
   int32 services = 9;
   int32 persistent_volume_claims = 10;
   int32 network_policies = 11;
+}
+
+message ClusterOverviewResponse {
+  int32 nodes = 1;
+  int32 namespaces = 2;
+
+  int32 pods = 3;
+  int32 deployments = 4;
+  int32 replicasets = 5;
+  int32 statefulsets = 6;
+  int32 daemonsets = 7;
+  int32 jobs = 8;
+  int32 cronjobs = 9;
+
+  int32 services = 10;
+  int32 persistent_volume_claims = 11;
+
+  int32 ingresses = 12;
+  int32 secrets = 13;
+  int32 configmaps = 14;
+  int32 serviceaccounts = 15;
+
+  int32 network_policies = 16;
 }

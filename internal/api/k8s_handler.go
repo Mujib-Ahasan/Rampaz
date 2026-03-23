@@ -30,6 +30,7 @@ type K8SServer struct {
 	NodeService             *service.NodeService
 	NetworkPolicyService    *service.NetworkPolicyService
 	NamespaceSummaryService *service.SummaryService
+	ClusterOverviewService  *service.SummaryService
 }
 
 func (s *K8SServer) ListPods(ctx context.Context, req *pb.NamespaceRequest) (*pb.PodListResponse, error) {

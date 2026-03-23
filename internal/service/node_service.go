@@ -18,7 +18,7 @@ func NewNodeService(client *kubernetes.NodeClient) *NodeService {
 }
 
 func (s *NodeService) ListNodes(ctx context.Context) ([]*pb.NodeInfo, error) {
-	nodes, err := s.client.ListNodes(ctx)
+	nodes, err := s.client.List(ctx)
 	if err != nil {
 		return nil, err
 	}
