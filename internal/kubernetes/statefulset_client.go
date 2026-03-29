@@ -16,8 +16,8 @@ func NewStatefulSetClient(client kubernetes.Interface) *StatefulSetClient {
 	return &StatefulSetClient{client: client}
 }
 
-func (c *StatefulSetClient) List(ctx context.Context, namespace string) ([]appsv1.StatefulSet, error) {
-	list, err := c.client.AppsV1().StatefulSets(namespace).List(ctx, metav1.ListOptions{})
+func (c *StatefulSetClient) List(ctx context.Context, namespace, labelSelector string) ([]appsv1.StatefulSet, error) {
+	list, err := c.client.AppsV1().StatefulSets(namespace).List(ctx, metav1.ListOptions{LabelSelector: labelSelector})
 
 	if err != nil {
 		return nil, err

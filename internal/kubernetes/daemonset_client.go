@@ -16,8 +16,8 @@ func NewDaemonSetClient(client kubernetes.Interface) *DaemonSetClient {
 	return &DaemonSetClient{client: client}
 }
 
-func (c *DaemonSetClient) List(ctx context.Context, namespace string) ([]appsv1.DaemonSet, error) {
-	list, err := c.client.AppsV1().DaemonSets(namespace).List(ctx, metav1.ListOptions{})
+func (c *DaemonSetClient) List(ctx context.Context, namespace, labelSelector string) ([]appsv1.DaemonSet, error) {
+	list, err := c.client.AppsV1().DaemonSets(namespace).List(ctx, metav1.ListOptions{LabelSelector: labelSelector})
 
 	if err != nil {
 		return nil, err

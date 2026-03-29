@@ -26,10 +26,12 @@ service K8sInfo {
   rpc ListNetworkPolicies(NamespaceRequest) returns (NetworkPolicyListResponse);
   rpc GetNamespaceSummary(NamespaceRequest) returns (NamespaceSummaryResponse);
   rpc GetClusterOverview(google.protobuf.Empty) returns (ClusterOverviewResponse);
+  rpc GetWorkloadsByHealth(WorkloadHealthRequest) returns (WorkloadListResponse);
 }
 
 message NamespaceRequest {
   string namespace = 1;
+  string label_selector = 2;
 }
 
 message PodRequest {
@@ -71,6 +73,13 @@ message EventResponse {
   string involvedObject = 4;
 }
 
+enum HealthStatus {
+  HEALTH_STATUS_UNSPECIFIED = 0;
+  HEALTHY = 1;
+  DEGRADED = 2;
+  UNHEALTHY = 3;
+}
+
 message Workload {
   string name = 1;
   string namespace = 2;
@@ -95,6 +104,8 @@ message Workload {
   repeated string conditions = 13;
   string owner = 14;
   string age = 15;
+
+  HealthStatus health = 16;
 }
 
 message WorkloadListResponse {
@@ -216,3 +227,10 @@ message ClusterOverviewResponse {
 
   int32 network_policies = 16;
 }
+
+message WorkloadHealthRequest {
+  string namespace = 1;
+  string health = 2;
+}
+
+

@@ -16,8 +16,8 @@ func NewDeploymentClient(client kubernetes.Interface) *DeploymentClient {
 	return &DeploymentClient{client: client}
 }
 
-func (c *DeploymentClient) List(ctx context.Context, namespace string) ([]appsv1.Deployment, error) {
-	list, err := c.client.AppsV1().Deployments(namespace).List(ctx, metav1.ListOptions{})
+func (c *DeploymentClient) List(ctx context.Context, namespace, labelSelector string) ([]appsv1.Deployment, error) {
+	list, err := c.client.AppsV1().Deployments(namespace).List(ctx, metav1.ListOptions{LabelSelector: labelSelector})
 
 	if err != nil {
 		return nil, err

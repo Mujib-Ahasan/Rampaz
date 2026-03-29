@@ -12,32 +12,32 @@ func (s *SummaryService) GetClusterOverview(ctx context.Context) (*pb.ClusterOve
 		return nil, err
 	}
 
-	deployments, err := s.deploymentClient.List(ctx, "")
+	deployments, err := s.deploymentClient.List(ctx, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	replicasets, err := s.replicaSetclient.List(ctx, "")
+	replicasets, err := s.replicaSetclient.List(ctx, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	statefulsets, err := s.statefulStateClient.List(ctx, "")
+	statefulsets, err := s.statefulStateClient.List(ctx, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	daemonsets, err := s.daemonSetClient.List(ctx, "")
+	daemonsets, err := s.daemonSetClient.List(ctx, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	jobs, err := s.jobClient.List(ctx, "")
+	jobs, err := s.jobClient.List(ctx, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	cronjobs, err := s.cronJobClient.List(ctx, "")
+	cronjobs, err := s.cronJobClient.List(ctx, "", "")
 	if err != nil {
 		return nil, err
 	}

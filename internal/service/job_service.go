@@ -16,16 +16,19 @@ func NewJobService(client *kubernetes.JobClient) *JobService {
 	return &JobService{client: client}
 }
 
-func (s *JobService) List(ctx context.Context, namespace string) ([]*pb.Workload, error) {
-	jobs, err := s.client.List(ctx, namespace)
+func (s *JobService) List(ctx context.Context, namespace string, labelSelector string, health string) ([]*pb.Workload, error) {
+	jobs, err := s.client.List(ctx, namespace, labelSelector)
 	if err != nil {
 		return nil, err
 	}
 
 	var result []*pb.Workload
 
-	for _, job := range jobs {
-		result = append(result, transformJob(&job))
+	for _, j := range jobs {
+		w := transformJob(&j)
+		if w.Health.String() == health || health == "" {
+			result = append(result, w)
+		}
 	}
 
 	return result, nil
@@ -44,6 +47,7 @@ func transformJob(job *batchv1.Job) *pb.Workload {
 		Conditions: conditions,
 		Owner:      extractOwner(job.OwnerReferences),
 		Age:        calculateAge(job.CreationTimestamp.Time),
+		Health:     computeJobHealth(job),
 	}
 }
 

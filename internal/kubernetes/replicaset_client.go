@@ -16,8 +16,8 @@ func NewReplicaSetClient(client kubernetes.Interface) *ReplicaSetClient {
 	return &ReplicaSetClient{client: client}
 }
 
-func (c *ReplicaSetClient) List(ctx context.Context, namespace string) ([]appsv1.ReplicaSet, error) {
-	list, err := c.client.AppsV1().ReplicaSets(namespace).List(ctx, metav1.ListOptions{})
+func (c *ReplicaSetClient) List(ctx context.Context, namespace, labelSelector string) ([]appsv1.ReplicaSet, error) {
+	list, err := c.client.AppsV1().ReplicaSets(namespace).List(ctx, metav1.ListOptions{LabelSelector: labelSelector})
 
 	if err != nil {
 		return nil, err

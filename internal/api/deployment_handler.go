@@ -22,7 +22,7 @@ func (s *K8SServer) ListDeployments(ctx context.Context, req *pb.NamespaceReques
 			Inc()
 	}()
 
-	workloads, err := s.DeploymentService.ListDeployment(ctx, req.Namespace)
+	workloads, err := s.DeploymentService.List(ctx, req.Namespace, req.LabelSelector, "")
 	if err != nil {
 		status = "error"
 		return nil, err

@@ -16,8 +16,8 @@ func NewReplicaSetService(client *kubernetes.ReplicaSetClient) *ReplicaSetServic
 	return &ReplicaSetService{client: client}
 }
 
-func (s *ReplicaSetService) ListReplicaSet(ctx context.Context, namespace string) ([]*pb.Workload, error) {
-	replicaSets, err := s.client.List(ctx, namespace)
+func (s *ReplicaSetService) List(ctx context.Context, namespace string, labelSelector string, health string) ([]*pb.Workload, error) {
+	replicaSets, err := s.client.List(ctx, namespace, labelSelector)
 	if err != nil {
 		return nil, err
 	}
@@ -25,7 +25,10 @@ func (s *ReplicaSetService) ListReplicaSet(ctx context.Context, namespace string
 	var result []*pb.Workload
 
 	for _, rs := range replicaSets {
-		result = append(result, transformReplicaSet(&rs))
+		w := transformReplicaSet(&rs)
+		if w.Health.String() == health || health == "" {
+			result = append(result, w)
+		}
 	}
 
 	return result, nil
@@ -49,6 +52,7 @@ func transformReplicaSet(rs *appsv1.ReplicaSet) *pb.Workload {
 		Conditions:        conditions,
 		Owner:             extractOwner(rs.OwnerReferences),
 		Age:               calculateAge(rs.CreationTimestamp.Time),
+		Health:            computeReplicaSetHealth(rs),
 	}
 }
 

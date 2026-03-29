@@ -63,32 +63,32 @@ func (s *SummaryService) GetNamespaceSummary(ctx context.Context, namespace stri
 		return nil, err
 	}
 
-	deployments, err := s.deploymentClient.List(ctx, namespace)
+	deployments, err := s.deploymentClient.List(ctx, namespace, "")
 	if err != nil {
 		return nil, err
 	}
 
-	replicasets, err := s.replicaSetclient.List(ctx, namespace)
+	replicasets, err := s.replicaSetclient.List(ctx, namespace, "")
 	if err != nil {
 		return nil, err
 	}
 
-	statefulsets, err := s.statefulStateClient.List(ctx, namespace)
+	statefulsets, err := s.statefulStateClient.List(ctx, namespace, "")
 	if err != nil {
 		return nil, err
 	}
 
-	daemonsets, err := s.daemonSetClient.List(ctx, namespace)
+	daemonsets, err := s.daemonSetClient.List(ctx, namespace, "")
 	if err != nil {
 		return nil, err
 	}
 
-	jobs, err := s.jobClient.List(ctx, namespace)
+	jobs, err := s.jobClient.List(ctx, namespace, "")
 	if err != nil {
 		return nil, err
 	}
 
-	cronjobs, err := s.cronJobClient.List(ctx, namespace)
+	cronjobs, err := s.cronJobClient.List(ctx, namespace, "")
 	if err != nil {
 		return nil, err
 	}

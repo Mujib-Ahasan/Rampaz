@@ -16,8 +16,8 @@ func NewDaemonSetService(client *kubernetes.DaemonSetClient) *DaemonSetService {
 	return &DaemonSetService{client: client}
 }
 
-func (s *DaemonSetService) List(ctx context.Context, namespace string) ([]*pb.Workload, error) {
-	daemonSets, err := s.client.List(ctx, namespace)
+func (s *DaemonSetService) List(ctx context.Context, namespace string, labelSelector string, health string) ([]*pb.Workload, error) {
+	daemonSets, err := s.client.List(ctx, namespace, labelSelector)
 	if err != nil {
 		return nil, err
 	}
@@ -25,7 +25,10 @@ func (s *DaemonSetService) List(ctx context.Context, namespace string) ([]*pb.Wo
 	var result []*pb.Workload
 
 	for _, ds := range daemonSets {
-		result = append(result, transformDaemonSet(&ds))
+		w := transformDaemonSet(&ds)
+		if w.Health.String() == health || health == "" {
+			result = append(result, w)
+		}
 	}
 
 	return result, nil
@@ -45,6 +48,7 @@ func transformDaemonSet(ds *appsv1.DaemonSet) *pb.Workload {
 		Conditions:        conditions,
 		Owner:             extractOwner(ds.OwnerReferences),
 		Age:               calculateAge(ds.CreationTimestamp.Time),
+		Health:            computeDaemonSetHealth(ds),
 	}
 }
 

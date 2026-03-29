@@ -21,7 +21,7 @@ func (s *K8SServer) ListStatefulSets(ctx context.Context, req *pb.NamespaceReque
 			WithLabelValues(endpoint, status).
 			Inc()
 	}()
-	workloads, err := s.StatefulSetService.List(ctx, req.Namespace)
+	workloads, err := s.StatefulSetService.List(ctx, req.Namespace, req.LabelSelector, "")
 	if err != nil {
 		status = "error"
 		return nil, err

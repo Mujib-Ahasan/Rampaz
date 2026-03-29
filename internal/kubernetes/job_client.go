@@ -16,8 +16,8 @@ func NewJobClient(client kubernetes.Interface) *JobClient {
 	return &JobClient{client: client}
 }
 
-func (c *JobClient) List(ctx context.Context, namespace string) ([]batchv1.Job, error) {
-	list, err := c.client.BatchV1().Jobs(namespace).List(ctx, metav1.ListOptions{})
+func (c *JobClient) List(ctx context.Context, namespace, labelSelector string) ([]batchv1.Job, error) {
+	list, err := c.client.BatchV1().Jobs(namespace).List(ctx, metav1.ListOptions{LabelSelector: labelSelector})
 
 	if err != nil {
 		return nil, err

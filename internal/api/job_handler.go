@@ -21,7 +21,7 @@ func (s *K8SServer) ListJobs(ctx context.Context, req *pb.NamespaceRequest) (*pb
 			WithLabelValues(endpoint, status).
 			Inc()
 	}()
-	workloads, err := s.JobService.List(ctx, req.Namespace)
+	workloads, err := s.JobService.List(ctx, req.Namespace, req.LabelSelector, "")
 	if err != nil {
 		status = "error"
 		return nil, err

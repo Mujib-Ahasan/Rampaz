@@ -21,7 +21,7 @@ func (s *K8SServer) ListReplicaSets(ctx context.Context, req *pb.NamespaceReques
 			WithLabelValues(endpoint, status).
 			Inc()
 	}()
-	workloads, err := s.ReplicaSetservice.ListReplicaSet(ctx, req.Namespace)
+	workloads, err := s.ReplicaSetservice.List(ctx, req.Namespace, req.LabelSelector, "")
 	if err != nil {
 		status = "error"
 		return nil, err

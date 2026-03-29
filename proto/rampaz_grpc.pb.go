@@ -39,6 +39,7 @@ const (
 	K8SInfo_ListNetworkPolicies_FullMethodName  = "/k8sinfo.K8sInfo/ListNetworkPolicies"
 	K8SInfo_GetNamespaceSummary_FullMethodName  = "/k8sinfo.K8sInfo/GetNamespaceSummary"
 	K8SInfo_GetClusterOverview_FullMethodName   = "/k8sinfo.K8sInfo/GetClusterOverview"
+	K8SInfo_GetWorkloadsByHealth_FullMethodName = "/k8sinfo.K8sInfo/GetWorkloadsByHealth"
 )
 
 // K8SInfoClient is the client API for K8SInfo service.
@@ -64,6 +65,7 @@ type K8SInfoClient interface {
 	ListNetworkPolicies(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*NetworkPolicyListResponse, error)
 	GetNamespaceSummary(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*NamespaceSummaryResponse, error)
 	GetClusterOverview(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ClusterOverviewResponse, error)
+	GetWorkloadsByHealth(ctx context.Context, in *WorkloadHealthRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
 }
 
 type k8SInfoClient struct {
@@ -291,6 +293,16 @@ func (c *k8SInfoClient) GetClusterOverview(ctx context.Context, in *emptypb.Empt
 	return out, nil
 }
 
+func (c *k8SInfoClient) GetWorkloadsByHealth(ctx context.Context, in *WorkloadHealthRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(WorkloadListResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_GetWorkloadsByHealth_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // K8SInfoServer is the server API for K8SInfo service.
 // All implementations must embed UnimplementedK8SInfoServer
 // for forward compatibility.
@@ -314,6 +326,7 @@ type K8SInfoServer interface {
 	ListNetworkPolicies(context.Context, *NamespaceRequest) (*NetworkPolicyListResponse, error)
 	GetNamespaceSummary(context.Context, *NamespaceRequest) (*NamespaceSummaryResponse, error)
 	GetClusterOverview(context.Context, *emptypb.Empty) (*ClusterOverviewResponse, error)
+	GetWorkloadsByHealth(context.Context, *WorkloadHealthRequest) (*WorkloadListResponse, error)
 	mustEmbedUnimplementedK8SInfoServer()
 }
 
@@ -380,6 +393,9 @@ func (UnimplementedK8SInfoServer) GetNamespaceSummary(context.Context, *Namespac
 }
 func (UnimplementedK8SInfoServer) GetClusterOverview(context.Context, *emptypb.Empty) (*ClusterOverviewResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetClusterOverview not implemented")
+}
+func (UnimplementedK8SInfoServer) GetWorkloadsByHealth(context.Context, *WorkloadHealthRequest) (*WorkloadListResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetWorkloadsByHealth not implemented")
 }
 func (UnimplementedK8SInfoServer) mustEmbedUnimplementedK8SInfoServer() {}
 func (UnimplementedK8SInfoServer) testEmbeddedByValue()                 {}
@@ -723,6 +739,24 @@ func _K8SInfo_GetClusterOverview_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _K8SInfo_GetWorkloadsByHealth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WorkloadHealthRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).GetWorkloadsByHealth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_GetWorkloadsByHealth_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).GetWorkloadsByHealth(ctx, req.(*WorkloadHealthRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // K8SInfo_ServiceDesc is the grpc.ServiceDesc for K8SInfo service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -793,6 +827,10 @@ var K8SInfo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetClusterOverview",
 			Handler:    _K8SInfo_GetClusterOverview_Handler,
+		},
+		{
+			MethodName: "GetWorkloadsByHealth",
+			Handler:    _K8SInfo_GetWorkloadsByHealth_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

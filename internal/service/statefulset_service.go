@@ -16,8 +16,8 @@ func NewStatefulSetService(client *kubernetes.StatefulSetClient) *StatefulSetSer
 	return &StatefulSetService{client: client}
 }
 
-func (s *StatefulSetService) List(ctx context.Context, namespace string) ([]*pb.Workload, error) {
-	statefulSets, err := s.client.List(ctx, namespace)
+func (s *StatefulSetService) List(ctx context.Context, namespace string, labelSelector string, health string) ([]*pb.Workload, error) {
+	statefulSets, err := s.client.List(ctx, namespace, labelSelector)
 	if err != nil {
 		return nil, err
 	}
@@ -25,7 +25,10 @@ func (s *StatefulSetService) List(ctx context.Context, namespace string) ([]*pb.
 	var result []*pb.Workload
 
 	for _, ss := range statefulSets {
-		result = append(result, transformStatefulSet(&ss))
+		w := transformStatefulSet(&ss)
+		if w.Health.String() == health || health == "" {
+			result = append(result, w)
+		}
 	}
 
 	return result, nil
@@ -50,6 +53,7 @@ func transformStatefulSet(ss *appsv1.StatefulSet) *pb.Workload {
 		Conditions:        conditions,
 		Owner:             extractOwner(ss.OwnerReferences),
 		Age:               calculateAge(ss.CreationTimestamp.Time),
+		Health:            computeStatefulSetHealth(ss),
 	}
 }
 

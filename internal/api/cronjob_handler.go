@@ -21,7 +21,7 @@ func (s *K8SServer) ListCronJobs(ctx context.Context, req *pb.NamespaceRequest) 
 			WithLabelValues(endpoint, status).
 			Inc()
 	}()
-	workloads, err := s.CronJobService.List(ctx, req.Namespace)
+	workloads, err := s.CronJobService.List(ctx, req.Namespace, req.LabelSelector, "")
 	if err != nil {
 		status = "error"
 		return nil, err

@@ -90,7 +90,8 @@ func main() {
 		pvcClient,
 		networkPolicyClient, nil, nil, nil)
 
-	clusterOverviewService := service.NewSummaryService(podClient,
+	clusterOverviewService := service.NewSummaryService(
+		podClient,
 		deploymentClient,
 		replicaSetClient,
 		statefulSetClient,
@@ -104,6 +105,14 @@ func main() {
 		nameSpaceClient,
 		identityClient,
 	)
+
+	workloadService := service.NewWorkLoadService(
+		deploymentService,
+		replicaSetService,
+		statefulSetService,
+		daemonSetService,
+		jobService,
+		cronJobService)
 
 	handler := &api.K8SServer{
 		PodService:              podService,
@@ -125,6 +134,7 @@ func main() {
 		NetworkPolicyService:    networkPolicyservice,
 		NamespaceSummaryService: namespaceSummaryService,
 		ClusterOverviewService:  clusterOverviewService,
+		WorkloadService:         workloadService,
 	}
 
 	fmt.Printf("server is running on port: 50052 \n")
