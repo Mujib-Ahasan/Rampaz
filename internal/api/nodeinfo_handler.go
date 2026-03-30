@@ -1,16 +1,20 @@
 package api
 
 import (
+	"fmt"
+
 	"github.com/Mujib-Ahasan/Rampaz/internal/metrics"
 
 	pb "github.com/Mujib-Ahasan/Rampaz/proto"
 	"github.com/prometheus/client_golang/prometheus"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 func (s *K8SServer) GetNodeRealTimeStats(req *pb.NodeRequest, stream grpc.ServerStreamingServer[pb.NodeStatsResponse]) error {
 	endpoint := "get_node_realtime_stats"
-	status := "success"
+	statusLabel := "success"
 
 	timer := prometheus.NewTimer(
 		metrics.RequestLatency.WithLabelValues(endpoint),
@@ -26,9 +30,20 @@ func (s *K8SServer) GetNodeRealTimeStats(req *pb.NodeRequest, stream grpc.Server
 	defer func() {
 		timer.ObserveDuration()
 		metrics.APIRequests.
-			WithLabelValues(endpoint, status).
+			WithLabelValues(endpoint, statusLabel).
 			Inc()
 	}()
+
+	if req == nil {
+		statusLabel = "error"
+		return status.Error(codes.InvalidArgument, "node stats request cannot be nil")
+	}
+
+	if req.NodeName == "" {
+		statusLabel = "error"
+		return status.Error(codes.InvalidArgument, "node name is required")
+	}
+
 	sendWithMetrics := func(resp *pb.NodeStatsResponse) error {
 		err := stream.Send(resp)
 		if err == nil {
@@ -46,8 +61,10 @@ func (s *K8SServer) GetNodeRealTimeStats(req *pb.NodeRequest, stream grpc.Server
 	)
 
 	if err != nil {
-		status = "error"
-		return err
+		statusLabel = "error"
+		s.Logger.Error("node realtime stats stream failed", "node", req.NodeName, "err", err)
+		return errorHelper(err, fmt.Sprintf("node realtime stats stream for node %q", req.NodeName))
+
 	}
 
 	return nil

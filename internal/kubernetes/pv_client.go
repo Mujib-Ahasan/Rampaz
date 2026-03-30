@@ -2,6 +2,7 @@ package kubernetes
 
 import (
 	"context"
+	"fmt"
 
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -21,7 +22,7 @@ func NewPVClient(clientset kubernetes.Interface) *PVClient {
 func (c *PVClient) ListPVs(ctx context.Context) ([]corev1.PersistentVolume, error) {
 	pvs, err := c.clientset.CoreV1().PersistentVolumes().List(ctx, metav1.ListOptions{})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("list persistentvolumes: %w", err)
 	}
 
 	return pvs.Items, nil

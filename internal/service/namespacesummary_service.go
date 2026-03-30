@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Mujib-Ahasan/Rampaz/internal/kubernetes"
 
@@ -60,52 +61,52 @@ func NewSummaryService(
 func (s *SummaryService) GetNamespaceSummary(ctx context.Context, namespace string) (*pb.NamespaceSummaryResponse, error) {
 	pods, err := s.podClient.ListPods(ctx, namespace)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch pods data for namespacesummary response: %w", err)
 	}
 
 	deployments, err := s.deploymentClient.List(ctx, namespace, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch deployments data for namespacesummary response: %w", err)
 	}
 
 	replicasets, err := s.replicaSetclient.List(ctx, namespace, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch replicasets data for namespacesummary response: %w", err)
 	}
 
 	statefulsets, err := s.statefulStateClient.List(ctx, namespace, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch statefulsets data for namespacesummary response: %w", err)
 	}
 
 	daemonsets, err := s.daemonSetClient.List(ctx, namespace, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch daemonsets data for namespacesummary response: %w", err)
 	}
 
 	jobs, err := s.jobClient.List(ctx, namespace, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch jobs data for namespacesummary response: %w", err)
 	}
 
 	cronjobs, err := s.cronJobClient.List(ctx, namespace, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch cronjobs data for namespacesummary response: %w", err)
 	}
 
 	svcs, err := s.serviceClient.List(ctx, namespace)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch services data for namespacesummary response: %w", err)
 	}
 
 	pvcs, err := s.pvcClinet.List(ctx, namespace)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch pvcs data for namespacesummary response: %w", err)
 	}
 
 	nps, err := s.networkPolicyClient.List(ctx, namespace)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch networkpolicies data for namespacesummary response: %w", err)
 	}
 
 	return &pb.NamespaceSummaryResponse{

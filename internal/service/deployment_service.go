@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/Mujib-Ahasan/Rampaz/internal/kubernetes"
@@ -21,7 +22,7 @@ func NewDeploymentService(client *kubernetes.DeploymentClient) *DeploymentServic
 func (s *DeploymentService) List(ctx context.Context, namespace string, labelSelector string, health string) ([]*pb.Workload, error) {
 	deployments, err := s.client.List(ctx, namespace, labelSelector)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch deployment data for workload response: %w", err)
 	}
 
 	var result []*pb.Workload

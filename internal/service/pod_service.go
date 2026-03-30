@@ -2,9 +2,10 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Mujib-Ahasan/Rampaz/internal/kubernetes"
-	corev1 "k8s.io/api/core/v1"
+	pb "github.com/Mujib-Ahasan/Rampaz/proto"
 )
 
 type PodService struct {
@@ -15,6 +16,23 @@ func NewPodService(pc *kubernetes.PodClient) *PodService {
 	return &PodService{podClient: pc}
 }
 
-func (s *PodService) ListPods(ctx context.Context, namespace string) (*corev1.PodList, error) {
-	return s.podClient.ListPods(ctx, namespace)
+func (s *PodService) ListPods(ctx context.Context, namespace string) (*pb.PodListResponse, error) {
+	pods, err := s.podClient.ListPods(ctx, namespace)
+	if err != nil {
+		return nil, fmt.Errorf("fetch pod data for podlistresponse: %w", err)
+	}
+
+	var result []*pb.Pod
+
+	for _, pod := range pods.Items {
+		result = append(result, &pb.Pod{
+			Name:      pod.Name,
+			Namespace: pod.Namespace,
+			NodeName:  pod.Spec.NodeName,
+			Status:    string(pod.Status.Phase),
+		})
+	}
+
+	return &pb.PodListResponse{Pods: result}, nil
+
 }

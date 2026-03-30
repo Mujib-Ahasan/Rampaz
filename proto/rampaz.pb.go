@@ -2008,13 +2008,13 @@ const file_rampaz_proto_rawDesc = "" +
 	"\x19HEALTH_STATUS_UNSPECIFIED\x10\x00\x12\v\n" +
 	"\aHEALTHY\x10\x01\x12\f\n" +
 	"\bDEGRADED\x10\x02\x12\r\n" +
-	"\tUNHEALTHY\x10\x032\xc1\v\n" +
+	"\tUNHEALTHY\x10\x032\xc4\v\n" +
 	"\aK8sInfo\x12?\n" +
 	"\bListPods\x12\x19.k8sinfo.NamespaceRequest\x1a\x18.k8sinfo.PodListResponse\x12@\n" +
 	"\fGetNodeStats\x12\x14.k8sinfo.NodeRequest\x1a\x1a.k8sinfo.NodeStatsResponse\x12?\n" +
 	"\vGetPodStats\x12\x13.k8sinfo.PodRequest\x1a\x19.k8sinfo.PodStatsResponse0\x01\x12J\n" +
-	"\x14GetNodeRealTimeStats\x12\x14.k8sinfo.NodeRequest\x1a\x1a.k8sinfo.NodeStatsResponse0\x01\x12@\n" +
-	"\fStreamEvents\x12\x16.google.protobuf.Empty\x1a\x16.k8sinfo.EventResponse0\x01\x12K\n" +
+	"\x14GetNodeRealTimeStats\x12\x14.k8sinfo.NodeRequest\x1a\x1a.k8sinfo.NodeStatsResponse0\x01\x12C\n" +
+	"\fStreamEvents\x12\x19.k8sinfo.NamespaceRequest\x1a\x16.k8sinfo.EventResponse0\x01\x12K\n" +
 	"\x0fListDeployments\x12\x19.k8sinfo.NamespaceRequest\x1a\x1d.k8sinfo.WorkloadListResponse\x12K\n" +
 	"\x0fListReplicaSets\x12\x19.k8sinfo.NamespaceRequest\x1a\x1d.k8sinfo.WorkloadListResponse\x12L\n" +
 	"\x10ListStatefulSets\x12\x19.k8sinfo.NamespaceRequest\x1a\x1d.k8sinfo.WorkloadListResponse\x12J\n" +
@@ -2090,7 +2090,7 @@ var file_rampaz_proto_depIdxs = []int32{
 	6,  // 11: k8sinfo.K8sInfo.GetNodeStats:input_type -> k8sinfo.NodeRequest
 	2,  // 12: k8sinfo.K8sInfo.GetPodStats:input_type -> k8sinfo.PodRequest
 	6,  // 13: k8sinfo.K8sInfo.GetNodeRealTimeStats:input_type -> k8sinfo.NodeRequest
-	27, // 14: k8sinfo.K8sInfo.StreamEvents:input_type -> google.protobuf.Empty
+	1,  // 14: k8sinfo.K8sInfo.StreamEvents:input_type -> k8sinfo.NamespaceRequest
 	1,  // 15: k8sinfo.K8sInfo.ListDeployments:input_type -> k8sinfo.NamespaceRequest
 	1,  // 16: k8sinfo.K8sInfo.ListReplicaSets:input_type -> k8sinfo.NamespaceRequest
 	1,  // 17: k8sinfo.K8sInfo.ListStatefulSets:input_type -> k8sinfo.NamespaceRequest

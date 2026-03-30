@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Mujib-Ahasan/Rampaz/internal/kubernetes"
 	pb "github.com/Mujib-Ahasan/Rampaz/proto"
@@ -19,7 +20,7 @@ func NewStatefulSetService(client *kubernetes.StatefulSetClient) *StatefulSetSer
 func (s *StatefulSetService) List(ctx context.Context, namespace string, labelSelector string, health string) ([]*pb.Workload, error) {
 	statefulSets, err := s.client.List(ctx, namespace, labelSelector)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch statefulsets data for workload response: %w", err)
 	}
 
 	var result []*pb.Workload

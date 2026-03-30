@@ -10,25 +10,27 @@ import (
 )
 
 func (s *K8SServer) ListNamespaces(ctx context.Context, _ *emptypb.Empty) (*pb.NamespaceListResponse, error) {
-
 	endpoint := "list_namespaces"
-	status := "success"
+	statusLabel := "success"
+
 	timer := prometheus.NewTimer(
 		metrics.RequestLatency.WithLabelValues(endpoint),
 	)
+
 	defer func() {
 		timer.ObserveDuration()
 		metrics.APIRequests.
-			WithLabelValues(endpoint, status).
+			WithLabelValues(endpoint, statusLabel).
 			Inc()
 	}()
-	namespaces, err := s.NamespaceService.ListNamespaces(ctx)
+
+	resp, err := s.NamespaceService.ListNamespaces(ctx)
 	if err != nil {
-		status = "error"
-		return nil, err
+		statusLabel = "error"
+		s.Logger.Error("list namespaces failed", "err", err)
+		return nil, errorHelper(err, "namespace list")
+
 	}
 
-	return &pb.NamespaceListResponse{
-		Namespaces: namespaces,
-	}, nil
+	return &pb.NamespaceListResponse{Namespaces: resp}, nil
 }

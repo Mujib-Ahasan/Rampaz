@@ -20,7 +20,7 @@ func NewPodMetService(client *kubernetes.PodMetricsClient) *PodMetService {
 func (s *PodMetService) StreamPodStats(ctx context.Context, namespace string, send func(*pb.PodStatsResponse) error) error {
 
 	if namespace == "" {
-		return fmt.Errorf("namespace cannot be empty")
+		return fmt.Errorf("pod metrics stream: namespace is required")
 	}
 
 	ticker := time.NewTicker(30 * time.Second)
@@ -34,7 +34,7 @@ func (s *PodMetService) StreamPodStats(ctx context.Context, namespace string, se
 		case <-ticker.C:
 			metricsList, err := s.client.GetPodMetrics(ctx, namespace)
 			if err != nil {
-				return fmt.Errorf("failed to fetch pod metrics: %v", err)
+				return fmt.Errorf("pod metrics stream: fetch pod metrics for podstatsresponse: %w", err)
 			}
 
 			for _, m := range metricsList.Items {
@@ -56,7 +56,7 @@ func (s *PodMetService) StreamPodStats(ctx context.Context, namespace string, se
 				}
 
 				if err := send(resp); err != nil {
-					return err
+					return fmt.Errorf("pod metrics stream: send response for pod %q in namespace %q: %w", m.Name, m.Namespace, err)
 				}
 			}
 		}

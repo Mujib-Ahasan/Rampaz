@@ -20,7 +20,7 @@ func NewSVCService(client *kubernetes.ServiceClient) *SVCService {
 func (s *SVCService) ListServices(ctx context.Context, namespace string) ([]*pb.ServiceInfo, error) {
 	services, err := s.client.List(ctx, namespace)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch service data for service-info response: %w", err)
 	}
 
 	var result []*pb.ServiceInfo

@@ -50,7 +50,7 @@ type K8SInfoClient interface {
 	GetNodeStats(ctx context.Context, in *NodeRequest, opts ...grpc.CallOption) (*NodeStatsResponse, error)
 	GetPodStats(ctx context.Context, in *PodRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[PodStatsResponse], error)
 	GetNodeRealTimeStats(ctx context.Context, in *NodeRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[NodeStatsResponse], error)
-	StreamEvents(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[EventResponse], error)
+	StreamEvents(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[EventResponse], error)
 	ListDeployments(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
 	ListReplicaSets(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
 	ListStatefulSets(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
@@ -134,13 +134,13 @@ func (c *k8SInfoClient) GetNodeRealTimeStats(ctx context.Context, in *NodeReques
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type K8SInfo_GetNodeRealTimeStatsClient = grpc.ServerStreamingClient[NodeStatsResponse]
 
-func (c *k8SInfoClient) StreamEvents(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[EventResponse], error) {
+func (c *k8SInfoClient) StreamEvents(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[EventResponse], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	stream, err := c.cc.NewStream(ctx, &K8SInfo_ServiceDesc.Streams[2], K8SInfo_StreamEvents_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &grpc.GenericClientStream[emptypb.Empty, EventResponse]{ClientStream: stream}
+	x := &grpc.GenericClientStream[NamespaceRequest, EventResponse]{ClientStream: stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -311,7 +311,7 @@ type K8SInfoServer interface {
 	GetNodeStats(context.Context, *NodeRequest) (*NodeStatsResponse, error)
 	GetPodStats(*PodRequest, grpc.ServerStreamingServer[PodStatsResponse]) error
 	GetNodeRealTimeStats(*NodeRequest, grpc.ServerStreamingServer[NodeStatsResponse]) error
-	StreamEvents(*emptypb.Empty, grpc.ServerStreamingServer[EventResponse]) error
+	StreamEvents(*NamespaceRequest, grpc.ServerStreamingServer[EventResponse]) error
 	ListDeployments(context.Context, *NamespaceRequest) (*WorkloadListResponse, error)
 	ListReplicaSets(context.Context, *NamespaceRequest) (*WorkloadListResponse, error)
 	ListStatefulSets(context.Context, *NamespaceRequest) (*WorkloadListResponse, error)
@@ -349,7 +349,7 @@ func (UnimplementedK8SInfoServer) GetPodStats(*PodRequest, grpc.ServerStreamingS
 func (UnimplementedK8SInfoServer) GetNodeRealTimeStats(*NodeRequest, grpc.ServerStreamingServer[NodeStatsResponse]) error {
 	return status.Error(codes.Unimplemented, "method GetNodeRealTimeStats not implemented")
 }
-func (UnimplementedK8SInfoServer) StreamEvents(*emptypb.Empty, grpc.ServerStreamingServer[EventResponse]) error {
+func (UnimplementedK8SInfoServer) StreamEvents(*NamespaceRequest, grpc.ServerStreamingServer[EventResponse]) error {
 	return status.Error(codes.Unimplemented, "method StreamEvents not implemented")
 }
 func (UnimplementedK8SInfoServer) ListDeployments(context.Context, *NamespaceRequest) (*WorkloadListResponse, error) {
@@ -477,11 +477,11 @@ func _K8SInfo_GetNodeRealTimeStats_Handler(srv interface{}, stream grpc.ServerSt
 type K8SInfo_GetNodeRealTimeStatsServer = grpc.ServerStreamingServer[NodeStatsResponse]
 
 func _K8SInfo_StreamEvents_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(emptypb.Empty)
+	m := new(NamespaceRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(K8SInfoServer).StreamEvents(m, &grpc.GenericServerStream[emptypb.Empty, EventResponse]{ServerStream: stream})
+	return srv.(K8SInfoServer).StreamEvents(m, &grpc.GenericServerStream[NamespaceRequest, EventResponse]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.

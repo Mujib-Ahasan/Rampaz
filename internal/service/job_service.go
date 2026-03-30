@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Mujib-Ahasan/Rampaz/internal/kubernetes"
 	pb "github.com/Mujib-Ahasan/Rampaz/proto"
@@ -19,7 +20,7 @@ func NewJobService(client *kubernetes.JobClient) *JobService {
 func (s *JobService) List(ctx context.Context, namespace string, labelSelector string, health string) ([]*pb.Workload, error) {
 	jobs, err := s.client.List(ctx, namespace, labelSelector)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch jobs data for workload response: %w", err)
 	}
 
 	var result []*pb.Workload

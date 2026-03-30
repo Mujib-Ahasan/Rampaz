@@ -25,6 +25,11 @@ func (s *K8SServer) GetNamespaceSummary(ctx context.Context, req *pb.NamespaceRe
 			Inc()
 	}()
 
+	if req == nil {
+		statusLabel = "error"
+		return nil, status.Error(codes.InvalidArgument, "namespace summary request cannot be nil")
+	}
+
 	if req.Namespace == "" {
 		statusLabel = "error"
 		return nil, status.Error(codes.InvalidArgument, "namespace is required")
@@ -33,7 +38,9 @@ func (s *K8SServer) GetNamespaceSummary(ctx context.Context, req *pb.NamespaceRe
 	resp, err := s.NamespaceSummaryService.GetNamespaceSummary(ctx, req.Namespace)
 	if err != nil {
 		statusLabel = "error"
-		return nil, err
+		s.Logger.Error("get namespace summary failed", "namespace", req.Namespace, "err", err)
+		return nil, errorHelper(err, "namespace summary")
+
 	}
 
 	return resp, nil

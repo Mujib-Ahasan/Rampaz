@@ -12,20 +12,23 @@ import (
 func (s *K8SServer) ListPVs(ctx context.Context, _ *emptypb.Empty) (*pb.PVListResponse, error) {
 
 	endpoint := "list_PVs"
-	status := "success"
+	statusLabel := "success"
 	timer := prometheus.NewTimer(
 		metrics.RequestLatency.WithLabelValues(endpoint),
 	)
 	defer func() {
 		timer.ObserveDuration()
 		metrics.APIRequests.
-			WithLabelValues(endpoint, status).
+			WithLabelValues(endpoint, statusLabel).
 			Inc()
 	}()
+
 	pvs, err := s.PVService.ListPVs(ctx)
 	if err != nil {
-		status = "error"
-		return nil, err
+		statusLabel = "error"
+		s.Logger.Error("list persistentvolume failed", "err", err)
+		return nil, errorHelper(err, "persistentvolume list")
+
 	}
 
 	return &pb.PVListResponse{

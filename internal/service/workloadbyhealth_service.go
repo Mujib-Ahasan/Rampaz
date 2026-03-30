@@ -116,7 +116,7 @@ func (s *WorkloadService) GetWorkloadsByHealth(ctx context.Context, namespace st
 	})
 
 	if err := g.Wait(); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch workloads by health %q in namespace %q: %w", health, namespace, err)
 	}
 
 	return workloads, nil

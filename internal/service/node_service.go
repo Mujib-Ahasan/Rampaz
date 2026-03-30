@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Mujib-Ahasan/Rampaz/internal/kubernetes"
 
@@ -20,7 +21,7 @@ func NewNodeService(client *kubernetes.NodeClient) *NodeService {
 func (s *NodeService) ListNodes(ctx context.Context) ([]*pb.NodeInfo, error) {
 	nodes, err := s.client.List(ctx)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch nodes data for node-info response: %w", err)
 	}
 
 	var result []*pb.NodeInfo

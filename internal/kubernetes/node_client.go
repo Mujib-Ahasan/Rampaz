@@ -2,6 +2,7 @@ package kubernetes
 
 import (
 	"context"
+	"fmt"
 
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -19,7 +20,7 @@ func NewNodeClient(clientset kubernetes.Interface) *NodeClient {
 func (c *NodeClient) List(ctx context.Context) ([]corev1.Node, error) {
 	nodes, err := c.clientset.CoreV1().Nodes().List(ctx, metav1.ListOptions{})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("list nodes: %w", err)
 	}
 
 	return nodes.Items, nil

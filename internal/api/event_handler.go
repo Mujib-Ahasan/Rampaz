@@ -5,10 +5,9 @@ import (
 	pb "github.com/Mujib-Ahasan/Rampaz/proto"
 	"github.com/prometheus/client_golang/prometheus"
 	"google.golang.org/grpc"
-	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-func (s *K8SServer) StreamEvents(_ *emptypb.Empty, stream grpc.ServerStreamingServer[pb.EventResponse]) error {
+func (s *K8SServer) StreamEvents(req *pb.NamespaceRequest, stream grpc.ServerStreamingServer[pb.EventResponse]) error {
 	endpoint := "stream_events"
 	status := "success"
 
@@ -32,7 +31,7 @@ func (s *K8SServer) StreamEvents(_ *emptypb.Empty, stream grpc.ServerStreamingSe
 
 	ctx := stream.Context()
 
-	events, err := s.EventService.StreamEvents(ctx)
+	events, err := s.EventService.StreamEvents(ctx, req.Namespace)
 	if err != nil {
 		status = "error"
 		return err

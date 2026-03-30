@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	pb "github.com/Mujib-Ahasan/Rampaz/proto"
 )
@@ -9,82 +10,82 @@ import (
 func (s *SummaryService) GetClusterOverview(ctx context.Context) (*pb.ClusterOverviewResponse, error) {
 	pods, err := s.podClient.ListPods(ctx, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch pods data for cluster-overview response: %w", err)
 	}
 
 	deployments, err := s.deploymentClient.List(ctx, "", "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch deployments data for cluster-overview response: %w", err)
 	}
 
 	replicasets, err := s.replicaSetclient.List(ctx, "", "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch replicasets data for cluster-overview response: %w", err)
 	}
 
 	statefulsets, err := s.statefulStateClient.List(ctx, "", "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch statefulsets data for cluster-overview response: %w", err)
 	}
 
 	daemonsets, err := s.daemonSetClient.List(ctx, "", "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch daemonsets data for cluster-overview response: %w", err)
 	}
 
 	jobs, err := s.jobClient.List(ctx, "", "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch jobs data for cluster-overview response: %w", err)
 	}
 
 	cronjobs, err := s.cronJobClient.List(ctx, "", "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch cronjobs data for cluster-overview response: %w", err)
 	}
 
 	svcs, err := s.serviceClient.List(ctx, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch services data for cluster-overview response: %w", err)
 	}
 
 	pvcs, err := s.pvcClinet.List(ctx, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch PVCs data for cluster-overview response: %w", err)
 	}
 
 	nps, err := s.networkPolicyClient.List(ctx, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch networkpolicies data for cluster-overview response: %w", err)
 	}
 
 	nodes, err := s.nodesClient.List(ctx)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch nodes list for cluster-overview response: %w", err)
 	}
 
 	namespaces, err := s.namespaceClient.List(ctx)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch namespace list for cluster-overview response: %w", err)
 	}
 
 	secrets, err := s.identityClient.ListSecrets(ctx, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch secrets data for cluster-overview response: %w", err)
 	}
 
 	ingresses, err := s.identityClient.ListIngresses(ctx, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch ingresses data for cluster-overview response: %w", err)
 	}
 
 	configMaps, err := s.identityClient.ListConfigMaps(ctx, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch configmaps data for cluster-overview response: %w", err)
 	}
 
 	sas, err := s.identityClient.ListServiceAccounts(ctx, "")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch serviceaccounts data for cluster-overview response: %w", err)
 	}
 	return &pb.ClusterOverviewResponse{
 		Pods:                   int32(len(pods.Items)),

@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Mujib-Ahasan/Rampaz/internal/kubernetes"
 	pb "github.com/Mujib-Ahasan/Rampaz/proto"
@@ -19,7 +20,7 @@ func NewDaemonSetService(client *kubernetes.DaemonSetClient) *DaemonSetService {
 func (s *DaemonSetService) List(ctx context.Context, namespace string, labelSelector string, health string) ([]*pb.Workload, error) {
 	daemonSets, err := s.client.List(ctx, namespace, labelSelector)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch daemonsets data for workload response: %w", err)
 	}
 
 	var result []*pb.Workload

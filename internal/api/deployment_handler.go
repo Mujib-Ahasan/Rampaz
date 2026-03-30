@@ -6,26 +6,31 @@ import (
 	"github.com/Mujib-Ahasan/Rampaz/internal/metrics"
 	pb "github.com/Mujib-Ahasan/Rampaz/proto"
 	"github.com/prometheus/client_golang/prometheus"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 func (s *K8SServer) ListDeployments(ctx context.Context, req *pb.NamespaceRequest) (*pb.WorkloadListResponse, error) {
-
 	endpoint := "list_deployments"
-	status := "success"
-	timer := prometheus.NewTimer(
-		metrics.RequestLatency.WithLabelValues(endpoint),
-	)
+	reqStatus := "success"
+
+	timer := prometheus.NewTimer(metrics.RequestLatency.WithLabelValues(endpoint))
 	defer func() {
 		timer.ObserveDuration()
-		metrics.APIRequests.
-			WithLabelValues(endpoint, status).
-			Inc()
+		metrics.APIRequests.WithLabelValues(endpoint, reqStatus).Inc()
 	}()
+
+	if req == nil {
+		reqStatus = "error"
+		return nil, status.Error(codes.InvalidArgument, "deployment list request cannot be nil")
+	}
 
 	workloads, err := s.DeploymentService.List(ctx, req.Namespace, req.LabelSelector, "")
 	if err != nil {
-		status = "error"
-		return nil, err
+		reqStatus = "error"
+		s.Logger.Error("list deployments failed", "namespace", req.Namespace, "labelSelector", req.LabelSelector, "err", err)
+		return nil, errorHelper(err, "deployment list")
+
 	}
 
 	return &pb.WorkloadListResponse{

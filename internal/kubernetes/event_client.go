@@ -2,6 +2,7 @@ package kubernetes
 
 import (
 	"context"
+	"fmt"
 
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -16,13 +17,14 @@ func NewEventClient(c *kubernetes.Clientset) *EventClient {
 	return &EventClient{client: c}
 }
 
-func (e *EventClient) WatchEvents(ctx context.Context) (<-chan *v1.Event, error) {
+func (e *EventClient) WatchEvents(ctx context.Context, namespace string) (<-chan *v1.Event, error) {
 
-	watcher, err := e.client.CoreV1().
-		Events("").
-		Watch(ctx, metav1.ListOptions{})
+	watcher, err := e.client.CoreV1().Events(namespace).Watch(ctx, metav1.ListOptions{})
 	if err != nil {
-		return nil, err
+		if namespace == "" {
+			return nil, fmt.Errorf("watch events across all namespaces: %w", err)
+		}
+		return nil, fmt.Errorf("watch events in namespace %q: %w", namespace, err)
 	}
 
 	out := make(chan *v1.Event)

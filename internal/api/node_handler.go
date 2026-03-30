@@ -10,22 +10,25 @@ import (
 )
 
 func (s *K8SServer) ListNodes(ctx context.Context, _ *emptypb.Empty) (*pb.NodeListResponse, error) {
+	endpoint := "list_nodes"
+	statusLabel := "success"
 
-	endpoint := "list_Nodes"
-	status := "success"
 	timer := prometheus.NewTimer(
 		metrics.RequestLatency.WithLabelValues(endpoint),
 	)
 	defer func() {
 		timer.ObserveDuration()
 		metrics.APIRequests.
-			WithLabelValues(endpoint, status).
+			WithLabelValues(endpoint, statusLabel).
 			Inc()
 	}()
+
 	nodes, err := s.NodeService.ListNodes(ctx)
 	if err != nil {
-		status = "error"
-		return nil, err
+		statusLabel = "error"
+		s.Logger.Error("list nodes failed", "err", err)
+		return nil, errorHelper(err, "node list")
+
 	}
 
 	return &pb.NodeListResponse{

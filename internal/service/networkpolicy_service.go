@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	networkingv1 "k8s.io/api/networking/v1"
 
@@ -21,7 +22,7 @@ func NewNetworkPolicyService(client *kubernetes.NetworkPolicyClient) *NetworkPol
 func (s *NetworkPolicyService) ListNetworkPolicies(ctx context.Context, namespace string) ([]*pb.NetworkPolicyInfo, error) {
 	policies, err := s.client.List(ctx, namespace)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch networkpolicy data for networkpolicy-info response: %w", err)
 	}
 
 	var result []*pb.NetworkPolicyInfo

@@ -2,6 +2,7 @@ package kubernetes
 
 import (
 	"context"
+	"fmt"
 
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -19,7 +20,7 @@ func NewNamespaceClient(client kubernetes.Interface) *NamespaceClient {
 func (c *NamespaceClient) List(ctx context.Context) ([]corev1.Namespace, error) {
 	list, err := c.client.CoreV1().Namespaces().List(ctx, metav1.ListOptions{})
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("list namespaces: %w", err)
 	}
 	return list.Items, nil
 }

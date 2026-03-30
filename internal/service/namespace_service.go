@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	corev1 "k8s.io/api/core/v1"
 
@@ -20,7 +21,7 @@ func NewNamespaceService(client *kubernetes.NamespaceClient) *NamespaceService {
 func (c *NamespaceService) ListNamespaces(ctx context.Context) ([]*pb.NamespaceInfo, error) {
 	namespaces, err := c.client.List(ctx)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch namespace data forn namespace-info response: %w", err)
 	}
 
 	var result []*pb.NamespaceInfo

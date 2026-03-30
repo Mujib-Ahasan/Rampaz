@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"log/slog"
 	"net/http"
 
 	"github.com/Mujib-Ahasan/Rampaz/internal/api"
@@ -24,6 +25,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	logger := slog.Default()
 
 	podClient := kubernetes.NewPodClient(clients.Kube)
 	podService := service.NewPodService(podClient)
@@ -135,6 +137,7 @@ func main() {
 		NamespaceSummaryService: namespaceSummaryService,
 		ClusterOverviewService:  clusterOverviewService,
 		WorkloadService:         workloadService,
+		Logger:                  logger,
 	}
 
 	fmt.Printf("server is running on port: 50052 \n")

@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	corev1 "k8s.io/api/core/v1"
 
@@ -20,7 +21,7 @@ func NewPVService(client *kubernetes.PVClient) *PVService {
 func (c *PVService) ListPVs(ctx context.Context) ([]*pb.PVInfo, error) {
 	pvs, err := c.client.ListPVs(ctx)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("fetch pv data for pv-info response: %w", err)
 	}
 
 	var result []*pb.PVInfo

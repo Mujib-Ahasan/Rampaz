@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"net"
 
 	pb "github.com/Mujib-Ahasan/Rampaz/proto"
@@ -16,12 +17,16 @@ type ServerDeps struct {
 func StartGRPC(addr string, svc pb.K8SInfoServer) error {
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {
-		return err
+		return fmt.Errorf("start grpc server: failed to listen on %q: %w", addr, err)
 	}
 
 	s := grpc.NewServer()
 	pb.RegisterK8SInfoServer(s, svc)
 	reflection.Register(s)
 
-	return s.Serve(lis)
+	if err := s.Serve(lis); err != nil {
+		return fmt.Errorf("start grpc server: serve failed on %q: %w", addr, err)
+	}
+
+	return nil
 }

@@ -20,7 +20,7 @@ func NewNodeMetService(client *kubernetes.NodeMetricsClient) *NodeMetService {
 func (s *NodeMetService) StreamNodeStats(ctx context.Context, nodeName string, send func(*pb.NodeStatsResponse) error) error {
 
 	if nodeName == "" {
-		return fmt.Errorf("node name required")
+		return fmt.Errorf("node metrics stream: node name is required")
 	}
 
 	ticker := time.NewTicker(30 * time.Second)
@@ -35,7 +35,7 @@ func (s *NodeMetService) StreamNodeStats(ctx context.Context, nodeName string, s
 		case <-ticker.C:
 			metrics, err := s.client.GetNodeMetrics(ctx, nodeName)
 			if err != nil {
-				return fmt.Errorf("metrics fetch failed: %w", err)
+				return fmt.Errorf("node metrics stream: fetch metrics for nodestatsresponse response: %w", err)
 			}
 
 			cpu := metrics.Usage.Cpu().MilliValue()
@@ -48,7 +48,7 @@ func (s *NodeMetService) StreamNodeStats(ctx context.Context, nodeName string, s
 			}
 
 			if err := send(resp); err != nil {
-				return err
+				return fmt.Errorf("node metrics stream: send response for node %q: %w", nodeName, err)
 			}
 		}
 	}

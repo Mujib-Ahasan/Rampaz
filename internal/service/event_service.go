@@ -15,6 +15,6 @@ func NewEventService(c *kubernetes.EventClient) *EventService {
 	return &EventService{client: c}
 }
 
-func (s *EventService) StreamEvents(ctx context.Context) (<-chan *v1.Event, error) {
-	return s.client.WatchEvents(ctx)
+func (s *EventService) StreamEvents(ctx context.Context, namespace string) (<-chan *v1.Event, error) {
+	return s.client.WatchEvents(ctx, namespace)
 }

@@ -2,6 +2,7 @@ package kubernetes
 
 import (
 	"context"
+	"fmt"
 
 	networkingv1 "k8s.io/api/networking/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -20,7 +21,10 @@ func (c *NetworkPolicyClient) List(ctx context.Context, namespace string) ([]net
 	policies, err := c.clientset.NetworkingV1().NetworkPolicies(namespace).List(ctx, metav1.ListOptions{})
 
 	if err != nil {
-		return nil, err
+		if namespace == "" {
+			return nil, fmt.Errorf("list networkpolicies across all namespaces: %w", err)
+		}
+		return nil, fmt.Errorf("list networkpolicies in namespace %q: %w", namespace, err)
 	}
 
 	return policies.Items, nil
