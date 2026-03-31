@@ -117,6 +117,9 @@ func main() {
 		jobService,
 		cronJobService)
 
+	nodeResourceclient := kubernetes.NewNodeResourceClient(clients.Kube, clients.Metrics)
+	nodeResourceService := service.NewNodeResourceService(nodeResourceclient)
+
 	handler := &api.K8SServer{
 		PodService:              podService,
 		NodeInfoService:         nodeInfoService,
@@ -139,8 +142,10 @@ func main() {
 		ClusterOverviewService:  clusterOverviewService,
 		WorkloadService:         workloadService,
 		NamespaceMetricsService: namespaceMetricsService,
+		NodeResourceService:     nodeResourceService,
 		Logger:                  logger,
 	}
+
 	logger.Info("rampaz server is running on port: 50052 \n")
 	if err := api.StartGRPC(":50052", handler); err != nil {
 		log.Fatal(err)

@@ -54,12 +54,7 @@ func (s *K8SServer) GetNodeRealTimeStats(req *pb.NodeRequest, stream grpc.Server
 		return err
 	}
 
-	err := s.NodeMetService.StreamNodeStats(
-		stream.Context(),
-		req.NodeName,
-		sendWithMetrics,
-	)
-
+	err := s.NodeMetService.StreamNodeStats(stream.Context(), req.NodeName, sendWithMetrics)
 	if err != nil {
 		statusLabel = "error"
 		s.Logger.Error("node realtime stats stream failed", "node", req.NodeName, "err", err)

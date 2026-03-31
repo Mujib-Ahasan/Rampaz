@@ -20,27 +20,28 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	K8SInfo_ListPods_FullMethodName             = "/k8sinfo.K8sInfo/ListPods"
-	K8SInfo_GetNodeStats_FullMethodName         = "/k8sinfo.K8sInfo/GetNodeStats"
-	K8SInfo_GetPodStats_FullMethodName          = "/k8sinfo.K8sInfo/GetPodStats"
-	K8SInfo_GetNodeRealTimeStats_FullMethodName = "/k8sinfo.K8sInfo/GetNodeRealTimeStats"
-	K8SInfo_StreamEvents_FullMethodName         = "/k8sinfo.K8sInfo/StreamEvents"
-	K8SInfo_ListDeployments_FullMethodName      = "/k8sinfo.K8sInfo/ListDeployments"
-	K8SInfo_ListReplicaSets_FullMethodName      = "/k8sinfo.K8sInfo/ListReplicaSets"
-	K8SInfo_ListStatefulSets_FullMethodName     = "/k8sinfo.K8sInfo/ListStatefulSets"
-	K8SInfo_ListDaemonSets_FullMethodName       = "/k8sinfo.K8sInfo/ListDaemonSets"
-	K8SInfo_ListJobs_FullMethodName             = "/k8sinfo.K8sInfo/ListJobs"
-	K8SInfo_ListCronJobs_FullMethodName         = "/k8sinfo.K8sInfo/ListCronJobs"
-	K8SInfo_ListServices_FullMethodName         = "/k8sinfo.K8sInfo/ListServices"
-	K8SInfo_ListNamespaces_FullMethodName       = "/k8sinfo.K8sInfo/ListNamespaces"
-	K8SInfo_ListPVCs_FullMethodName             = "/k8sinfo.K8sInfo/ListPVCs"
-	K8SInfo_ListPVs_FullMethodName              = "/k8sinfo.K8sInfo/ListPVs"
-	K8SInfo_ListNodes_FullMethodName            = "/k8sinfo.K8sInfo/ListNodes"
-	K8SInfo_ListNetworkPolicies_FullMethodName  = "/k8sinfo.K8sInfo/ListNetworkPolicies"
-	K8SInfo_GetNamespaceSummary_FullMethodName  = "/k8sinfo.K8sInfo/GetNamespaceSummary"
-	K8SInfo_GetClusterOverview_FullMethodName   = "/k8sinfo.K8sInfo/GetClusterOverview"
-	K8SInfo_GetWorkloadsByHealth_FullMethodName = "/k8sinfo.K8sInfo/GetWorkloadsByHealth"
-	K8SInfo_GetNamespaceMetrics_FullMethodName  = "/k8sinfo.K8sInfo/GetNamespaceMetrics"
+	K8SInfo_ListPods_FullMethodName                  = "/k8sinfo.K8sInfo/ListPods"
+	K8SInfo_GetNodeStats_FullMethodName              = "/k8sinfo.K8sInfo/GetNodeStats"
+	K8SInfo_GetPodStats_FullMethodName               = "/k8sinfo.K8sInfo/GetPodStats"
+	K8SInfo_GetNodeRealTimeStats_FullMethodName      = "/k8sinfo.K8sInfo/GetNodeRealTimeStats"
+	K8SInfo_StreamEvents_FullMethodName              = "/k8sinfo.K8sInfo/StreamEvents"
+	K8SInfo_ListDeployments_FullMethodName           = "/k8sinfo.K8sInfo/ListDeployments"
+	K8SInfo_ListReplicaSets_FullMethodName           = "/k8sinfo.K8sInfo/ListReplicaSets"
+	K8SInfo_ListStatefulSets_FullMethodName          = "/k8sinfo.K8sInfo/ListStatefulSets"
+	K8SInfo_ListDaemonSets_FullMethodName            = "/k8sinfo.K8sInfo/ListDaemonSets"
+	K8SInfo_ListJobs_FullMethodName                  = "/k8sinfo.K8sInfo/ListJobs"
+	K8SInfo_ListCronJobs_FullMethodName              = "/k8sinfo.K8sInfo/ListCronJobs"
+	K8SInfo_ListServices_FullMethodName              = "/k8sinfo.K8sInfo/ListServices"
+	K8SInfo_ListNamespaces_FullMethodName            = "/k8sinfo.K8sInfo/ListNamespaces"
+	K8SInfo_ListPVCs_FullMethodName                  = "/k8sinfo.K8sInfo/ListPVCs"
+	K8SInfo_ListPVs_FullMethodName                   = "/k8sinfo.K8sInfo/ListPVs"
+	K8SInfo_ListNodes_FullMethodName                 = "/k8sinfo.K8sInfo/ListNodes"
+	K8SInfo_ListNetworkPolicies_FullMethodName       = "/k8sinfo.K8sInfo/ListNetworkPolicies"
+	K8SInfo_GetNamespaceSummary_FullMethodName       = "/k8sinfo.K8sInfo/GetNamespaceSummary"
+	K8SInfo_GetClusterOverview_FullMethodName        = "/k8sinfo.K8sInfo/GetClusterOverview"
+	K8SInfo_GetWorkloadsByHealth_FullMethodName      = "/k8sinfo.K8sInfo/GetWorkloadsByHealth"
+	K8SInfo_GetNamespaceMetrics_FullMethodName       = "/k8sinfo.K8sInfo/GetNamespaceMetrics"
+	K8SInfo_GetNodeResourceAllocation_FullMethodName = "/k8sinfo.K8sInfo/GetNodeResourceAllocation"
 )
 
 // K8SInfoClient is the client API for K8SInfo service.
@@ -68,6 +69,7 @@ type K8SInfoClient interface {
 	GetClusterOverview(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ClusterOverviewResponse, error)
 	GetWorkloadsByHealth(ctx context.Context, in *WorkloadHealthRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
 	GetNamespaceMetrics(ctx context.Context, in *NamespaceMetricsRequest, opts ...grpc.CallOption) (*NamespaceMetricsResponse, error)
+	GetNodeResourceAllocation(ctx context.Context, in *NodeRequest, opts ...grpc.CallOption) (*NodeResourceAllocationResponse, error)
 }
 
 type k8SInfoClient struct {
@@ -315,6 +317,16 @@ func (c *k8SInfoClient) GetNamespaceMetrics(ctx context.Context, in *NamespaceMe
 	return out, nil
 }
 
+func (c *k8SInfoClient) GetNodeResourceAllocation(ctx context.Context, in *NodeRequest, opts ...grpc.CallOption) (*NodeResourceAllocationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(NodeResourceAllocationResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_GetNodeResourceAllocation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // K8SInfoServer is the server API for K8SInfo service.
 // All implementations must embed UnimplementedK8SInfoServer
 // for forward compatibility.
@@ -340,6 +352,7 @@ type K8SInfoServer interface {
 	GetClusterOverview(context.Context, *emptypb.Empty) (*ClusterOverviewResponse, error)
 	GetWorkloadsByHealth(context.Context, *WorkloadHealthRequest) (*WorkloadListResponse, error)
 	GetNamespaceMetrics(context.Context, *NamespaceMetricsRequest) (*NamespaceMetricsResponse, error)
+	GetNodeResourceAllocation(context.Context, *NodeRequest) (*NodeResourceAllocationResponse, error)
 	mustEmbedUnimplementedK8SInfoServer()
 }
 
@@ -412,6 +425,9 @@ func (UnimplementedK8SInfoServer) GetWorkloadsByHealth(context.Context, *Workloa
 }
 func (UnimplementedK8SInfoServer) GetNamespaceMetrics(context.Context, *NamespaceMetricsRequest) (*NamespaceMetricsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetNamespaceMetrics not implemented")
+}
+func (UnimplementedK8SInfoServer) GetNodeResourceAllocation(context.Context, *NodeRequest) (*NodeResourceAllocationResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetNodeResourceAllocation not implemented")
 }
 func (UnimplementedK8SInfoServer) mustEmbedUnimplementedK8SInfoServer() {}
 func (UnimplementedK8SInfoServer) testEmbeddedByValue()                 {}
@@ -791,6 +807,24 @@ func _K8SInfo_GetNamespaceMetrics_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _K8SInfo_GetNodeResourceAllocation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).GetNodeResourceAllocation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_GetNodeResourceAllocation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).GetNodeResourceAllocation(ctx, req.(*NodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // K8SInfo_ServiceDesc is the grpc.ServiceDesc for K8SInfo service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -869,6 +903,10 @@ var K8SInfo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetNamespaceMetrics",
 			Handler:    _K8SInfo_GetNamespaceMetrics_Handler,
+		},
+		{
+			MethodName: "GetNodeResourceAllocation",
+			Handler:    _K8SInfo_GetNodeResourceAllocation_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
