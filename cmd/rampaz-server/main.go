@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"log/slog"
 	"net/http"
@@ -80,6 +79,8 @@ func main() {
 
 	identityClient := kubernetes.NewIdentityClientClient(clients.Kube)
 
+	namespaceMetricsService := service.NewNamespaceMetricsService(podClient, podMetricsClient)
+
 	namespaceSummaryService := service.NewSummaryService(
 		podClient,
 		deploymentClient,
@@ -137,10 +138,10 @@ func main() {
 		NamespaceSummaryService: namespaceSummaryService,
 		ClusterOverviewService:  clusterOverviewService,
 		WorkloadService:         workloadService,
+		NamespaceMetricsService: namespaceMetricsService,
 		Logger:                  logger,
 	}
-
-	fmt.Printf("server is running on port: 50052 \n")
+	logger.Info("rampaz server is running on port: 50052 \n")
 	if err := api.StartGRPC(":50052", handler); err != nil {
 		log.Fatal(err)
 	}

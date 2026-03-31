@@ -27,6 +27,7 @@ service K8sInfo {
   rpc GetNamespaceSummary(NamespaceRequest) returns (NamespaceSummaryResponse);
   rpc GetClusterOverview(google.protobuf.Empty) returns (ClusterOverviewResponse);
   rpc GetWorkloadsByHealth(WorkloadHealthRequest) returns (WorkloadListResponse);
+  rpc GetNamespaceMetrics(NamespaceMetricsRequest) returns (NamespaceMetricsResponse);
 }
 
 message NamespaceRequest {
@@ -233,4 +234,27 @@ message WorkloadHealthRequest {
   string health = 2;
 }
 
+message NamespaceMetricsRequest {
+  string namespace = 1;
+}
+
+message ResourceQuantity {
+  string cpu = 1;
+  string memory = 2;
+}
+
+message NamespaceMetricsResponse {
+  string namespace = 1;
+
+  int32 total_pods = 2;
+  int32 running_pods = 3;
+  int32 pending_pods = 4;
+  int32 failed_pods = 5;
+  int32 succeeded_pods = 6;
+  int32 unknown_pods = 7;
+
+  ResourceQuantity usage = 8;
+  ResourceQuantity requests = 9;
+  ResourceQuantity limits = 10;
+}
 

@@ -40,6 +40,7 @@ const (
 	K8SInfo_GetNamespaceSummary_FullMethodName  = "/k8sinfo.K8sInfo/GetNamespaceSummary"
 	K8SInfo_GetClusterOverview_FullMethodName   = "/k8sinfo.K8sInfo/GetClusterOverview"
 	K8SInfo_GetWorkloadsByHealth_FullMethodName = "/k8sinfo.K8sInfo/GetWorkloadsByHealth"
+	K8SInfo_GetNamespaceMetrics_FullMethodName  = "/k8sinfo.K8sInfo/GetNamespaceMetrics"
 )
 
 // K8SInfoClient is the client API for K8SInfo service.
@@ -66,6 +67,7 @@ type K8SInfoClient interface {
 	GetNamespaceSummary(ctx context.Context, in *NamespaceRequest, opts ...grpc.CallOption) (*NamespaceSummaryResponse, error)
 	GetClusterOverview(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ClusterOverviewResponse, error)
 	GetWorkloadsByHealth(ctx context.Context, in *WorkloadHealthRequest, opts ...grpc.CallOption) (*WorkloadListResponse, error)
+	GetNamespaceMetrics(ctx context.Context, in *NamespaceMetricsRequest, opts ...grpc.CallOption) (*NamespaceMetricsResponse, error)
 }
 
 type k8SInfoClient struct {
@@ -303,6 +305,16 @@ func (c *k8SInfoClient) GetWorkloadsByHealth(ctx context.Context, in *WorkloadHe
 	return out, nil
 }
 
+func (c *k8SInfoClient) GetNamespaceMetrics(ctx context.Context, in *NamespaceMetricsRequest, opts ...grpc.CallOption) (*NamespaceMetricsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(NamespaceMetricsResponse)
+	err := c.cc.Invoke(ctx, K8SInfo_GetNamespaceMetrics_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // K8SInfoServer is the server API for K8SInfo service.
 // All implementations must embed UnimplementedK8SInfoServer
 // for forward compatibility.
@@ -327,6 +339,7 @@ type K8SInfoServer interface {
 	GetNamespaceSummary(context.Context, *NamespaceRequest) (*NamespaceSummaryResponse, error)
 	GetClusterOverview(context.Context, *emptypb.Empty) (*ClusterOverviewResponse, error)
 	GetWorkloadsByHealth(context.Context, *WorkloadHealthRequest) (*WorkloadListResponse, error)
+	GetNamespaceMetrics(context.Context, *NamespaceMetricsRequest) (*NamespaceMetricsResponse, error)
 	mustEmbedUnimplementedK8SInfoServer()
 }
 
@@ -396,6 +409,9 @@ func (UnimplementedK8SInfoServer) GetClusterOverview(context.Context, *emptypb.E
 }
 func (UnimplementedK8SInfoServer) GetWorkloadsByHealth(context.Context, *WorkloadHealthRequest) (*WorkloadListResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetWorkloadsByHealth not implemented")
+}
+func (UnimplementedK8SInfoServer) GetNamespaceMetrics(context.Context, *NamespaceMetricsRequest) (*NamespaceMetricsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetNamespaceMetrics not implemented")
 }
 func (UnimplementedK8SInfoServer) mustEmbedUnimplementedK8SInfoServer() {}
 func (UnimplementedK8SInfoServer) testEmbeddedByValue()                 {}
@@ -757,6 +773,24 @@ func _K8SInfo_GetWorkloadsByHealth_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _K8SInfo_GetNamespaceMetrics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NamespaceMetricsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(K8SInfoServer).GetNamespaceMetrics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: K8SInfo_GetNamespaceMetrics_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(K8SInfoServer).GetNamespaceMetrics(ctx, req.(*NamespaceMetricsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // K8SInfo_ServiceDesc is the grpc.ServiceDesc for K8SInfo service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -831,6 +865,10 @@ var K8SInfo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetWorkloadsByHealth",
 			Handler:    _K8SInfo_GetWorkloadsByHealth_Handler,
+		},
+		{
+			MethodName: "GetNamespaceMetrics",
+			Handler:    _K8SInfo_GetNamespaceMetrics_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

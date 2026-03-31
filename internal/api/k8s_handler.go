@@ -35,6 +35,7 @@ type K8SServer struct {
 	NamespaceSummaryService *service.SummaryService
 	ClusterOverviewService  *service.SummaryService
 	WorkloadService         *service.WorkloadService
+	NamespaceMetricsService *service.NamespaceMetricsService
 	Logger                  *slog.Logger
 }
 

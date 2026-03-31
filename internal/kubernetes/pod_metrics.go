@@ -14,9 +14,7 @@ type PodMetricsClient struct {
 }
 
 func NewPodMetricsClient(metrics *metricsv.Clientset) *PodMetricsClient {
-	return &PodMetricsClient{
-		metricsClient: metrics,
-	}
+	return &PodMetricsClient{metricsClient: metrics}
 }
 
 func (c *PodMetricsClient) GetPodMetrics(ctx context.Context, namespace string) (*v1beta1.PodMetricsList, error) {

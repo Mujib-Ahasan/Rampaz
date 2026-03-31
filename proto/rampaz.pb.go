@@ -1842,6 +1842,218 @@ func (x *WorkloadHealthRequest) GetHealth() string {
 	return ""
 }
 
+type NamespaceMetricsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Namespace     string                 `protobuf:"bytes,1,opt,name=namespace,proto3" json:"namespace,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *NamespaceMetricsRequest) Reset() {
+	*x = NamespaceMetricsRequest{}
+	mi := &file_rampaz_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *NamespaceMetricsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NamespaceMetricsRequest) ProtoMessage() {}
+
+func (x *NamespaceMetricsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_rampaz_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NamespaceMetricsRequest.ProtoReflect.Descriptor instead.
+func (*NamespaceMetricsRequest) Descriptor() ([]byte, []int) {
+	return file_rampaz_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *NamespaceMetricsRequest) GetNamespace() string {
+	if x != nil {
+		return x.Namespace
+	}
+	return ""
+}
+
+type ResourceQuantity struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Cpu           string                 `protobuf:"bytes,1,opt,name=cpu,proto3" json:"cpu,omitempty"`
+	Memory        string                 `protobuf:"bytes,2,opt,name=memory,proto3" json:"memory,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ResourceQuantity) Reset() {
+	*x = ResourceQuantity{}
+	mi := &file_rampaz_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ResourceQuantity) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ResourceQuantity) ProtoMessage() {}
+
+func (x *ResourceQuantity) ProtoReflect() protoreflect.Message {
+	mi := &file_rampaz_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ResourceQuantity.ProtoReflect.Descriptor instead.
+func (*ResourceQuantity) Descriptor() ([]byte, []int) {
+	return file_rampaz_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *ResourceQuantity) GetCpu() string {
+	if x != nil {
+		return x.Cpu
+	}
+	return ""
+}
+
+func (x *ResourceQuantity) GetMemory() string {
+	if x != nil {
+		return x.Memory
+	}
+	return ""
+}
+
+type NamespaceMetricsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Namespace     string                 `protobuf:"bytes,1,opt,name=namespace,proto3" json:"namespace,omitempty"`
+	TotalPods     int32                  `protobuf:"varint,2,opt,name=total_pods,json=totalPods,proto3" json:"total_pods,omitempty"`
+	RunningPods   int32                  `protobuf:"varint,3,opt,name=running_pods,json=runningPods,proto3" json:"running_pods,omitempty"`
+	PendingPods   int32                  `protobuf:"varint,4,opt,name=pending_pods,json=pendingPods,proto3" json:"pending_pods,omitempty"`
+	FailedPods    int32                  `protobuf:"varint,5,opt,name=failed_pods,json=failedPods,proto3" json:"failed_pods,omitempty"`
+	SucceededPods int32                  `protobuf:"varint,6,opt,name=succeeded_pods,json=succeededPods,proto3" json:"succeeded_pods,omitempty"`
+	UnknownPods   int32                  `protobuf:"varint,7,opt,name=unknown_pods,json=unknownPods,proto3" json:"unknown_pods,omitempty"`
+	Usage         *ResourceQuantity      `protobuf:"bytes,8,opt,name=usage,proto3" json:"usage,omitempty"`
+	Requests      *ResourceQuantity      `protobuf:"bytes,9,opt,name=requests,proto3" json:"requests,omitempty"`
+	Limits        *ResourceQuantity      `protobuf:"bytes,10,opt,name=limits,proto3" json:"limits,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *NamespaceMetricsResponse) Reset() {
+	*x = NamespaceMetricsResponse{}
+	mi := &file_rampaz_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *NamespaceMetricsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NamespaceMetricsResponse) ProtoMessage() {}
+
+func (x *NamespaceMetricsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_rampaz_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NamespaceMetricsResponse.ProtoReflect.Descriptor instead.
+func (*NamespaceMetricsResponse) Descriptor() ([]byte, []int) {
+	return file_rampaz_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *NamespaceMetricsResponse) GetNamespace() string {
+	if x != nil {
+		return x.Namespace
+	}
+	return ""
+}
+
+func (x *NamespaceMetricsResponse) GetTotalPods() int32 {
+	if x != nil {
+		return x.TotalPods
+	}
+	return 0
+}
+
+func (x *NamespaceMetricsResponse) GetRunningPods() int32 {
+	if x != nil {
+		return x.RunningPods
+	}
+	return 0
+}
+
+func (x *NamespaceMetricsResponse) GetPendingPods() int32 {
+	if x != nil {
+		return x.PendingPods
+	}
+	return 0
+}
+
+func (x *NamespaceMetricsResponse) GetFailedPods() int32 {
+	if x != nil {
+		return x.FailedPods
+	}
+	return 0
+}
+
+func (x *NamespaceMetricsResponse) GetSucceededPods() int32 {
+	if x != nil {
+		return x.SucceededPods
+	}
+	return 0
+}
+
+func (x *NamespaceMetricsResponse) GetUnknownPods() int32 {
+	if x != nil {
+		return x.UnknownPods
+	}
+	return 0
+}
+
+func (x *NamespaceMetricsResponse) GetUsage() *ResourceQuantity {
+	if x != nil {
+		return x.Usage
+	}
+	return nil
+}
+
+func (x *NamespaceMetricsResponse) GetRequests() *ResourceQuantity {
+	if x != nil {
+		return x.Requests
+	}
+	return nil
+}
+
+func (x *NamespaceMetricsResponse) GetLimits() *ResourceQuantity {
+	if x != nil {
+		return x.Limits
+	}
+	return nil
+}
+
 var File_rampaz_proto protoreflect.FileDescriptor
 
 const file_rampaz_proto_rawDesc = "" +
@@ -2003,12 +2215,31 @@ const file_rampaz_proto_rawDesc = "" +
 	"\x10network_policies\x18\x10 \x01(\x05R\x0fnetworkPolicies\"M\n" +
 	"\x15WorkloadHealthRequest\x12\x1c\n" +
 	"\tnamespace\x18\x01 \x01(\tR\tnamespace\x12\x16\n" +
-	"\x06health\x18\x02 \x01(\tR\x06health*W\n" +
+	"\x06health\x18\x02 \x01(\tR\x06health\"7\n" +
+	"\x17NamespaceMetricsRequest\x12\x1c\n" +
+	"\tnamespace\x18\x01 \x01(\tR\tnamespace\"<\n" +
+	"\x10ResourceQuantity\x12\x10\n" +
+	"\x03cpu\x18\x01 \x01(\tR\x03cpu\x12\x16\n" +
+	"\x06memory\x18\x02 \x01(\tR\x06memory\"\xa3\x03\n" +
+	"\x18NamespaceMetricsResponse\x12\x1c\n" +
+	"\tnamespace\x18\x01 \x01(\tR\tnamespace\x12\x1d\n" +
+	"\n" +
+	"total_pods\x18\x02 \x01(\x05R\ttotalPods\x12!\n" +
+	"\frunning_pods\x18\x03 \x01(\x05R\vrunningPods\x12!\n" +
+	"\fpending_pods\x18\x04 \x01(\x05R\vpendingPods\x12\x1f\n" +
+	"\vfailed_pods\x18\x05 \x01(\x05R\n" +
+	"failedPods\x12%\n" +
+	"\x0esucceeded_pods\x18\x06 \x01(\x05R\rsucceededPods\x12!\n" +
+	"\funknown_pods\x18\a \x01(\x05R\vunknownPods\x12/\n" +
+	"\x05usage\x18\b \x01(\v2\x19.k8sinfo.ResourceQuantityR\x05usage\x125\n" +
+	"\brequests\x18\t \x01(\v2\x19.k8sinfo.ResourceQuantityR\brequests\x121\n" +
+	"\x06limits\x18\n" +
+	" \x01(\v2\x19.k8sinfo.ResourceQuantityR\x06limits*W\n" +
 	"\fHealthStatus\x12\x1d\n" +
 	"\x19HEALTH_STATUS_UNSPECIFIED\x10\x00\x12\v\n" +
 	"\aHEALTHY\x10\x01\x12\f\n" +
 	"\bDEGRADED\x10\x02\x12\r\n" +
-	"\tUNHEALTHY\x10\x032\xc4\v\n" +
+	"\tUNHEALTHY\x10\x032\xa0\f\n" +
 	"\aK8sInfo\x12?\n" +
 	"\bListPods\x12\x19.k8sinfo.NamespaceRequest\x1a\x18.k8sinfo.PodListResponse\x12@\n" +
 	"\fGetNodeStats\x12\x14.k8sinfo.NodeRequest\x1a\x1a.k8sinfo.NodeStatsResponse\x12?\n" +
@@ -2029,7 +2260,8 @@ const file_rampaz_proto_rawDesc = "" +
 	"\x13ListNetworkPolicies\x12\x19.k8sinfo.NamespaceRequest\x1a\".k8sinfo.NetworkPolicyListResponse\x12S\n" +
 	"\x13GetNamespaceSummary\x12\x19.k8sinfo.NamespaceRequest\x1a!.k8sinfo.NamespaceSummaryResponse\x12N\n" +
 	"\x12GetClusterOverview\x12\x16.google.protobuf.Empty\x1a .k8sinfo.ClusterOverviewResponse\x12U\n" +
-	"\x14GetWorkloadsByHealth\x12\x1e.k8sinfo.WorkloadHealthRequest\x1a\x1d.k8sinfo.WorkloadListResponseB&Z$github.com/Mujib-Ahasan/Rampaz/protob\x06proto3"
+	"\x14GetWorkloadsByHealth\x12\x1e.k8sinfo.WorkloadHealthRequest\x1a\x1d.k8sinfo.WorkloadListResponse\x12Z\n" +
+	"\x13GetNamespaceMetrics\x12 .k8sinfo.NamespaceMetricsRequest\x1a!.k8sinfo.NamespaceMetricsResponseB&Z$github.com/Mujib-Ahasan/Rampaz/protob\x06proto3"
 
 var (
 	file_rampaz_proto_rawDescOnce sync.Once
@@ -2044,7 +2276,7 @@ func file_rampaz_proto_rawDescGZIP() []byte {
 }
 
 var file_rampaz_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_rampaz_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
+var file_rampaz_proto_msgTypes = make([]protoimpl.MessageInfo, 29)
 var file_rampaz_proto_goTypes = []any{
 	(HealthStatus)(0),                 // 0: k8sinfo.HealthStatus
 	(*NamespaceRequest)(nil),          // 1: k8sinfo.NamespaceRequest
@@ -2072,12 +2304,15 @@ var file_rampaz_proto_goTypes = []any{
 	(*NamespaceSummaryResponse)(nil),  // 23: k8sinfo.NamespaceSummaryResponse
 	(*ClusterOverviewResponse)(nil),   // 24: k8sinfo.ClusterOverviewResponse
 	(*WorkloadHealthRequest)(nil),     // 25: k8sinfo.WorkloadHealthRequest
-	nil,                               // 26: k8sinfo.Workload.LabelsEntry
-	(*emptypb.Empty)(nil),             // 27: google.protobuf.Empty
+	(*NamespaceMetricsRequest)(nil),   // 26: k8sinfo.NamespaceMetricsRequest
+	(*ResourceQuantity)(nil),          // 27: k8sinfo.ResourceQuantity
+	(*NamespaceMetricsResponse)(nil),  // 28: k8sinfo.NamespaceMetricsResponse
+	nil,                               // 29: k8sinfo.Workload.LabelsEntry
+	(*emptypb.Empty)(nil),             // 30: google.protobuf.Empty
 }
 var file_rampaz_proto_depIdxs = []int32{
 	4,  // 0: k8sinfo.PodListResponse.pods:type_name -> k8sinfo.Pod
-	26, // 1: k8sinfo.Workload.labels:type_name -> k8sinfo.Workload.LabelsEntry
+	29, // 1: k8sinfo.Workload.labels:type_name -> k8sinfo.Workload.LabelsEntry
 	0,  // 2: k8sinfo.Workload.health:type_name -> k8sinfo.HealthStatus
 	9,  // 3: k8sinfo.WorkloadListResponse.workloads:type_name -> k8sinfo.Workload
 	11, // 4: k8sinfo.ServiceListResponse.services:type_name -> k8sinfo.ServiceInfo
@@ -2086,51 +2321,56 @@ var file_rampaz_proto_depIdxs = []int32{
 	17, // 7: k8sinfo.PVListResponse.pvs:type_name -> k8sinfo.PVInfo
 	19, // 8: k8sinfo.NodeListResponse.nodes:type_name -> k8sinfo.NodeInfo
 	21, // 9: k8sinfo.NetworkPolicyListResponse.networkPolicies:type_name -> k8sinfo.NetworkPolicyInfo
-	1,  // 10: k8sinfo.K8sInfo.ListPods:input_type -> k8sinfo.NamespaceRequest
-	6,  // 11: k8sinfo.K8sInfo.GetNodeStats:input_type -> k8sinfo.NodeRequest
-	2,  // 12: k8sinfo.K8sInfo.GetPodStats:input_type -> k8sinfo.PodRequest
-	6,  // 13: k8sinfo.K8sInfo.GetNodeRealTimeStats:input_type -> k8sinfo.NodeRequest
-	1,  // 14: k8sinfo.K8sInfo.StreamEvents:input_type -> k8sinfo.NamespaceRequest
-	1,  // 15: k8sinfo.K8sInfo.ListDeployments:input_type -> k8sinfo.NamespaceRequest
-	1,  // 16: k8sinfo.K8sInfo.ListReplicaSets:input_type -> k8sinfo.NamespaceRequest
-	1,  // 17: k8sinfo.K8sInfo.ListStatefulSets:input_type -> k8sinfo.NamespaceRequest
-	1,  // 18: k8sinfo.K8sInfo.ListDaemonSets:input_type -> k8sinfo.NamespaceRequest
-	1,  // 19: k8sinfo.K8sInfo.ListJobs:input_type -> k8sinfo.NamespaceRequest
-	1,  // 20: k8sinfo.K8sInfo.ListCronJobs:input_type -> k8sinfo.NamespaceRequest
-	1,  // 21: k8sinfo.K8sInfo.ListServices:input_type -> k8sinfo.NamespaceRequest
-	27, // 22: k8sinfo.K8sInfo.ListNamespaces:input_type -> google.protobuf.Empty
-	1,  // 23: k8sinfo.K8sInfo.ListPVCs:input_type -> k8sinfo.NamespaceRequest
-	27, // 24: k8sinfo.K8sInfo.ListPVs:input_type -> google.protobuf.Empty
-	27, // 25: k8sinfo.K8sInfo.ListNodes:input_type -> google.protobuf.Empty
-	1,  // 26: k8sinfo.K8sInfo.ListNetworkPolicies:input_type -> k8sinfo.NamespaceRequest
-	1,  // 27: k8sinfo.K8sInfo.GetNamespaceSummary:input_type -> k8sinfo.NamespaceRequest
-	27, // 28: k8sinfo.K8sInfo.GetClusterOverview:input_type -> google.protobuf.Empty
-	25, // 29: k8sinfo.K8sInfo.GetWorkloadsByHealth:input_type -> k8sinfo.WorkloadHealthRequest
-	5,  // 30: k8sinfo.K8sInfo.ListPods:output_type -> k8sinfo.PodListResponse
-	7,  // 31: k8sinfo.K8sInfo.GetNodeStats:output_type -> k8sinfo.NodeStatsResponse
-	3,  // 32: k8sinfo.K8sInfo.GetPodStats:output_type -> k8sinfo.PodStatsResponse
-	7,  // 33: k8sinfo.K8sInfo.GetNodeRealTimeStats:output_type -> k8sinfo.NodeStatsResponse
-	8,  // 34: k8sinfo.K8sInfo.StreamEvents:output_type -> k8sinfo.EventResponse
-	10, // 35: k8sinfo.K8sInfo.ListDeployments:output_type -> k8sinfo.WorkloadListResponse
-	10, // 36: k8sinfo.K8sInfo.ListReplicaSets:output_type -> k8sinfo.WorkloadListResponse
-	10, // 37: k8sinfo.K8sInfo.ListStatefulSets:output_type -> k8sinfo.WorkloadListResponse
-	10, // 38: k8sinfo.K8sInfo.ListDaemonSets:output_type -> k8sinfo.WorkloadListResponse
-	10, // 39: k8sinfo.K8sInfo.ListJobs:output_type -> k8sinfo.WorkloadListResponse
-	10, // 40: k8sinfo.K8sInfo.ListCronJobs:output_type -> k8sinfo.WorkloadListResponse
-	12, // 41: k8sinfo.K8sInfo.ListServices:output_type -> k8sinfo.ServiceListResponse
-	14, // 42: k8sinfo.K8sInfo.ListNamespaces:output_type -> k8sinfo.NamespaceListResponse
-	16, // 43: k8sinfo.K8sInfo.ListPVCs:output_type -> k8sinfo.PVCListResponse
-	18, // 44: k8sinfo.K8sInfo.ListPVs:output_type -> k8sinfo.PVListResponse
-	20, // 45: k8sinfo.K8sInfo.ListNodes:output_type -> k8sinfo.NodeListResponse
-	22, // 46: k8sinfo.K8sInfo.ListNetworkPolicies:output_type -> k8sinfo.NetworkPolicyListResponse
-	23, // 47: k8sinfo.K8sInfo.GetNamespaceSummary:output_type -> k8sinfo.NamespaceSummaryResponse
-	24, // 48: k8sinfo.K8sInfo.GetClusterOverview:output_type -> k8sinfo.ClusterOverviewResponse
-	10, // 49: k8sinfo.K8sInfo.GetWorkloadsByHealth:output_type -> k8sinfo.WorkloadListResponse
-	30, // [30:50] is the sub-list for method output_type
-	10, // [10:30] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	27, // 10: k8sinfo.NamespaceMetricsResponse.usage:type_name -> k8sinfo.ResourceQuantity
+	27, // 11: k8sinfo.NamespaceMetricsResponse.requests:type_name -> k8sinfo.ResourceQuantity
+	27, // 12: k8sinfo.NamespaceMetricsResponse.limits:type_name -> k8sinfo.ResourceQuantity
+	1,  // 13: k8sinfo.K8sInfo.ListPods:input_type -> k8sinfo.NamespaceRequest
+	6,  // 14: k8sinfo.K8sInfo.GetNodeStats:input_type -> k8sinfo.NodeRequest
+	2,  // 15: k8sinfo.K8sInfo.GetPodStats:input_type -> k8sinfo.PodRequest
+	6,  // 16: k8sinfo.K8sInfo.GetNodeRealTimeStats:input_type -> k8sinfo.NodeRequest
+	1,  // 17: k8sinfo.K8sInfo.StreamEvents:input_type -> k8sinfo.NamespaceRequest
+	1,  // 18: k8sinfo.K8sInfo.ListDeployments:input_type -> k8sinfo.NamespaceRequest
+	1,  // 19: k8sinfo.K8sInfo.ListReplicaSets:input_type -> k8sinfo.NamespaceRequest
+	1,  // 20: k8sinfo.K8sInfo.ListStatefulSets:input_type -> k8sinfo.NamespaceRequest
+	1,  // 21: k8sinfo.K8sInfo.ListDaemonSets:input_type -> k8sinfo.NamespaceRequest
+	1,  // 22: k8sinfo.K8sInfo.ListJobs:input_type -> k8sinfo.NamespaceRequest
+	1,  // 23: k8sinfo.K8sInfo.ListCronJobs:input_type -> k8sinfo.NamespaceRequest
+	1,  // 24: k8sinfo.K8sInfo.ListServices:input_type -> k8sinfo.NamespaceRequest
+	30, // 25: k8sinfo.K8sInfo.ListNamespaces:input_type -> google.protobuf.Empty
+	1,  // 26: k8sinfo.K8sInfo.ListPVCs:input_type -> k8sinfo.NamespaceRequest
+	30, // 27: k8sinfo.K8sInfo.ListPVs:input_type -> google.protobuf.Empty
+	30, // 28: k8sinfo.K8sInfo.ListNodes:input_type -> google.protobuf.Empty
+	1,  // 29: k8sinfo.K8sInfo.ListNetworkPolicies:input_type -> k8sinfo.NamespaceRequest
+	1,  // 30: k8sinfo.K8sInfo.GetNamespaceSummary:input_type -> k8sinfo.NamespaceRequest
+	30, // 31: k8sinfo.K8sInfo.GetClusterOverview:input_type -> google.protobuf.Empty
+	25, // 32: k8sinfo.K8sInfo.GetWorkloadsByHealth:input_type -> k8sinfo.WorkloadHealthRequest
+	26, // 33: k8sinfo.K8sInfo.GetNamespaceMetrics:input_type -> k8sinfo.NamespaceMetricsRequest
+	5,  // 34: k8sinfo.K8sInfo.ListPods:output_type -> k8sinfo.PodListResponse
+	7,  // 35: k8sinfo.K8sInfo.GetNodeStats:output_type -> k8sinfo.NodeStatsResponse
+	3,  // 36: k8sinfo.K8sInfo.GetPodStats:output_type -> k8sinfo.PodStatsResponse
+	7,  // 37: k8sinfo.K8sInfo.GetNodeRealTimeStats:output_type -> k8sinfo.NodeStatsResponse
+	8,  // 38: k8sinfo.K8sInfo.StreamEvents:output_type -> k8sinfo.EventResponse
+	10, // 39: k8sinfo.K8sInfo.ListDeployments:output_type -> k8sinfo.WorkloadListResponse
+	10, // 40: k8sinfo.K8sInfo.ListReplicaSets:output_type -> k8sinfo.WorkloadListResponse
+	10, // 41: k8sinfo.K8sInfo.ListStatefulSets:output_type -> k8sinfo.WorkloadListResponse
+	10, // 42: k8sinfo.K8sInfo.ListDaemonSets:output_type -> k8sinfo.WorkloadListResponse
+	10, // 43: k8sinfo.K8sInfo.ListJobs:output_type -> k8sinfo.WorkloadListResponse
+	10, // 44: k8sinfo.K8sInfo.ListCronJobs:output_type -> k8sinfo.WorkloadListResponse
+	12, // 45: k8sinfo.K8sInfo.ListServices:output_type -> k8sinfo.ServiceListResponse
+	14, // 46: k8sinfo.K8sInfo.ListNamespaces:output_type -> k8sinfo.NamespaceListResponse
+	16, // 47: k8sinfo.K8sInfo.ListPVCs:output_type -> k8sinfo.PVCListResponse
+	18, // 48: k8sinfo.K8sInfo.ListPVs:output_type -> k8sinfo.PVListResponse
+	20, // 49: k8sinfo.K8sInfo.ListNodes:output_type -> k8sinfo.NodeListResponse
+	22, // 50: k8sinfo.K8sInfo.ListNetworkPolicies:output_type -> k8sinfo.NetworkPolicyListResponse
+	23, // 51: k8sinfo.K8sInfo.GetNamespaceSummary:output_type -> k8sinfo.NamespaceSummaryResponse
+	24, // 52: k8sinfo.K8sInfo.GetClusterOverview:output_type -> k8sinfo.ClusterOverviewResponse
+	10, // 53: k8sinfo.K8sInfo.GetWorkloadsByHealth:output_type -> k8sinfo.WorkloadListResponse
+	28, // 54: k8sinfo.K8sInfo.GetNamespaceMetrics:output_type -> k8sinfo.NamespaceMetricsResponse
+	34, // [34:55] is the sub-list for method output_type
+	13, // [13:34] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_rampaz_proto_init() }
@@ -2144,7 +2384,7 @@ func file_rampaz_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_rampaz_proto_rawDesc), len(file_rampaz_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   26,
+			NumMessages:   29,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

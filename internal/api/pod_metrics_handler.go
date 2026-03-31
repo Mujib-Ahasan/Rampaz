@@ -53,11 +53,7 @@ func (s *K8SServer) GetPodStats(req *pb.PodRequest, stream grpc.ServerStreamingS
 		return err
 	}
 
-	err := s.PodMetService.StreamPodStats(
-		stream.Context(),
-		req.Namespace,
-		sendWithMetrics,
-	)
+	err := s.PodMetService.StreamPodStats(stream.Context(), req.Namespace, sendWithMetrics)
 	if err != nil {
 		statusLabel = "error"
 		s.Logger.Error("pod stats stream failed", "namespace", req.Namespace, "err", err)
