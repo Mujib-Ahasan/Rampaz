@@ -17,9 +17,9 @@ const saved = sessionStorage.getItem(STORAGE_KEY);
 }
 
 document.getElementById("clear-chat").addEventListener("click", () => {
-   sessionStorage.removeItem(STORAGE_KEY);
-   sessionStorage.removeItem(SESSION_KEY);
-   renderMessages();
+  sessionStorage.removeItem(STORAGE_KEY); 
+  sessionStorage.removeItem(SESSION_KEY); 
+  renderMessages(); 
 });
 
 function saveMessages(messages) {

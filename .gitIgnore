@@ -2,7 +2,7 @@ bin/
 client/
 server/
 Dockerfile*
-
+.env
 *.yaml
 *.yml
 
