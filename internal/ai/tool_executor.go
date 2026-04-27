@@ -126,6 +126,10 @@ func (e *ToolExecutor) GetNodeStats(ctx context.Context, args map[string]any) (T
 
 func (e *ToolExecutor) GetPodStats(ctx context.Context, args map[string]any) (ToolResult, error) {
 	namespace := getStringArg(args, "namespace")
+	limit := getIntArg(args, "limit", maxStreamItems)
+
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
 
 	stream, err := e.client.GetPodStats(ctx, &pb.PodRequest{
 		Namespace: namespace,
@@ -134,14 +138,18 @@ func (e *ToolExecutor) GetPodStats(ctx context.Context, args map[string]any) (To
 		return ToolResult{}, err
 	}
 
-	items := make([]*pb.PodStatsResponse, 0, maxStreamItems)
+	items := make([]*pb.PodStatsResponse, 0, limit)
 
-	for len(items) < maxStreamItems {
+	for len(items) < limit {
 		item, err := stream.Recv()
 		if err == io.EOF {
 			break
 		}
+
 		if err != nil {
+			if ctx.Err() != nil {
+				break
+			}
 			return ToolResult{}, err
 		}
 
@@ -156,36 +164,38 @@ func (e *ToolExecutor) GetPodStats(ctx context.Context, args map[string]any) (To
 
 func (e *ToolExecutor) GetRecentEvents(ctx context.Context, args map[string]any) (ToolResult, error) {
 	namespace := getStringArg(args, "namespace")
+	limit := getIntArg(args, "limit", maxStreamItems)
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
 
 	stream, err := e.client.StreamEvents(ctx, &pb.NamespaceRequest{
 		Namespace: namespace,
 	})
+
 	if err != nil {
 		return ToolResult{}, err
 	}
 
-	limit := getIntArg(args, "limit", maxStreamItems)
-	if limit <= 0 || limit > maxStreamItems {
-		limit = maxStreamItems
-	}
+	events := make([]*pb.EventResponse, 0, limit)
 
-	items := make([]*pb.EventResponse, 0, limit)
-
-	for len(items) < limit {
-		item, err := stream.Recv()
+	for len(events) < limit {
+		event, err := stream.Recv()
 		if err == io.EOF {
 			break
 		}
 		if err != nil {
+			if ctx.Err() != nil {
+				break
+			}
 			return ToolResult{}, err
 		}
 
-		items = append(items, item)
+		events = append(events, event)
 	}
 
 	return ToolResult{
 		Name: "get_recent_events",
-		Data: items,
+		Data: events,
 	}, nil
 }
 
