@@ -94,6 +94,14 @@ func AvailableTools() []ToolSchema {
 				},
 			}, nil),
 		},
+		{
+			Name:        "get_pod_logs",
+			Description: "Fetch recent error and warning logs for a specific pod. Use this to debug pod failures, crashes, or runtime issues.",
+			Parameters: objectSchema(map[string]any{
+				"namespace": stringParam("Must give a namespace name in which the pod belongs"),
+				"pod_name":  stringParam("Pod name for which logs are needed"),
+			}, []string{"namespace", "pod_name"}),
+		},
 	}
 }
 

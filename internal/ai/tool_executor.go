@@ -16,6 +16,7 @@ import (
 const (
 	defaultToolTimeout = 10 * time.Second
 	maxStreamItems     = 20
+	podLogTailLines    = 50
 )
 
 type ToolExecutor struct {
@@ -95,6 +96,8 @@ func (e *ToolExecutor) Execute(ctx context.Context, call ToolCall) (ToolResult, 
 
 	case "get_node_resource_allocation":
 		return e.GetNodeResourceAllocation(ctx, call.Args)
+	case "get_pod_logs":
+		return e.GetPodLogs(ctx, call.Args)
 
 	default:
 		return ToolResult{}, fmt.Errorf("unknown tool: %s", call.Name)
@@ -197,6 +200,18 @@ func (e *ToolExecutor) GetRecentEvents(ctx context.Context, args map[string]any)
 		Name: "get_recent_events",
 		Data: events,
 	}, nil
+}
+
+func (e *ToolExecutor) GetPodLogs(ctx context.Context, args map[string]any) (ToolResult, error) {
+	namespace := getStringArg(args, "namespace")
+	podName := getStringArg(args, "pod_name")
+
+	resp, err := e.client.GetPodLogs(ctx, &pb.PodLogsRequest{
+		Namespace: namespace,
+		PodName:   podName,
+		TailLines: podLogTailLines,
+	})
+	return result("get_pod_logs", resp, err)
 }
 
 func (e *ToolExecutor) ListDeployments(ctx context.Context, args map[string]any) (ToolResult, error) {
