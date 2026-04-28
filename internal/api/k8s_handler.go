@@ -37,6 +37,7 @@ type K8SServer struct {
 	WorkloadService         *service.WorkloadService
 	NamespaceMetricsService *service.NamespaceMetricsService
 	NodeResourceService     *service.NodeResourceService
+	PodLogService           *service.PodLogsService
 	Logger                  *slog.Logger
 }
 

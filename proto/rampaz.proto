@@ -29,6 +29,7 @@ service K8sInfo {
   rpc GetWorkloadsByHealth(WorkloadHealthRequest) returns (WorkloadListResponse);
   rpc GetNamespaceMetrics(NamespaceMetricsRequest) returns (NamespaceMetricsResponse);
   rpc GetNodeResourceAllocation(NodeRequest) returns (NodeResourceAllocationResponse);
+  rpc GetPodLogs(PodLogsRequest) returns (PodLogsResponse);
 }
 
 message NamespaceRequest {
@@ -269,3 +270,21 @@ message NodeResourceAllocationResponse {
   int32 pod_count = 7;
 }
 
+message PodLogsRequest {
+  string namespace = 1;
+  string pod_name = 2;
+  int64 tail_lines = 3;
+}
+
+message PodLogsResponse {
+  string namespace = 1;
+  string pod_name = 2;
+  repeated PodLogEntry entries = 3;
+}
+
+message PodLogEntry {
+  string level = 1;
+  string timestamp = 2;
+  string message = 3;
+  string error = 4;
+}

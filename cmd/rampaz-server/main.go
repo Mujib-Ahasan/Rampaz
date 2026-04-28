@@ -77,6 +77,9 @@ func main() {
 	networkPolicyClient := kubernetes.NewNetworkPolicyClient(clients.Kube)
 	networkPolicyservice := service.NewNetworkPolicyService(networkPolicyClient)
 
+	podLogClient := kubernetes.NewPodLogsClient(clients.Kube)
+	PodLogService := service.NewPodLogsService(podLogClient)
+
 	identityClient := kubernetes.NewIdentityClientClient(clients.Kube)
 
 	namespaceMetricsService := service.NewNamespaceMetricsService(podClient, podMetricsClient)
@@ -143,6 +146,7 @@ func main() {
 		WorkloadService:         workloadService,
 		NamespaceMetricsService: namespaceMetricsService,
 		NodeResourceService:     nodeResourceService,
+		PodLogService:           PodLogService,
 		Logger:                  logger,
 	}
 
