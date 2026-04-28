@@ -1,12 +1,13 @@
 const form = document.getElementById("chat-form");
 const input = document.getElementById("message-input");
 const chatBox = document.getElementById("chat-box");
+const clearBtn = document.getElementById("clear-chat");
 
 const STORAGE_KEY = "rampaz-ai-chat-history";
 const SESSION_KEY = "rampaz-session-id";
 
 function loadMessages() {
-const saved = sessionStorage.getItem(STORAGE_KEY);
+  const saved = sessionStorage.getItem(STORAGE_KEY);
   if (!saved) return [];
 
   try {
@@ -15,12 +16,6 @@ const saved = sessionStorage.getItem(STORAGE_KEY);
     return [];
   }
 }
-
-document.getElementById("clear-chat").addEventListener("click", () => {
-  sessionStorage.removeItem(STORAGE_KEY); 
-  sessionStorage.removeItem(SESSION_KEY); 
-  renderMessages(); 
-});
 
 function saveMessages(messages) {
   sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
@@ -37,8 +32,13 @@ function renderMessages() {
   chatBox.innerHTML = "";
 
   const messages = loadMessages();
+
   messages.forEach((msg) => {
-    addMessageToUI(msg.role, msg.text, msg.timestamp || new Date().toISOString());
+    addMessageToUI(
+      msg.role,
+      msg.text,
+      msg.timestamp || new Date().toISOString()
+    );
   });
 }
 
@@ -71,6 +71,12 @@ function addMessage(role, text) {
   addMessageToUI(role, text, timestamp);
 }
 
+clearBtn.addEventListener("click", () => {
+  sessionStorage.removeItem(STORAGE_KEY);
+  sessionStorage.removeItem(SESSION_KEY);
+  chatBox.innerHTML = "";
+});
+
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -94,21 +100,22 @@ form.addEventListener("submit", async (e) => {
       throw new Error("request failed");
     }
 
-   const data = await res.json();
+    const data = await res.json();
 
-const oldSession = sessionStorage.getItem(SESSION_KEY);
+    const oldSession = sessionStorage.getItem(SESSION_KEY);
 
-if (oldSession && oldSession !== data.sessionId) {
-  sessionStorage.removeItem(STORAGE_KEY);
-  chatBox.innerHTML = "";
+    if (data.sessionId && oldSession && oldSession !== data.sessionId) {
+      sessionStorage.removeItem(STORAGE_KEY);
+      chatBox.innerHTML = "";
+      addMessage("user", message);
+    }
 
-  // keep the current user message after clearing old session
-  addMessage("user", message);
-}
+    if (data.sessionId) {
+      sessionStorage.setItem(SESSION_KEY, data.sessionId);
+    }
 
-sessionStorage.setItem(SESSION_KEY, data.sessionId);
-addMessage("bot", data.answer);
-  } catch (err) {
+    addMessage("bot", data.answer || "No response received.");
+  } catch {
     addMessage("bot", "Something went wrong.");
   }
 });
@@ -116,18 +123,22 @@ addMessage("bot", data.answer);
 async function syncServerSession() {
   try {
     const res = await fetch("/api/session");
-    const data = await res.json();
 
+    if (!res.ok) throw new Error();
+
+    const data = await res.json();
     const oldSession = sessionStorage.getItem(SESSION_KEY);
 
-    if (oldSession && oldSession !== data.sessionId) {
-      sessionStorage.removeItem(STORAGE_KEY);
-    }
+    if (data.sessionId) {
+      if (oldSession && oldSession !== data.sessionId) {
+        sessionStorage.removeItem(STORAGE_KEY);
+      }
 
-    sessionStorage.setItem(SESSION_KEY, data.sessionId);
+      sessionStorage.setItem(SESSION_KEY, data.sessionId);
+    }
   } catch {
-    sessionStorage.removeItem(STORAGE_KEY);
-    sessionStorage.removeItem(SESSION_KEY);
+    // don't aggressively wipe everything on network error
+    console.warn("session sync failed");
   }
 }
 

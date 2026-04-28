@@ -22,14 +22,15 @@ body {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
+/* Header */
 .chat-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: center;
   padding: 18px 22px;
   border-bottom: 1px solid #232734;
   background: #141821;
+  text-align: center;
 }
 
 .chat-header h3 {
@@ -39,6 +40,7 @@ body {
   color: #f3f4f6;
 }
 
+/* Chat area */
 .chat-box {
   position: relative;
   flex: 1;
@@ -51,7 +53,8 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg") no-repeat center center;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg")
+    no-repeat center center;
   background-size: 260px;
   opacity: 0.05;
   pointer-events: none;
@@ -62,27 +65,46 @@ body {
   z-index: 1;
 }
 
+/* Messages */
 .message {
   margin-bottom: 16px;
-  padding: 10px 14px;
   font-size: 14px;
   line-height: 1.5;
   word-wrap: break-word;
   white-space: pre-wrap;
 }
 
-/* Sending message: stays inside a message box */
+.message-content {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Timestamp */
+.message-time {
+  margin-top: 4px;
+  font-size: 9px;
+  line-height: 1;
+  opacity: 0.5;
+}
+
+/* User message */
 .message.user {
   width: fit-content;
   max-width: 75%;
   margin-left: auto;
+  padding: 10px 14px;
   background: #2563eb;
-  color: #fff;
+  color: #ffffff;
   border-radius: 12px;
   border-bottom-right-radius: 4px;
 }
 
-/* Receiving message: no box, full width */
+.message.user .message-time {
+  text-align: right;
+  color: #dbeafe;
+}
+
+/* Bot message */
 .message.bot {
   width: 100%;
   max-width: 100%;
@@ -94,6 +116,12 @@ body {
   box-shadow: none;
 }
 
+.message.bot .message-time {
+  text-align: left;
+  color: #9ca3af;
+}
+
+/* Form */
 .chat-form {
   display: flex;
   gap: 10px;
@@ -142,6 +170,15 @@ body {
   transform: scale(0.97);
 }
 
+#clear-chat {
+  background: #374151;
+}
+
+#clear-chat:hover {
+  background: #4b5563;
+}
+
+/* Mobile */
 @media (max-width: 700px) {
   .chat-container {
     height: 100vh;
@@ -153,11 +190,12 @@ body {
     max-width: 85%;
   }
 
-  .chat-header {
-    align-items: flex-start;
+  .chat-form {
+    padding: 12px;
+    gap: 8px;
   }
 
-  .datetime {
-    font-size: 12px;
+  .chat-form button {
+    padding: 10px 14px;
   }
 }

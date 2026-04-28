@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rampaz AI</title>
   <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
   <div class="chat-container">
-    <h3>Rampaz - The cluster AI Assistant</h3>
+    <div class="chat-header">
+      <h3>Rampaz - The Cluster AI Assistant</h3>
+    </div>
+
     <div id="chat-box" class="chat-box"></div>
 
     <form id="chat-form" class="chat-form">
@@ -18,7 +22,7 @@
         autocomplete="off"
       />
       <button type="submit">Send</button>
-      <button id="clear-chat" type="button">Clear</button>
+      <button id="clear-chat" type="button" class="clear-btn">Clear</button>
     </form>
   </div>
 
