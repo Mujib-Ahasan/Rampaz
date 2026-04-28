@@ -5,7 +5,9 @@ import (
 	"encoding/json"
 	"strings"
 
+	"github.com/Mujib-Ahasan/Rampaz/internal/metrics"
 	pb "github.com/Mujib-Ahasan/Rampaz/proto"
+	"github.com/prometheus/client_golang/prometheus"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -28,6 +30,17 @@ type jsonLog struct {
 }
 
 func (s *K8SServer) GetPodLogs(ctx context.Context, req *pb.PodLogsRequest) (*pb.PodLogsResponse, error) {
+	endpoint := "get_pod_logs"
+	statusLabel := "success"
+	timer := prometheus.NewTimer(
+		metrics.RequestLatency.WithLabelValues(endpoint),
+	)
+	defer func() {
+		timer.ObserveDuration()
+		metrics.APIRequests.
+			WithLabelValues(endpoint, statusLabel).
+			Inc()
+	}()
 	if req.Namespace == "" {
 		return nil, status.Error(codes.InvalidArgument, "namespace is required")
 	}
@@ -37,7 +50,10 @@ func (s *K8SServer) GetPodLogs(ctx context.Context, req *pb.PodLogsRequest) (*pb
 
 	logs, err := s.PodLogService.GetPodLogs(ctx, req.Namespace, req.PodName, req.TailLines)
 	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to get pod logs: %v", err)
+		statusLabel = "error"
+		s.Logger.Error("get pod logs failed", "err", err)
+		return nil, errorHelper(err, "get pod logs list")
+
 	}
 
 	return &pb.PodLogsResponse{

@@ -41,7 +41,7 @@ func AvailableTools() []ToolSchema {
 		},
 		{
 			Name:        "list_pods",
-			Description: "List pods, optionally scoped to a namespace and label selector. Useful for checking pod status, node placement, and failed/pending pods.",
+			Description: "List pods, optionally scoped to a namespace and label selector. Useful for checking pod status, node placement, cpu and memory requests and limits, and failed/pending pods.",
 			Parameters: objectSchema(map[string]any{
 				"namespace":      stringParam("Optional Kubernetes namespace name. Empty means all namespaces if supported by backend."),
 				"label_selector": stringParam("Optional Kubernetes label selector, for example app=nginx."),

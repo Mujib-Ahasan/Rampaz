@@ -96,6 +96,7 @@ func (e *ToolExecutor) Execute(ctx context.Context, call ToolCall) (ToolResult, 
 
 	case "get_node_resource_allocation":
 		return e.GetNodeResourceAllocation(ctx, call.Args)
+
 	case "get_pod_logs":
 		return e.GetPodLogs(ctx, call.Args)
 

@@ -53,6 +53,15 @@ message Pod {
   string namespace = 2;
   string status = 3;
   string nodeName = 4;
+  ResourceRequirements resources = 5;
+  string qos_class = 6;
+}
+
+message ResourceRequirements {
+  string cpu_request = 1;
+  string memory_request = 2;
+  string cpu_limit = 3;
+  string memory_limit = 4;
 }
 
 message PodListResponse {

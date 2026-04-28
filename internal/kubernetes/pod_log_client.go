@@ -2,6 +2,7 @@ package kubernetes
 
 import (
 	"context"
+	"fmt"
 	"io"
 
 	corev1 "k8s.io/api/core/v1"
@@ -21,13 +22,13 @@ func (c *PodLogsClient) GetPodLogs(ctx context.Context, namespace, podName strin
 
 	stream, err := req.Stream(ctx)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("stream error: get pod log for pod: %s, err: %w", podName, err)
 	}
 	defer stream.Close()
 
 	data, err := io.ReadAll(stream)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("get pod log for pod: %s, err: %w", podName, err)
 	}
 
 	return string(data), nil
