@@ -44,19 +44,11 @@ func transformPVC(pvc *corev1.PersistentVolumeClaim) *pb.PVCInfo {
 		accessModes = append(accessModes, string(mode))
 	}
 
-	var storageClass string
-	if pvc.Spec.StorageClassName != nil {
-		storageClass = *pvc.Spec.StorageClassName
-	}
-
 	return &pb.PVCInfo{
 		Name:             pvc.Name,
 		Namespace:        pvc.Namespace,
 		Phase:            string(pvc.Status.Phase),
-		StorageClass:     storageClass,
 		AccessModes:      accessModes,
 		RequestedStorage: storage,
-		VolumeName:       pvc.Spec.VolumeName,
-		Age:              calculateAge(pvc.CreationTimestamp.Time),
 	}
 }

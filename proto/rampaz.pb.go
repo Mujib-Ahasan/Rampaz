@@ -1063,11 +1063,8 @@ type PVCInfo struct {
 	Name             string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Namespace        string                 `protobuf:"bytes,2,opt,name=namespace,proto3" json:"namespace,omitempty"`
 	Phase            string                 `protobuf:"bytes,3,opt,name=phase,proto3" json:"phase,omitempty"`
-	StorageClass     string                 `protobuf:"bytes,4,opt,name=storage_class,json=storageClass,proto3" json:"storage_class,omitempty"`
 	AccessModes      []string               `protobuf:"bytes,5,rep,name=access_modes,json=accessModes,proto3" json:"access_modes,omitempty"`
 	RequestedStorage string                 `protobuf:"bytes,6,opt,name=requested_storage,json=requestedStorage,proto3" json:"requested_storage,omitempty"`
-	VolumeName       string                 `protobuf:"bytes,7,opt,name=volume_name,json=volumeName,proto3" json:"volume_name,omitempty"`
-	Age              string                 `protobuf:"bytes,8,opt,name=age,proto3" json:"age,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -1123,13 +1120,6 @@ func (x *PVCInfo) GetPhase() string {
 	return ""
 }
 
-func (x *PVCInfo) GetStorageClass() string {
-	if x != nil {
-		return x.StorageClass
-	}
-	return ""
-}
-
 func (x *PVCInfo) GetAccessModes() []string {
 	if x != nil {
 		return x.AccessModes
@@ -1140,20 +1130,6 @@ func (x *PVCInfo) GetAccessModes() []string {
 func (x *PVCInfo) GetRequestedStorage() string {
 	if x != nil {
 		return x.RequestedStorage
-	}
-	return ""
-}
-
-func (x *PVCInfo) GetVolumeName() string {
-	if x != nil {
-		return x.VolumeName
-	}
-	return ""
-}
-
-func (x *PVCInfo) GetAge() string {
-	if x != nil {
-		return x.Age
 	}
 	return ""
 }
@@ -1203,18 +1179,14 @@ func (x *PVCListResponse) GetPvcs() []*PVCInfo {
 }
 
 type PVInfo struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	Name           string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Phase          string                 `protobuf:"bytes,2,opt,name=phase,proto3" json:"phase,omitempty"`
-	StorageClass   string                 `protobuf:"bytes,3,opt,name=storage_class,json=storageClass,proto3" json:"storage_class,omitempty"`
-	Capacity       string                 `protobuf:"bytes,4,opt,name=capacity,proto3" json:"capacity,omitempty"`
-	AccessModes    []string               `protobuf:"bytes,5,rep,name=access_modes,json=accessModes,proto3" json:"access_modes,omitempty"`
-	VolumeMode     string                 `protobuf:"bytes,6,opt,name=volume_mode,json=volumeMode,proto3" json:"volume_mode,omitempty"`
-	ClaimName      string                 `protobuf:"bytes,7,opt,name=claim_name,json=claimName,proto3" json:"claim_name,omitempty"`
-	ClaimNamespace string                 `protobuf:"bytes,8,opt,name=claim_namespace,json=claimNamespace,proto3" json:"claim_namespace,omitempty"`
-	Age            string                 `protobuf:"bytes,9,opt,name=age,proto3" json:"age,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Phase         string                 `protobuf:"bytes,2,opt,name=phase,proto3" json:"phase,omitempty"`
+	Capacity      string                 `protobuf:"bytes,4,opt,name=capacity,proto3" json:"capacity,omitempty"`
+	AccessModes   []string               `protobuf:"bytes,5,rep,name=access_modes,json=accessModes,proto3" json:"access_modes,omitempty"`
+	VolumeMode    string                 `protobuf:"bytes,6,opt,name=volume_mode,json=volumeMode,proto3" json:"volume_mode,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PVInfo) Reset() {
@@ -1261,13 +1233,6 @@ func (x *PVInfo) GetPhase() string {
 	return ""
 }
 
-func (x *PVInfo) GetStorageClass() string {
-	if x != nil {
-		return x.StorageClass
-	}
-	return ""
-}
-
 func (x *PVInfo) GetCapacity() string {
 	if x != nil {
 		return x.Capacity
@@ -1285,27 +1250,6 @@ func (x *PVInfo) GetAccessModes() []string {
 func (x *PVInfo) GetVolumeMode() string {
 	if x != nil {
 		return x.VolumeMode
-	}
-	return ""
-}
-
-func (x *PVInfo) GetClaimName() string {
-	if x != nil {
-		return x.ClaimName
-	}
-	return ""
-}
-
-func (x *PVInfo) GetClaimNamespace() string {
-	if x != nil {
-		return x.ClaimNamespace
-	}
-	return ""
-}
-
-func (x *PVInfo) GetAge() string {
-	if x != nil {
-		return x.Age
 	}
 	return ""
 }
@@ -2503,31 +2447,22 @@ const file_proto_rampaz_proto_rawDesc = "" +
 	"\x15NamespaceListResponse\x126\n" +
 	"\n" +
 	"namespaces\x18\x01 \x03(\v2\x16.k8sinfo.NamespaceInfoR\n" +
-	"namespaces\"\xf9\x01\n" +
+	"namespaces\"\xa1\x01\n" +
 	"\aPVCInfo\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1c\n" +
 	"\tnamespace\x18\x02 \x01(\tR\tnamespace\x12\x14\n" +
-	"\x05phase\x18\x03 \x01(\tR\x05phase\x12#\n" +
-	"\rstorage_class\x18\x04 \x01(\tR\fstorageClass\x12!\n" +
+	"\x05phase\x18\x03 \x01(\tR\x05phase\x12!\n" +
 	"\faccess_modes\x18\x05 \x03(\tR\vaccessModes\x12+\n" +
-	"\x11requested_storage\x18\x06 \x01(\tR\x10requestedStorage\x12\x1f\n" +
-	"\vvolume_name\x18\a \x01(\tR\n" +
-	"volumeName\x12\x10\n" +
-	"\x03age\x18\b \x01(\tR\x03age\"7\n" +
+	"\x11requested_storage\x18\x06 \x01(\tR\x10requestedStorage\"7\n" +
 	"\x0fPVCListResponse\x12$\n" +
-	"\x04pvcs\x18\x01 \x03(\v2\x10.k8sinfo.PVCInfoR\x04pvcs\"\x91\x02\n" +
+	"\x04pvcs\x18\x01 \x03(\v2\x10.k8sinfo.PVCInfoR\x04pvcs\"\x92\x01\n" +
 	"\x06PVInfo\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
-	"\x05phase\x18\x02 \x01(\tR\x05phase\x12#\n" +
-	"\rstorage_class\x18\x03 \x01(\tR\fstorageClass\x12\x1a\n" +
+	"\x05phase\x18\x02 \x01(\tR\x05phase\x12\x1a\n" +
 	"\bcapacity\x18\x04 \x01(\tR\bcapacity\x12!\n" +
 	"\faccess_modes\x18\x05 \x03(\tR\vaccessModes\x12\x1f\n" +
 	"\vvolume_mode\x18\x06 \x01(\tR\n" +
-	"volumeMode\x12\x1d\n" +
-	"\n" +
-	"claim_name\x18\a \x01(\tR\tclaimName\x12'\n" +
-	"\x0fclaim_namespace\x18\b \x01(\tR\x0eclaimNamespace\x12\x10\n" +
-	"\x03age\x18\t \x01(\tR\x03age\"3\n" +
+	"volumeMode\"3\n" +
 	"\x0ePVListResponse\x12!\n" +
 	"\x03pvs\x18\x01 \x03(\v2\x0f.k8sinfo.PVInfoR\x03pvs\"g\n" +
 	"\bNodeInfo\x12\x12\n" +

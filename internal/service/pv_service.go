@@ -49,22 +49,11 @@ func transformPV(pv *corev1.PersistentVolume) *pb.PVInfo {
 		volumeMode = string(*pv.Spec.VolumeMode)
 	}
 
-	claimName := ""
-	claimNamespace := ""
-	if pv.Spec.ClaimRef != nil {
-		claimName = pv.Spec.ClaimRef.Name
-		claimNamespace = pv.Spec.ClaimRef.Namespace
-	}
-
 	return &pb.PVInfo{
-		Name:           pv.Name,
-		Phase:          string(pv.Status.Phase),
-		StorageClass:   pv.Spec.StorageClassName,
-		Capacity:       capacity,
-		AccessModes:    accessModes,
-		VolumeMode:     volumeMode,
-		ClaimName:      claimName,
-		ClaimNamespace: claimNamespace,
-		Age:            calculateAge(pv.CreationTimestamp.Time),
+		Name:        pv.Name,
+		Phase:       string(pv.Status.Phase),
+		Capacity:    capacity,
+		AccessModes: accessModes,
+		VolumeMode:  volumeMode,
 	}
 }

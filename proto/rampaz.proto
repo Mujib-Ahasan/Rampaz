@@ -152,11 +152,8 @@ message PVCInfo {
   string name = 1;
   string namespace = 2;
   string phase = 3;
-  string storage_class = 4;
   repeated string access_modes = 5;
   string requested_storage = 6;
-  string volume_name = 7;
-  string age = 8;
 }
 
 message PVCListResponse {
@@ -166,13 +163,9 @@ message PVCListResponse {
 message PVInfo {
   string name = 1;
   string phase = 2;
-  string storage_class = 3;
   string capacity = 4;
   repeated string access_modes = 5;
   string volume_mode = 6;
-  string claim_name = 7;
-  string claim_namespace = 8;
-  string age = 9;
 }
 
 message PVListResponse {

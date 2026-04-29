@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	pb "github.com/Mujib-Ahasan/Rampaz/proto"
 	"google.golang.org/grpc"
@@ -20,8 +21,13 @@ type Server struct {
 }
 
 func NewServer() *Server {
+	grpcAddr := os.Getenv("RAMPAZ_GRPC_ADDR")
+	if grpcAddr == "" {
+		grpcAddr = "localhost:50051"
+	}
+
 	conn, err := grpc.NewClient(
-		"localhost:50051",
+		grpcAddr,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	)
 	if err != nil {
