@@ -1,6 +1,8 @@
 package ai
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -33,7 +35,7 @@ func NewServer() *Server {
 	chatService := NewChatService(llm, executor)
 
 	return &Server{
-		sessionID:   "default-session",
+		sessionID:   newSessionID(),
 		chatService: chatService,
 		conn:        conn,
 	}
@@ -108,4 +110,14 @@ func writeError(w http.ResponseWriter, msg string, code int) {
 	_ = json.NewEncoder(w).Encode(map[string]string{
 		"error": msg,
 	})
+}
+
+func newSessionID() string {
+	b := make([]byte, 16)
+
+	if _, err := rand.Read(b); err != nil {
+		return "session-fallback"
+	}
+
+	return hex.EncodeToString(b)
 }

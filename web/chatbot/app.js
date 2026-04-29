@@ -78,6 +78,48 @@ clearBtn.addEventListener("click", () => {
 });
 
 
+// form.addEventListener("submit", async (e) => {
+//   e.preventDefault();
+
+//   const message = input.value.trim();
+//   if (!message) return;
+
+//   addMessage("user", message);
+//   input.value = "";
+
+//   try {
+//     const res = await fetch("/api/chat", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ message }),
+//     });
+
+//     if (!res.ok) {
+//       throw new Error("request failed");
+//     }
+
+//     const data = await res.json();
+
+//     const oldSession = sessionStorage.getItem(SESSION_KEY);
+
+//     if (data.sessionId && oldSession && oldSession !== data.sessionId) {
+//       sessionStorage.removeItem(STORAGE_KEY);
+//       chatBox.innerHTML = "";
+//       addMessage("user", message);
+//     }
+
+//     if (data.sessionId) {
+//       sessionStorage.setItem(SESSION_KEY, data.sessionId);
+//     }
+
+//     addMessage("bot", data.answer || "No response received.");
+//   } catch {
+//     addMessage("bot", "Something went wrong.");
+//   }
+// });
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -86,6 +128,8 @@ form.addEventListener("submit", async (e) => {
 
   addMessage("user", message);
   input.value = "";
+
+  showLoadingMessage();
 
   try {
     const res = await fetch("/api/chat", {
@@ -102,6 +146,8 @@ form.addEventListener("submit", async (e) => {
 
     const data = await res.json();
 
+    removeLoadingMessage();
+
     const oldSession = sessionStorage.getItem(SESSION_KEY);
 
     if (data.sessionId && oldSession && oldSession !== data.sessionId) {
@@ -116,6 +162,7 @@ form.addEventListener("submit", async (e) => {
 
     addMessage("bot", data.answer || "No response received.");
   } catch {
+    removeLoadingMessage();
     addMessage("bot", "Something went wrong.");
   }
 });
@@ -139,6 +186,35 @@ async function syncServerSession() {
   } catch {
     // don't aggressively wipe everything on network error
     console.warn("session sync failed");
+  }
+}
+
+function showLoadingMessage() {
+  const msg = document.createElement("div");
+  msg.className = "message bot loading";
+  msg.id = "loading-message";
+
+  const dot1 = document.createElement("span");
+  dot1.className = "typing-dot";
+
+  const dot2 = document.createElement("span");
+  dot2.className = "typing-dot";
+
+  const dot3 = document.createElement("span");
+  dot3.className = "typing-dot";
+
+  msg.appendChild(dot1);
+  msg.appendChild(dot2);
+  msg.appendChild(dot3);
+
+  chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function removeLoadingMessage() {
+  const loading = document.getElementById("loading-message");
+  if (loading) {
+    loading.remove();
   }
 }
 
