@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rampaz-ai-server
+  namespace: rampaz
+  labels:
+    app: rampaz-ai-server
+spec:
+  type: ClusterIP
+  selector:
+    app: rampaz-ai-server
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
