@@ -3,7 +3,6 @@ client/
 server/
 Dockerfile*
 .env
-*.yaml
 *.yml
 
 *.log

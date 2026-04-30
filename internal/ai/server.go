@@ -1,6 +1,7 @@
 package ai
 
 import (
+	"context"
 	"crypto/rand"
 	"encoding/hex"
 	"encoding/json"
@@ -8,10 +9,12 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	pb "github.com/Mujib-Ahasan/Rampaz/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type Server struct {
@@ -33,9 +36,19 @@ func NewServer() *Server {
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Printf("🔌 Checking gRPC server at %s...", grpcAddr)
 
 	k8sClient := pb.NewK8SInfoClient(conn)
 
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	_, err = k8sClient.ListNamespaces(ctx, &emptypb.Empty{})
+	if err != nil {
+		log.Fatalf("❌ gRPC server is not reachable at %s: %v", grpcAddr, err)
+	}
+
+	log.Printf("✅ Connected to gRPC server at %s", grpcAddr)
 	llm := NewLLMClient()
 	executor := NewToolExecutor(k8sClient)
 	chatService := NewChatService(llm, executor)

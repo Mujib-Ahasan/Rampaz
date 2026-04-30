@@ -29,8 +29,8 @@ func main() {
 	podClient := kubernetes.NewPodClient(clients.Kube)
 	podService := service.NewPodService(podClient)
 
-	nodeInfoClent := kubernetes.NewNodeInfoClient(clients.Kube)
-	nodeInfoService := service.NewNodeInfoService(nodeInfoClent)
+	nodeInfoClient := kubernetes.NewNodeInfoClient(clients.Kube)
+	nodeInfoService := service.NewNodeInfoService(nodeInfoClient)
 
 	eventClient := kubernetes.NewEventClient(clients.Kube)
 	eventService := service.NewEventService(eventClient)
