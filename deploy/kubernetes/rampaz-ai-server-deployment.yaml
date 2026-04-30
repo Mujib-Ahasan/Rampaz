@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rampaz-ai-server
+  namespace: rampaz
+  labels:
+    app: rampaz-ai-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rampaz-ai-server
+  template:
+    metadata:
+      labels:
+        app: rampaz-ai-server
+    spec:
+      containers:
+        - name: rampaz-ai-server
+          image: mujibahasan/rampaz-aiui:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: RAMPAZ_GRPC_ADDR
+              value: "rampaz-server:50052"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
