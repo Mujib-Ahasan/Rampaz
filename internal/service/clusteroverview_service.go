@@ -68,11 +68,6 @@ func (s *SummaryService) GetClusterOverview(ctx context.Context) (*pb.ClusterOve
 		return nil, fmt.Errorf("fetch namespace list for cluster-overview response: %w", err)
 	}
 
-	secrets, err := s.identityClient.ListSecrets(ctx, "")
-	if err != nil {
-		return nil, fmt.Errorf("fetch secrets data for cluster-overview response: %w", err)
-	}
-
 	ingresses, err := s.identityClient.ListIngresses(ctx, "")
 	if err != nil {
 		return nil, fmt.Errorf("fetch ingresses data for cluster-overview response: %w", err)
@@ -100,7 +95,6 @@ func (s *SummaryService) GetClusterOverview(ctx context.Context) (*pb.ClusterOve
 		NetworkPolicies:        int32(len(nps)),
 		Nodes:                  int32(len(nodes)),
 		Namespaces:             int32(len(namespaces)),
-		Secrets:                int32(len(secrets)),
 		Serviceaccounts:        int32(len(sas)),
 		Ingresses:              int32(len(ingresses)),
 		Configmaps:             int32(len(configMaps)),

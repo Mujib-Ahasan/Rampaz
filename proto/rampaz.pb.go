@@ -1668,7 +1668,6 @@ type ClusterOverviewResponse struct {
 	Services               int32                  `protobuf:"varint,10,opt,name=services,proto3" json:"services,omitempty"`
 	PersistentVolumeClaims int32                  `protobuf:"varint,11,opt,name=persistent_volume_claims,json=persistentVolumeClaims,proto3" json:"persistent_volume_claims,omitempty"`
 	Ingresses              int32                  `protobuf:"varint,12,opt,name=ingresses,proto3" json:"ingresses,omitempty"`
-	Secrets                int32                  `protobuf:"varint,13,opt,name=secrets,proto3" json:"secrets,omitempty"`
 	Configmaps             int32                  `protobuf:"varint,14,opt,name=configmaps,proto3" json:"configmaps,omitempty"`
 	Serviceaccounts        int32                  `protobuf:"varint,15,opt,name=serviceaccounts,proto3" json:"serviceaccounts,omitempty"`
 	NetworkPolicies        int32                  `protobuf:"varint,16,opt,name=network_policies,json=networkPolicies,proto3" json:"network_policies,omitempty"`
@@ -1786,13 +1785,6 @@ func (x *ClusterOverviewResponse) GetPersistentVolumeClaims() int32 {
 func (x *ClusterOverviewResponse) GetIngresses() int32 {
 	if x != nil {
 		return x.Ingresses
-	}
-	return 0
-}
-
-func (x *ClusterOverviewResponse) GetSecrets() int32 {
-	if x != nil {
-		return x.Secrets
 	}
 	return 0
 }
@@ -2495,7 +2487,7 @@ const file_proto_rampaz_proto_rawDesc = "" +
 	"\bservices\x18\t \x01(\x05R\bservices\x128\n" +
 	"\x18persistent_volume_claims\x18\n" +
 	" \x01(\x05R\x16persistentVolumeClaims\x12)\n" +
-	"\x10network_policies\x18\v \x01(\x05R\x0fnetworkPolicies\"\x9e\x04\n" +
+	"\x10network_policies\x18\v \x01(\x05R\x0fnetworkPolicies\"\x84\x04\n" +
 	"\x17ClusterOverviewResponse\x12\x14\n" +
 	"\x05nodes\x18\x01 \x01(\x05R\x05nodes\x12\x1e\n" +
 	"\n" +
@@ -2513,8 +2505,7 @@ const file_proto_rampaz_proto_rawDesc = "" +
 	"\bservices\x18\n" +
 	" \x01(\x05R\bservices\x128\n" +
 	"\x18persistent_volume_claims\x18\v \x01(\x05R\x16persistentVolumeClaims\x12\x1c\n" +
-	"\tingresses\x18\f \x01(\x05R\tingresses\x12\x18\n" +
-	"\asecrets\x18\r \x01(\x05R\asecrets\x12\x1e\n" +
+	"\tingresses\x18\f \x01(\x05R\tingresses\x12\x1e\n" +
 	"\n" +
 	"configmaps\x18\x0e \x01(\x05R\n" +
 	"configmaps\x12(\n" +

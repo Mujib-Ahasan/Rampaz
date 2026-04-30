@@ -226,7 +226,6 @@ message ClusterOverviewResponse {
   int32 persistent_volume_claims = 11;
 
   int32 ingresses = 12;
-  int32 secrets = 13;
   int32 configmaps = 14;
   int32 serviceaccounts = 15;
 

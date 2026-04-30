@@ -18,7 +18,7 @@ spec:
       serviceAccountName: rampaz-server
       containers:
         - name: rampaz-server
-          image: mujibahasan/rampaz-grpc:v1
+          image: mujibahasan/rampaz-grpc:v2
           imagePullPolicy: IfNotPresent
           ports:
             - name: grpc
